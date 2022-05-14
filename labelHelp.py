@@ -7,8 +7,8 @@ import pathlib
 
 folder = "world2"
 
-FROM = 0
-TO = 200
+FROM = 201
+TO = 400
 
 
 imageFolderPath = "imgs/"+ folder + "/"
