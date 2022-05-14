@@ -5,10 +5,10 @@ import json
 import sys
 import pathlib
 
-folder = "world1"
+folder = "world2"
 
 FROM = 0
-TO = -1
+TO = 200
 
 
 imageFolderPath = "imgs/"+ folder + "/"
@@ -141,6 +141,8 @@ while run:
             DUMP[image_name]["purge"] = False
         if key == ord('b'):
             i -= 1
+            if i < 0:
+                i = 0
         else:
             i += 1
         
