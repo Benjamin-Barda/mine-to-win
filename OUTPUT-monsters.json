@@ -1,0 +1,43 @@
+{
+    "monsters-00000.png": {
+        "GALLINA": [],
+        "MAIALE": [],
+        "MUCCA": [
+            [
+                332,
+                62,
+                367,
+                98
+            ]
+        ],
+        "SCHELETRO": [],
+        "ZOMBIE": [],
+        "purge": false,
+        "written": true
+    },
+    "monsters-00001.png": {
+        "GALLINA": [],
+        "MAIALE": [],
+        "MUCCA": [
+            [
+                322,
+                77,
+                352,
+                112
+            ]
+        ],
+        "SCHELETRO": [],
+        "ZOMBIE": [],
+        "purge": false,
+        "written": true
+    },
+    "monsters-00002.png": {
+        "GALLINA": [],
+        "MAIALE": [],
+        "MUCCA": [],
+        "SCHELETRO": [],
+        "ZOMBIE": [],
+        "purge": false,
+        "written": false
+    }
+}
