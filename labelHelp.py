@@ -10,17 +10,19 @@ folder = "monsters"
 imageFolderPath = "imgs/"+ folder + "/"
 
 MOB_MAP  =  {
-    ord('1') : ('ZOMBIE', (50,120,20)),
-    ord('2') : ('SCHELETRO', (225,225,225)),
-    ord('3') : ('MAIALE', (205,170,230)),
-    ord('4') : ('MUCCA', (50,70,120)),
-    ord('5') : ('GALLINA', (5,5,200))
+    ord('1') : ('Pig', (205, 170, 230)),
+    ord('2') : ('Cow', (50, 70, 120)),
+    ord('3') : ('Chicken', (5, 5, 200)),
+    ord('4') : ('Sheep', (125, 125, 121)),
+    ord('5') : ('Zombie', (50, 120, 20)),
+    ord('6') : ('Skeleton', (225, 225, 225)),
+    ord('7') : ('Creeper', (50, 168, 58)),
+    ord('8') : ('Spider', (10, 8, 13)),
 }
 
 H, W = (300,150)
 
 legend = np.zeros((H,W,3))
-
 
 i = 0
 mult = 20
