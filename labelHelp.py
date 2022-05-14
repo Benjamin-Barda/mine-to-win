@@ -80,7 +80,7 @@ i = FROM
 all_imgs = os.listdir(imageFolderPath)
 image_name = all_imgs[i]
 
-output_name = "OUTPUT-" + folder + "-401-530.json"
+output_name = "OUTPUT-" + folder + "-0-150.json"
 
 output_file = pathlib.Path(output_name)
 
