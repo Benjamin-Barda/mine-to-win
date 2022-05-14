@@ -5,7 +5,11 @@ import json
 import sys
 import pathlib
 
-folder = "monsters"
+folder = "world1"
+
+FROM = 0
+TO = -1
+
 
 imageFolderPath = "imgs/"+ folder + "/"
 
@@ -18,6 +22,8 @@ MOB_MAP  =  {
     ord('6') : ('Skeleton', (225, 225, 225)),
     ord('7') : ('Creeper', (50, 168, 58)),
     ord('8') : ('Spider', (10, 8, 13)),
+    ord('9') : ('Wolf', (255, 119, 82)),
+    ord('0') : ('Slime', (85, 255, 82)),
 }
 
 H, W = (300,150)
@@ -70,7 +76,7 @@ def draw(event, x, y, flags, params):
 cv2.namedWindow('LEGEND')
 cv2.imshow('LEGEND', legend)
 
-i = 0
+i = FROM
 all_imgs = os.listdir(imageFolderPath)
 image_name = all_imgs[i]
 
@@ -138,7 +144,7 @@ while run:
         else:
             i += 1
         
-        if i >= len(all_imgs):
+        if i >= len(all_imgs) or TO > 0 and i >= TO:
             run = False
             break
         
