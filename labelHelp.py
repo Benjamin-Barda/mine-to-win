@@ -5,7 +5,7 @@ import json
 import sys
 import pathlib
 
-folder = "monsters"
+folder = "peaceful"
 
 imageFolderPath = "imgs/"+ folder + "/"
 
