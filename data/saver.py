@@ -36,5 +36,4 @@ d = BackboneDatasetMulti(folders, datasets)
 
 print(d.data.shape)
 torch.save(d, os.path.join("data", "datasets", "mine-classes.dtset"))
-
     
