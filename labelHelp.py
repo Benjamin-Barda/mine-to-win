@@ -5,10 +5,10 @@ import json
 import sys
 import pathlib
 
-folder = "world2"
+folder = "world3"
 
-FROM = 401
-TO = 530
+FROM = 0
+TO = 150
 
 
 imageFolderPath = "imgs/"+ folder + "/"
@@ -80,7 +80,7 @@ i = FROM
 all_imgs = os.listdir(imageFolderPath)
 image_name = all_imgs[i]
 
-output_name = "OUTPUT-" + folder + "-401-530.json"
+output_name = "OUTPUT-" + folder + "-0-150.json"
 
 output_file = pathlib.Path(output_name)
 
