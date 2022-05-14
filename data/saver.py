@@ -1,5 +1,5 @@
 from datetime import date
-from BackboneDataset import BackboneDataset
+from BackboneDataset import BackboneDatasetMulti
 import os
 import pandas as pd
 import numpy as np
@@ -7,7 +7,7 @@ import json
 import torch
 datasets = []
 
-for filename in os.listdir("."):
+for filename in os.listdir("jsons/"):
     
     if filename.startswith("."):
         continue
@@ -20,17 +20,21 @@ for filename in os.listdir("."):
     if ext == "json" and name.startswith("PARSED"):
         datasets.append(filename)
         
-print(datasets)
 
 folders = [ f[13:]  for f in datasets]
 folders = [ f[:-5].split("-")[0]  for f in folders]
+
+folders = ["imgs\\" + img for img in folders]
+
+
+datasets = ["jsons\\" + dataset for dataset in datasets]
+
+print(datasets)
 print(folders)
-
-
-
-for js, img in zip(datasets, folders):
     
-    d = BackboneDataset("imgs/" + img, js)
-    torch.save(d, os.path.join("data", "datasets", js + ".dtset"))
+d = BackboneDatasetMulti(folders, datasets)
+
+print(d.data.shape)
+torch.save(d, os.path.join("data", "datasets", "mine-win.dtset"))
 
     

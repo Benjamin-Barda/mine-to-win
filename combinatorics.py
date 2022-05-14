@@ -69,4 +69,3 @@ for _ in range(1000):
     images.append(lst)
 
 print(create_triplets(images))
-            

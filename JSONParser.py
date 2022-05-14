@@ -4,7 +4,11 @@ import json
 
 mobList = ['Chicken', 'Cow', 'Creeper', 'Pig', 'Sheep', 'Skeleton', 'Slime', 'Spider', 'Wolf', 'Zombie', 'purge', 'written']
 
-path_to_json = 'OUTPUT-world3-150-305.json' 
+directory = 'jsons/'
+
+json_name = 'OUTPUT-world3.json' 
+
+path_to_json = directory + json_name
 
 with open(path_to_json, 'r') as f : 
     dic = json.loads(f.read())
@@ -38,6 +42,6 @@ for image_name , d in dic.items() :
             parsed[image_name][mob].append([upper_left_x, upper_left_y, W, H])
         
             
-with open('PARSED' + path_to_json, 'w') as g:
+with open(directory + 'PARSED' + json_name, 'w') as g:
     g.write(json.dumps(parsed))
     g.close()
