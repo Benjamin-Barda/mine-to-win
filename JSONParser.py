@@ -8,6 +8,7 @@ path_to_json = ''
 
 with open(path_to_json, 'r') as f : 
     dic = json.loads(f.read())
+    f.close()
 
 parsed = {}
 
@@ -37,6 +38,8 @@ for image_name , d in dic.items() :
             parsed[image_name][mob].append([upper_left_x, upper_left_y, W, H])
         
             
+with open('PARSED' + path_to_json, 'w') as g:
+    g.write(json.dumps(parsed))
+    g.close()
 
 
-         
