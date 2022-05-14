@@ -154,7 +154,6 @@ while run:
         cv2.setWindowTitle("win_id", image_name)
         pathname = imageFolderPath + image_name
         img = cv2.imread(pathname)
-        selectedLabel, col = MOB_MAP[ord('1')]
         rectList.clear()
         if image_name not in DUMP:
             DUMP[image_name] = {x[0] : [] for x in MOB_MAP.values()}
