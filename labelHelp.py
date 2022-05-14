@@ -7,8 +7,8 @@ import pathlib
 
 folder = "world2"
 
-FROM = 201
-TO = 400
+FROM = 400
+TO = -1
 
 
 imageFolderPath = "imgs/"+ folder + "/"
@@ -21,7 +21,7 @@ MOB_MAP  =  {
     ord('5') : ('Zombie', (50, 120, 20)),
     ord('6') : ('Skeleton', (225, 225, 225)),
     ord('7') : ('Creeper', (50, 168, 58)),
-    ord('8') : ('Spider', (10, 8, 13)),
+    ord('8') : ('Spider', (20, 16, 26)),
     ord('9') : ('Wolf', (255, 119, 82)),
     ord('0') : ('Slime', (85, 255, 82)),
 }
