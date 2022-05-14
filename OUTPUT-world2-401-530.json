@@ -1,0 +1,2390 @@
+{
+    "world2-00401.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00402.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [
+            [
+                314,
+                113,
+                335,
+                131
+            ],
+            [
+                380,
+                127,
+                408,
+                150
+            ]
+        ],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00403.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [
+            [
+                444,
+                140,
+                477,
+                179
+            ],
+            [
+                625,
+                179,
+                637,
+                214
+            ]
+        ],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00404.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [
+            [
+                255,
+                122,
+                309,
+                170
+            ],
+            [
+                414,
+                130,
+                476,
+                210
+            ]
+        ],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00405.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [
+            [
+                322,
+                162,
+                503,
+                334
+            ]
+        ],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00406.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00407.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00408.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00409.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00410.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00411.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00412.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00413.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00414.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00415.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00416.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00417.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00418.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00419.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00420.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00421.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00422.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00423.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00424.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00425.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                345,
+                154,
+                358,
+                166
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00426.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                413,
+                145,
+                436,
+                170
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00427.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                304,
+                138,
+                316,
+                159
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00428.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                312,
+                138,
+                325,
+                165
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00429.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                291,
+                158,
+                308,
+                185
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00430.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                278,
+                148,
+                308,
+                193
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00431.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                204,
+                92,
+                250,
+                171
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00432.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00433.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                107,
+                94,
+                118,
+                107
+            ]
+        ],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00434.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00435.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                455,
+                63,
+                482,
+                119
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00436.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                271,
+                56,
+                290,
+                77
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00437.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                272,
+                89,
+                302,
+                148
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00438.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                216,
+                33,
+                263,
+                137
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00439.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                263,
+                103,
+                332,
+                244
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00440.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                210,
+                37,
+                301,
+                174
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00441.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00442.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00443.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00444.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [
+            [
+                288,
+                161,
+                320,
+                182
+            ]
+        ],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00445.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                301,
+                140,
+                316,
+                171
+            ]
+        ],
+        "Slime": [],
+        "Spider": [
+            [
+                266,
+                160,
+                296,
+                186
+            ],
+            [
+                298,
+                156,
+                327,
+                174
+            ]
+        ],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00446.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                494,
+                138,
+                517,
+                176
+            ]
+        ],
+        "Slime": [],
+        "Spider": [
+            [
+                409,
+                165,
+                465,
+                205
+            ],
+            [
+                488,
+                152,
+                528,
+                180
+            ]
+        ],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00447.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [
+            [
+                490,
+                171,
+                636,
+                307
+            ]
+        ],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00448.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                111,
+                98,
+                146,
+                153
+            ]
+        ],
+        "Slime": [],
+        "Spider": [
+            [
+                104,
+                122,
+                164,
+                158
+            ]
+        ],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00449.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00450.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00451.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00452.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00453.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00454.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00455.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00456.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00457.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00458.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00459.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [
+            [
+                231,
+                190,
+                272,
+                217
+            ]
+        ],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00460.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                249,
+                154,
+                277,
+                215
+            ]
+        ],
+        "Slime": [],
+        "Spider": [
+            [
+                241,
+                172,
+                288,
+                203
+            ]
+        ],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00461.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00462.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                265,
+                130,
+                316,
+                216
+            ]
+        ],
+        "Slime": [],
+        "Spider": [
+            [
+                241,
+                174,
+                335,
+                237
+            ]
+        ],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00463.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                248,
+                135,
+                306,
+                267
+            ]
+        ],
+        "Slime": [],
+        "Spider": [
+            [
+                220,
+                197,
+                305,
+                278
+            ]
+        ],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00464.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00465.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [
+            [
+                553,
+                217,
+                637,
+                256
+            ]
+        ],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00466.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00467.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00468.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [
+            [
+                428,
+                144,
+                477,
+                162
+            ]
+        ],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00469.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [
+            [
+                429,
+                156,
+                483,
+                187
+            ]
+        ],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00470.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [
+            [
+                373,
+                100,
+                438,
+                140
+            ]
+        ],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00471.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [
+            [
+                276,
+                99,
+                487,
+                223
+            ]
+        ],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00472.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00473.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00474.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00475.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00476.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00477.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00478.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00479.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [
+            [
+                316,
+                143,
+                339,
+                185
+            ]
+        ],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00480.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [
+            [
+                226,
+                164,
+                422,
+                285
+            ]
+        ],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00481.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [
+            [
+                285,
+                152,
+                366,
+                199
+            ]
+        ],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00482.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [
+            [
+                315,
+                104,
+                389,
+                208
+            ]
+        ],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00483.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [
+            [
+                413,
+                85,
+                520,
+                244
+            ]
+        ],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00484.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [
+            [
+                326,
+                155,
+                439,
+                260
+            ]
+        ],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00485.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [
+            [
+                325,
+                130,
+                366,
+                190
+            ]
+        ],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00486.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [
+            [
+                291,
+                166,
+                320,
+                175
+            ]
+        ],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00487.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00488.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00489.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00490.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00491.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00492.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00493.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00494.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00495.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                142,
+                122,
+                167,
+                156
+            ],
+            [
+                120,
+                110,
+                139,
+                147
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00496.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                260,
+                156,
+                288,
+                207
+            ],
+            [
+                263,
+                152,
+                289,
+                200
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00497.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                283,
+                115,
+                338,
+                243
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00498.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                96,
+                358,
+                0,
+                111
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00499.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                285,
+                139,
+                305,
+                186
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00500.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                309,
+                129,
+                340,
+                198
+            ],
+            [
+                378,
+                129,
+                403,
+                194
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00501.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                206,
+                114,
+                271,
+                224
+            ],
+            [
+                334,
+                106,
+                417,
+                239
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00502.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                76,
+                70,
+                221,
+                291
+            ],
+            [
+                306,
+                104,
+                373,
+                221
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00503.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                225,
+                108,
+                310,
+                273
+            ],
+            [
+                60,
+                117,
+                137,
+                240
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00504.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                112,
+                78,
+                246,
+                292
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00505.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                172,
+                106,
+                261,
+                265
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00506.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00507.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                259,
+                128,
+                283,
+                198
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00508.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00509.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                155,
+                181,
+                225,
+                295
+            ],
+            [
+                262,
+                180,
+                280,
+                212
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00510.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00511.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00512.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00513.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00514.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00515.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00516.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00517.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                394,
+                26,
+                634,
+                348
+            ]
+        ],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00518.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                350,
+                156,
+                400,
+                296
+            ]
+        ],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00519.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                296,
+                112,
+                332,
+                198
+            ]
+        ],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00520.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                119,
+                91,
+                219,
+                263
+            ]
+        ],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [
+            [
+                460,
+                65,
+                510,
+                176
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "world2-00521.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                225,
+                100,
+                297,
+                252
+            ]
+        ],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00522.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                354,
+                71,
+                389,
+                171
+            ],
+            [
+                544,
+                43,
+                636,
+                351
+            ]
+        ],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00523.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                309,
+                82,
+                371,
+                209
+            ]
+        ],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00524.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                179,
+                72,
+                252,
+                240
+            ]
+        ],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00525.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                238,
+                88,
+                310,
+                246
+            ]
+        ],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00526.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "world2-00527.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                297,
+                97,
+                348,
+                217
+            ]
+        ],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00528.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                482,
+                96,
+                519,
+                212
+            ]
+        ],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    },
+    "world2-00529.png": {
+        "Chicken": [],
+        "Cow": [],
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Skeleton": [
+            [
+                364,
+                77,
+                403,
+                173
+            ]
+        ],
+        "Slime": [],
+        "Spider": [],
+        "Wolf": [],
+        "Zombie": [],
+        "purge": false,
+        "written": true
+    }
+}
