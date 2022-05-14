@@ -5,9 +5,9 @@ import json
 import sys
 import pathlib
 
-folder = "world2"
+folder = "world3"
 
-FROM = 400
+FROM = 150
 TO = -1
 
 
