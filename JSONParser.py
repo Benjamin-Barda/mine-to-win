@@ -14,9 +14,15 @@ parsed = {}
 # K = Image name 
 # v = {Label : boxes}
 for image_name , d in dic.items() :
+
     parsed[image_name] = {x : [] for x in mobList}
-    
+
     for mob, boxes in d.items() : 
+
+        if mob == 'purge' or mob == 'written' : 
+            parsed[image_name][mob] = dic[image_name][mob]
+            continue
+
         for box in boxes : 
 
             x0, x1 = box[0], box[2]
