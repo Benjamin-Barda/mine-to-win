@@ -33,7 +33,7 @@ class TripletLoss(torch.nn.Module):
         self.margin = margin
 
     def forward(self, anchor, p, n):
-        return l2_norm_loss(anchor, p, n, self.margin).sum()
+        return cos_dist_loss(anchor, p, n, self.margin).sum()
 
 
 load = False
