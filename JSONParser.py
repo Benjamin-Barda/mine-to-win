@@ -36,10 +36,10 @@ for image_name , d in dic.items() :
             W = abs(x0 - x1)
             H = abs(y0 - y1)
 
-            upper_left_x = min(x0, x1)
-            upper_left_y = min(y0, y1)
+            mid_x = (x0 + x1) // 2
+            mid_y = (y0 + y1) // 2
 
-            parsed[image_name][mob].append([upper_left_x, upper_left_y, W, H])
+            parsed[image_name][mob].append([mid_x, mid_y, W, H])
         
             
 with open(directory + 'PARSED' + json_name, 'w') as g:

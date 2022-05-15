@@ -52,7 +52,8 @@ def create_triplets(lst, triplets_per_class=300):
                         contained_negs.add(key2)
             
             triplets_indices.append((anchor,pos,neg))
-    
+            
+    random.shuffle(triplets_indices)
     return triplets_indices
 
 

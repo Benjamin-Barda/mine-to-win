@@ -11,7 +11,7 @@ ret, frame = cap.read()
 while ret:
     if i % 30 == 0:
         frame = cv2.resize(frame,(640,360), interpolation=cv2.INTER_AREA)
-        cv2.imwrite(name +"/" + name + f"-{k:05d}.png", frame)
+        cv2.imwrite("frames/" + name + f"-{k:05d}.png", frame)
         k += 1
     i += 1
     ret, frame = cap.read()

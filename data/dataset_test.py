@@ -16,27 +16,26 @@ MOB_MAP  =  {
 }
 
 
-d = MineDatasetMulti(None, None, os.path.join("data", "datasets", "mine-classes.dtset"), True)
+d = MineDatasetMulti(os.path.join("data", "datasets"), "mine-classes")
 
-index = 300
+index = [300, 1002]
+choose = 1
 
-v = d.data.iloc[index]
-print(v)
+imgs, labels = d[index]
+print(labels.iloc[choose])
 
 rectList = []
 
 for key, value in MOB_MAP.items():
-    for lst in v[value[0]]:
+    for lst in labels.iloc[choose][value[0]]:
         rectList.append((lst[0], lst[1], lst[2], lst[3], value[1]))
-print(d.images.shape)
-img = d.images[v["Image"]].numpy()
 
-img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+img = imgs.permute(0,2,3,1).numpy()[choose]
 
 for rect in rectList: 
-    x0, y0, w, h, cols = rect
+    mx, my, w, h, cols = rect
     cols = (cols[0]/255, cols[1]/255, cols[2]/255)
-    cv2.rectangle(img, pt1 = (x0, y0), pt2 = (x0 + w, y0 + h), color = cols, thickness=2)
+    cv2.rectangle(img, pt1 = (mx - w // 2, my - h // 2), pt2 = (mx + w // 2, my + h // 2), color = cols, thickness=2)
 
 cv2.imshow("Image", img)
 cv2.waitKey(0)

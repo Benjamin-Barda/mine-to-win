@@ -5,13 +5,13 @@ import json
 import sys
 import pathlib
 
-folder = "world3"
+videoname = "world3"
 
 FROM = 150
 TO = -1
 
 
-imageFolderPath = "imgs/"+ folder + "/"
+imageFolderPath = "imgs/frames/"
 
 MOB_MAP  =  {
     ord('1') : ('Pig', (205, 170, 230)),
@@ -80,7 +80,7 @@ i = FROM
 all_imgs = os.listdir(imageFolderPath)
 image_name = all_imgs[i]
 
-output_name = "OUTPUT-" + folder + "-0-150.json"
+output_name = "OUTPUT-" + videoname + "-0-150.json"
 
 output_file = pathlib.Path(output_name)
 
