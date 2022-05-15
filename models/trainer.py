@@ -45,58 +45,80 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 print(device)
 
 BATCH_SIZE = 2
-VALID_SIZE = 3
+VALID_SIZE = 1
     
 dataset = MineDatasetMulti(os.path.join("data", "datasets"), "mine-classes")
 loader = TripletLoader(dataset, {'Pig','Cow','Chicken','Sheep','Zombie','Skeleton','Creeper','Spider'}, BATCH_SIZE)
 loader_iter = iter(loader)
 network = BackboneCNN().to(device)
+torch.autograd.set_detect_anomaly(True)
 
-
-
+import cv2
+    
 if load:
     network.load_state_dict(torch.load("./BackCNN_best_weights.pth"))
 
-optimizer = torch.optim.SGD(network.parameters(), lr=0.001, momentum=0.9)
+optimizer = torch.optim.AdamW(network.parameters(), lr=0.001)
 
 best_loss = torch.inf
 best_state = network.state_dict()
 
-loss_funct = TripletLoss(margin=10)
+loss_funct = TripletLoss(margin=0.1)
 
 i = 0
 counter = 0
-max_c = 25
+max_c = 100
+
+#3, 1, 3, 360, 640
+valid = torch.zeros((3, 50, 3, 360, 640))
+
 while True:
-    with torch.no_grad():
-        network.train()
-        i += 1
-        # Train
-        imgs, _ = next(loader_iter)
+    i += 1
+    j = 0
+    
+    valid = valid.permute(1, 0, 2, 3, 4).cpu()
+    
+    for imgs in next(loader_iter):
+    
+        if j == 50:
+            break
         
+        network.train()
+    
+        # Train
+
         imgs = imgs.cuda()
 
-    preds_a = network.forward(imgs[0][:-VALID_SIZE])
-    preds_p = network.forward(imgs[1][:-VALID_SIZE])
-    preds_n = network.forward(imgs[2][:-VALID_SIZE])
-        
-    loss = loss_funct.forward(preds_a, preds_p, preds_n)
+        preds_a = network.forward(imgs[:-VALID_SIZE])
+        preds_p = network.forward(imgs[:-VALID_SIZE])
+        preds_n = network.forward(imgs[:-VALID_SIZE])
+      
+        print(preds_a.shape)
+    
+        loss = loss_funct.forward(preds_a, preds_p, preds_n)
 
-    optimizer.zero_grad()
-    loss.backward()
-    optimizer.step()
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        
+        valid[j] = imgs.permute(1, 0, 2, 3, 4)[-VALID_SIZE:].cpu()
+                
+        j +=1
+
 
     # Valid
     network.eval()
     with torch.no_grad():
-        preds_a = network.forward(imgs[0][-VALID_SIZE:])
-        preds_p = network.forward(imgs[1][-VALID_SIZE:])
-        preds_n = network.forward(imgs[2][-VALID_SIZE:])
+        
+        valid = valid.permute(1, 0, 2, 3, 4).cuda()
+        preds_a = network.forward(valid[0])
+        preds_p = network.forward(valid[1])
+        preds_n = network.forward(valid[2])
 
         loss = loss_funct.forward(preds_a, preds_p, preds_n)
     
         total_loss = loss.item()
-        total_correct = torch.where(l2_norm_loss(preds_a, preds_p, preds_n, 0) == 0, 1.0, 0.0).sum().item()
+        total_correct = torch.where(cos_dist_loss(preds_a, preds_p, preds_n, 0) == 0, 1.0, 0.0).sum().item()
         total = preds_a.size(0)
         
         risk = total_loss / total
