@@ -1,17 +1,17 @@
 import random
 
-classes = ['Empty','Pig','Cow','Chicken','Sheep','Zombie','Skeleton','Creeper','Spider', 'Wolf', 'Slime']
+# classes = ['Empty','Pig','Cow','Chicken','Sheep','Zombie','Skeleton','Creeper','Spider', 'Wolf', 'Slime']
 
 def create_triplets(lst, triplets_per_class=300):
     # Get labels
     known_values = dict()
 
-    for i, img_info in enumerate(lst):
+    for idx, img_info in lst:
         for val in img_info:
             if val in known_values:
-                known_values[val].add(i)
+                known_values[val].add(idx)
             else:
-                known_values[val] = {i}
+                known_values[val] = {idx}
 
     # Make as list
     for key in known_values:
@@ -57,16 +57,16 @@ def create_triplets(lst, triplets_per_class=300):
     return triplets_indices
 
 
-random.seed(42)
+# random.seed(42)
 
-images = list()
+# images = list()
 
-for _ in range(1000):
-    n = random.randrange(0, 6)
-    lst = list()
-    for i in range(n):
-        lst.append(classes[random.randrange(0, len(classes) - 1)])
+# for j in range(1000):
+#     n = random.randrange(0, 6)
+#     lst = set()
+#     for i in range(n):
+#         lst.add(classes[random.randrange(0, len(classes) - 1)])
 
-    images.append(lst)
+#     images.append((j,lst))
 
-print(create_triplets(images))
+# print(create_triplets(images))

@@ -1,6 +1,7 @@
 from MineDataset import MineDatasetMulti
 import os
 import cv2
+from TripletLoader import TripletLoader
 
 MOB_MAP  =  {
     ord('1') : ('Pig', (205, 170, 230)),
@@ -18,24 +19,30 @@ MOB_MAP  =  {
 
 d = MineDatasetMulti(os.path.join("data", "datasets"), "mine-classes")
 
-index = [300, 400, 700, 800, 1000, 1100, 1200, 1300]
-choose = 5
+# index = [300, 400, 700, 800, 1000, 1100, 1200, 1300]
+# choose = 5
 
-imgs, labels = d[index]
-print(labels.iloc[choose])
+# imgs, labels = d[index]
+# print(labels.iloc[choose])
 
-rectList = []
+# rectList = []
 
-for key, value in MOB_MAP.items():
-    for lst in labels.iloc[choose][value[0]]:
-        rectList.append((lst[0], lst[1], lst[2], lst[3], value[1]))
+# for key, value in MOB_MAP.items():
+#     for lst in labels.iloc[choose][value[0]]:
+#         rectList.append((lst[0], lst[1], lst[2], lst[3], value[1]))
 
-img = imgs.permute(0,2,3,1).numpy()[choose]
+# img = imgs.permute(0,2,3,1).numpy()[choose]
 
-for rect in rectList: 
-    mx, my, w, h, cols = rect
-    cols = (cols[0]/255, cols[1]/255, cols[2]/255)
-    cv2.rectangle(img, pt1 = (mx - w // 2, my - h // 2), pt2 = (mx + w // 2, my + h // 2), color = cols, thickness=2)
+# for rect in rectList: 
+#     mx, my, w, h, cols = rect
+#     cols = (cols[0]/255, cols[1]/255, cols[2]/255)
+#     cv2.rectangle(img, pt1 = (mx - w // 2, my - h // 2), pt2 = (mx + w // 2, my + h // 2), color = cols, thickness=2)
 
-cv2.imshow("Image", img)
-cv2.waitKey(0)
+# cv2.imshow("Image", img)
+# cv2.waitKey(0)
+
+loader = TripletLoader(d, {'Pig','Cow','Chicken','Sheep','Zombie','Skeleton','Creeper','Spider'}, 10)
+
+imgs, _ = next(iter(loader))
+
+print(imgs.shape)
