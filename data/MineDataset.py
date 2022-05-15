@@ -64,7 +64,7 @@ class MineDatasetMulti(Dataset):
         
     def __getitem__(self, idx):
         if not np.isscalar(idx):
-            images = torch.FloatTensor([cv2.imread(self.img_dir + "\\" + name) for name in  self.data.iloc[idx].index]).permute(0,3,1,2) / 255
+            images = torch.FloatTensor([cv2.imread(os.path.join(self.img_dir, name)) for name in  self.data.iloc[idx].index]).permute(0,3,1,2) / 255
             if self.transform:
                 images = self.transform(images)
             infos = self.data.iloc[idx]
