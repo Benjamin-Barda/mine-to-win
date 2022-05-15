@@ -1,13 +1,14 @@
+from zmq import device
 import combinatorics
 import numpy as np
 import torch
 
 class TripletLoader:
-    def __init__(self, dataset, classes, k=10):
+    def __init__(self, dataset, classes, k=10, cuda = False):
         self.dataset = dataset
         self.triplets_per_class = k
         self.classes = classes
-
+        self.cuda = cuda
         self.available_images = []
 
         for i in range(len(dataset)):
@@ -38,4 +39,6 @@ class TripletLoader:
             anchs, a_labs = self.dataset[triplets[0]]
             pos, p_labs = self.dataset[triplets[1]]
             neg, n_labs = self.dataset[triplets[2]]
-            yield torch.stack([anchs, pos, neg]), list(zip(a_labs, p_labs, n_labs))
+            
+            outTensor = torch.stack([anchs, pos, neg], device="cuda") if self.cuda else torch.stack([anchs, pos, neg]) 
+            yield outTensor, list(zip(a_labs, p_labs, n_labs))

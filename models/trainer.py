@@ -50,10 +50,20 @@ from MineDataset import MineDatasetMulti
 load = False
 store = True
 
+# define the device for the computation
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+print(device)
+
+BATCH_SIZE = 2
+VALID_SIZE = 3
+    
 dataset = MineDatasetMulti(os.path.join("data", "datasets"), "mine-classes")
-loader = TripletLoader(dataset, {'Pig','Cow','Chicken','Sheep','Zombie','Skeleton','Creeper','Spider'}, 10)
+loader = TripletLoader(dataset, {'Pig','Cow','Chicken','Sheep','Zombie','Skeleton','Creeper','Spider'}, BATCH_SIZE)
 loader_iter = iter(loader)
-network = BackboneCNN()
+network = BackboneCNN().to(device)
+
+
 
 if load:
     network.load_state_dict(torch.load("./BackCNN_best_weights.pth"))
@@ -67,16 +77,25 @@ loss_funct = torch.nn.TripletMarginLoss(margin=10)
 
 i = 0
 counter = 0
-max_c = 10
+max_c = 25
 while True:
-    network.train()
-    i += 1
-    # Train
-    imgs, _ = next(loader_iter)
+    with torch.no_grad():
+        network.train()
+        i += 1
+        # Train
+        imgs, _ = next(loader_iter)
+        
+        imgs = imgs.cuda()
 
-    preds_a = network.forward(imgs[0][:-10])
-    preds_p = network.forward(imgs[1][:-10])
-    preds_n = network.forward(imgs[2][:-10])
+    preds_a = network.forward(imgs[0][:-VALID_SIZE])
+    preds_p = network.forward(imgs[1][:-VALID_SIZE])
+    preds_n = network.forward(imgs[2][:-VALID_SIZE])
+        
+    n, c, h, w = preds_a.size()
+    preds_a    = preds_a.reshape(n, c * h * w)
+    preds_p    = preds_p.reshape(n, c * h * w)
+    preds_n    = preds_n.reshape(n, c * h * w)
+    
     loss = loss_funct.forward(preds_a, preds_p, preds_n)
 
     optimizer.zero_grad()
@@ -85,29 +104,37 @@ while True:
 
     # Valid
     network.eval()
+    with torch.no_grad():
+        preds_a = network.forward(imgs[0][-VALID_SIZE:])
+        preds_p = network.forward(imgs[1][-VALID_SIZE:])
+        preds_n = network.forward(imgs[2][-VALID_SIZE:])
+        
+        n, c, h, w = preds_a.size()
+        preds_a    = preds_a.reshape(n, c * h * w)
+        preds_p    = preds_p.reshape(n, c * h * w)
+        preds_n    = preds_n.reshape(n, c * h * w)
+        
+        loss = loss_funct.forward(preds_a, preds_p, preds_n)
+        
+        
+        
+        total_loss = loss.item()
+        total_correct = torch.where(loss < 0.01, 1.0, 0.0).sum().item()
+        total = 10
+        
+        risk = total_loss / total
+        accuracy = total_correct / total
+        print(f"Epoch {i}: accuracy={accuracy:.5f}, risk={risk:.5f}")
 
-    preds_a = network.forward(imgs[0][-10:])
-    preds_p = network.forward(imgs[1][-10:])
-    preds_n = network.forward(imgs[2][-10:])
-    loss = loss_funct.forward(preds_a, preds_p, preds_n)
-    
-    total_loss = loss.item()
-    total_correct = torch.where(loss < 0.01, 1.0, 0.0).sum().item()
-    total = 10
-    
-    risk = total_loss / total
-    accuracy = total_correct / total
-    print(f"Epoch {i}: accuracy={accuracy:.5f}, risk={risk:.5f}")
-
-    if loss < best_loss:
-        best_loss = loss
-        best_state = network.state_dict()
-        counter = 0
-    elif counter < max_c:
-        counter += 1
-    else:
-        print(f"Worse loss reached, stopping training...")
-        break
+        if loss < best_loss:
+            best_loss = loss
+            best_state = network.state_dict()
+            counter = 0
+        elif counter < max_c:
+            counter += 1
+        else:
+            print(f"Worse loss reached, stopping training...")
+            break
 
 
 if store:
