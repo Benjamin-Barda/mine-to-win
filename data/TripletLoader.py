@@ -41,4 +41,4 @@ class TripletLoader:
             neg, n_labs = self.dataset[triplets[2]]
             
             outTensor = torch.vstack([anchs, pos, neg], device="cuda") if self.cuda else torch.stack([anchs, pos, neg]) 
-            yield outTensor
+            yield outTensor, list(zip(a_labs, p_labs, n_labs))

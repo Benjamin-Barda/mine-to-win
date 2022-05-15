@@ -67,33 +67,29 @@ loss_funct = TripletLoss(margin=0.1)
 
 i = 0
 counter = 0
-max_c = 100
+max_c = 10
+MAX_ITERS = 5
 
 #3, 1, 3, 360, 640
-valid = torch.zeros((3, 50, 3, 360, 640))
+valid = torch.zeros((3, MAX_ITERS, 3, 360, 640))
 
 while True:
     i += 1
     j = 0
     
     valid = valid.permute(1, 0, 2, 3, 4).cpu()
+
+    network.train()
     
-    for imgs in next(loader_iter):
-    
-        if j == 50:
-            break
-        
-        network.train()
+    while j < MAX_ITERS:
+        imgs, _ = next(loader_iter)
     
         # Train
 
-        imgs = imgs.cuda()
-
-        preds_a = network.forward(imgs[:-VALID_SIZE])
-        preds_p = network.forward(imgs[:-VALID_SIZE])
-        preds_n = network.forward(imgs[:-VALID_SIZE])
-      
-        print(preds_a.shape)
+        imgs = imgs.to(device=device)
+        preds_a = network.forward(imgs[0][:-VALID_SIZE])
+        preds_p = network.forward(imgs[1][:-VALID_SIZE])
+        preds_n = network.forward(imgs[2][:-VALID_SIZE])
     
         loss = loss_funct.forward(preds_a, preds_p, preds_n)
 
@@ -102,15 +98,15 @@ while True:
         optimizer.step()
         
         valid[j] = imgs.permute(1, 0, 2, 3, 4)[-VALID_SIZE:].cpu()
-                
-        j +=1
+            
+        j += 1
 
 
     # Valid
     network.eval()
     with torch.no_grad():
         
-        valid = valid.permute(1, 0, 2, 3, 4).cuda()
+        valid = valid.permute(1, 0, 2, 3, 4).to(device=device)
         preds_a = network.forward(valid[0])
         preds_p = network.forward(valid[1])
         preds_n = network.forward(valid[2])
@@ -119,7 +115,7 @@ while True:
     
         total_loss = loss.item()
         total_correct = torch.where(cos_dist_loss(preds_a, preds_p, preds_n, 0) == 0, 1.0, 0.0).sum().item()
-        total = preds_a.size(0)
+        total = preds_a.size(1)
         
         risk = total_loss / total
         accuracy = total_correct / total
