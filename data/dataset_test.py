@@ -1,10 +1,5 @@
-from datetime import date
-from BackboneDataset import BackboneDatasetMulti
+from MineDataset import MineDatasetMulti
 import os
-import pandas as pd
-import numpy as np
-import json
-import torch
 import cv2
 
 MOB_MAP  =  {
@@ -21,9 +16,11 @@ MOB_MAP  =  {
 }
 
 
-d = torch.load(os.path.join("data", "datasets", "mine-classes.dtset"))
+d = MineDatasetMulti(None, None, os.path.join("data", "datasets", "mine-classes.dtset"), True)
 
-v = d.data.iloc[0]
+index = 300
+
+v = d.data.iloc[index]
 print(v)
 
 rectList = []
@@ -31,13 +28,14 @@ rectList = []
 for key, value in MOB_MAP.items():
     for lst in v[value[0]]:
         rectList.append((lst[0], lst[1], lst[2], lst[3], value[1]))
-
-img = v.Image.numpy()
+print(d.images.shape)
+img = d.images[v["Image"]].numpy()
 
 img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
 
 for rect in rectList: 
     x0, y0, w, h, cols = rect
+    cols = (cols[0]/255, cols[1]/255, cols[2]/255)
     cv2.rectangle(img, pt1 = (x0, y0), pt2 = (x0 + w, y0 + h), color = cols, thickness=2)
 
 cv2.imshow("Image", img)

@@ -2,7 +2,7 @@ import random
 
 classes = ['Empty','Pig','Cow','Chicken','Sheep','Zombie','Skeleton','Creeper','Spider', 'Wolf', 'Slime']
 
-def create_triplets(lst):
+def create_triplets(lst, triplets_per_class=300):
     # Get labels
     known_values = dict()
 
@@ -20,7 +20,7 @@ def create_triplets(lst):
     triplets_indices = list()
     
     for key, lst in known_values.items():
-        for _ in range(500):
+        for _ in range(triplets_per_class):
             contained_stuff = set()
             # Choose anchor
             anchor = lst[random.randrange(0, len(lst) - 1)]

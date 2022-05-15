@@ -1,10 +1,5 @@
-from datetime import date
-from BackboneDataset import BackboneDatasetMulti
+from MineDataset import MineDatasetMulti
 import os
-import pandas as pd
-import numpy as np
-import json
-import torch
 datasets = []
 
 for filename in os.listdir("jsons/"):
@@ -32,8 +27,7 @@ datasets = ["jsons\\" + dataset for dataset in datasets]
 print(datasets)
 print(folders)
     
-d = BackboneDatasetMulti(folders, datasets)
+d = MineDatasetMulti(folders, datasets)
 
 print(d.data.shape)
-torch.save(d, os.path.join("data", "datasets", "mine-classes.dtset"))
-    
+d.store(os.path.join("data", "datasets", "mine-classes.dtset"))

@@ -9,7 +9,7 @@ from torchvision import transforms, utils
 import cv2
 
 
-class BackboneDataset(Dataset):
+class MineDataset(Dataset):
     
     def __init__(self, img_dir, JSON_dir, transform = None):
         """_summary_
@@ -46,9 +46,9 @@ class BackboneDataset(Dataset):
             
         return row 
 
-class BackboneDatasetMulti(Dataset):
+class MineDatasetMulti(Dataset):
     
-    def __init__(self, img_dir, JSON_dir, transform = None):
+    def __init__(self, img_dir, JSON_dir, load_dir=None, load=False, transform = None):
         """_summary_
 
         Args:
@@ -56,22 +56,32 @@ class BackboneDatasetMulti(Dataset):
             JSON_dir (string): Path to the JSON containing every image's respective label
             transform (callable, optional): An optional transform to apply on a sample. Defaults to None.
         """
-        self.data = pd.read_json(JSON_dir[0]).T.drop(["written"], axis=1)
+        if load:
+            self.data, self.images, self.JSON_DIR, self.transform, self.img_dir = torch.load(load_dir)
+            return
+
+        self.data = pd.read_json(JSON_dir[0]).T
+        self.data.drop(["written"], axis=1, inplace=True)
+        self.data.drop(self.data[self.data.purge].index, inplace=True)
+        self.data.drop(["purge"], axis=1, inplace=True)
         self.images = torch.ByteTensor(np.array(
                 [cv2.cvtColor(cv2.imread(os.path.join(img_dir[0], self.data.iloc[i].name)), cv2.COLOR_BGR2RGB) 
                 for i in range(len(self.data))
                 ]))
-    
+
         for filename, img in zip(JSON_dir[1:], img_dir[1:]):
-            df = pd.read_json(filename).T.drop(["written"], axis=1)
+            df = pd.read_json(filename).T
+            df.drop(["written"], axis=1, inplace=True)
+            df.drop(df[df.purge].index, inplace=True)
+            df.drop(["purge"], axis=1, inplace=True)
             self.images = torch.cat((self.images,torch.ByteTensor(np.array(
                 [cv2.cvtColor(cv2.imread(os.path.join(img, df.iloc[i].name)), cv2.COLOR_BGR2RGB) 
                 for i in range(len(df))
                 ]))), 0)
-            self.data = pd.concat([self.data, pd.read_json(filename).T.drop(["written"], axis=1)])
+            self.data = pd.concat([self.data, df], copy=False)
 
-        self.data["Image"] = [img for img in self.images]
-        self.data = self.data.drop(self.data[self.data.purge].index).drop(["purge"], axis=1)
+        self.images = self.images.to(dtype=torch.float32) / 255
+        self.data["Image"] = list(range(self.images.shape[0]))
         
         self.JSON_DIR = JSON_dir
         self.transform = transform
@@ -88,4 +98,8 @@ class BackboneDatasetMulti(Dataset):
         if self.transform:
             row["Image"] = self.transform(row["Image"])
             
-        return row 
+        return row
+
+    def store(self, path):
+        torch.save((self.data, self.images, self.JSON_DIR, self.transform, self.img_dir), path)
+        print("Saved")
