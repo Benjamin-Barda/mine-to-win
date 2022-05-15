@@ -21,10 +21,10 @@ def l2_norm_loss(anch, p, n, margin):
     dn = torch.sqrt(torch.pow(anch - n, 2).sum(axis = (1,2,3)))
     return torch.clamp(dp - dn + margin, min=0.0)
 
-# def cos_dist_loss(anch, p, n, margin):
-#     dp = 1.0 - torch.diagonal(anch @ p.T) / torch.sqrt(torch.pow(p,2).sum(axis = 1) * torch.pow(anch,2).sum(axis = 1))
-#     dn = 1.0 - torch.diagonal(anch @ n.T) / torch.sqrt(torch.pow(n,2).sum(axis = 1) * torch.pow(anch,2).sum(axis = 1))
-#     return torch.clamp(dp - dn + margin, min=0.0)
+def cos_dist_loss(anch, p, n, margin):
+    dp = 1.0 - torch.tensordot(anch,p, dims=([1,2,3],[1,2,3])) / torch.sqrt(torch.pow(p,2).sum(axis = (1,2,3)) * torch.pow(anch,2).sum(axis = (1,2,3)))
+    dn = 1.0 - torch.tensordot(anch,n, dims=([1,2,3],[1,2,3])) / torch.sqrt(torch.pow(n,2).sum(axis = (1,2,3)) * torch.pow(anch,2).sum(axis = (1,2,3)))
+    return torch.clamp(dp - dn + margin, min=0.0)
 
 class TripletLoss(torch.nn.Module):
     # Shamelessly stolen from https://towardsdatascience.com/a-friendly-introduction-to-siamese-networks-85ab17522942
