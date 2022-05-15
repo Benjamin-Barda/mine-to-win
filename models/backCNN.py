@@ -1,6 +1,7 @@
 
 
-from torch.nn import Sequential, Conv2d, MaxPool2d, Module, Dropout2d, GELU
+from torch import max_pool1d
+from torch.nn import Sequential, Conv2d, MaxPool2d, Module, Dropout2d, GELU, MaxPool1d
 
 
 class BackboneCNN(Module):
@@ -45,7 +46,7 @@ class BackboneCNN(Module):
             Dropout2d(p = 0.2, inplace=True)
         )
         
-        self.pooling = MaxPool2d(kernel_size = 5, stride = 5)
+        self.pooling = MaxPool1d(kernel_size = 5, stride = 5)
         
     def forward(self, x):
         x = self.conv1(x)
@@ -54,8 +55,9 @@ class BackboneCNN(Module):
         x = self.conv4(x)
         x = self.conv5(x)
         
-        #magic transpose
+        # N * 120 * h * w
         
-        x = self.pooling(x)
+        x = x.permute(0,2,3,1)
+        x = self.pooling(x).permute(0,3,1,2)
         
         return x
