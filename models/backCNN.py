@@ -1,8 +1,7 @@
-from colorama import Back
-import torch
-from torch.autograd import Variable
-from torch.nn import Sequential, Conv2d, MaxPool2d, Module, Softmax, BatchNorm2d, Dropout2d, GELU
-from torch.optim import Adam, SGD
+
+
+from torch.nn import Sequential, Conv2d, MaxPool2d, Module, Dropout2d, GELU
+
 
 class BackboneCNN(Module):
 
@@ -39,34 +38,24 @@ class BackboneCNN(Module):
             MaxPool2d(kernel_size=2, stride=2),
         )
         
-    def forward(self, x):
+        self.conv5 = Sequential(
+            
+            Conv2d(80, 120, kernel_size=5, stride=2),
+            GELU(inplace=True),
+            Dropout2d(p = 0.2, inplace=True)
+        )
         
-
-
-class Net(Module):   
-    def __init__(self):
-        super(Net, self).__init__()
-
-        self.cnn_layers = Sequential(
-            # Defining a 2D convolution layer
-            Conv2d(1, 4, kernel_size=3, stride=1, padding=1),
-            BatchNorm2d(4),
-            ReLU(inplace=True),
-            MaxPool2d(kernel_size=2, stride=2),
-            # Defining another 2D convolution layer
-            Conv2d(4, 4, kernel_size=3, stride=1, padding=1),
-            BatchNorm2d(4),
-            ReLU(inplace=True),
-            MaxPool2d(kernel_size=2, stride=2),
-        )
-
-        self.linear_layers = Sequential(
-            Linear(4 * 7 * 7, 10)
-        )
-
-    # Defining the forward pass    
+        self.pooling = MaxPool2d(kernel_size = 5, stride = 5)
+        
     def forward(self, x):
-        x = self.cnn_layers(x)
-        x = x.view(x.size(0), -1)
-        x = self.linear_layers(x)
+        x = self.conv1(x)
+        x = self.conv2(x)
+        x = self.conv3(x)
+        x = self.conv4(x)
+        x = self.conv5(x)
+        
+        #magic transpose
+        
+        x = self.pooling(x)
+        
         return x
