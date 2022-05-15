@@ -38,4 +38,4 @@ class TripletLoader:
             anchs, a_labs = self.dataset[triplets[0]]
             pos, p_labs = self.dataset[triplets[1]]
             neg, n_labs = self.dataset[triplets[2]]
-            yield torch.stack([anchs, pos, neg]), list(zip(a_labs, p_labs, n_labs))
+            yield torch.vstack([anchs, pos, neg]), list(zip(a_labs, p_labs, n_labs))
