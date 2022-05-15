@@ -57,7 +57,7 @@ network = BackboneCNN().to(device)
 if load:
     network.load_state_dict(torch.load("./BackCNN_best_weights.pth"))
 
-optimizer = torch.optim.SGD(network.parameters(), lr=0.01, momentum=0.9)
+optimizer = torch.optim.SGD(network.parameters(), lr=0.001, momentum=0.9)
 
 best_loss = torch.inf
 best_state = network.state_dict()
@@ -80,11 +80,6 @@ while True:
     preds_p = network.forward(imgs[1][:-VALID_SIZE])
     preds_n = network.forward(imgs[2][:-VALID_SIZE])
         
-    n, c, h, w = preds_a.size()
-    preds_a    = preds_a.reshape(n, c * h * w)
-    preds_p    = preds_p.reshape(n, c * h * w)
-    preds_n    = preds_n.reshape(n, c * h * w)
-    
     loss = loss_funct.forward(preds_a, preds_p, preds_n)
 
     optimizer.zero_grad()
@@ -97,19 +92,12 @@ while True:
         preds_a = network.forward(imgs[0][-VALID_SIZE:])
         preds_p = network.forward(imgs[1][-VALID_SIZE:])
         preds_n = network.forward(imgs[2][-VALID_SIZE:])
-        
-        n, c, h, w = preds_a.size()
-        preds_a    = preds_a.reshape(n, c * h * w)
-        preds_p    = preds_p.reshape(n, c * h * w)
-        preds_n    = preds_n.reshape(n, c * h * w)
-        
+
         loss = loss_funct.forward(preds_a, preds_p, preds_n)
-        
-        
-        
+    
         total_loss = loss.item()
-        total_correct = torch.where(loss < 0.01, 1.0, 0.0).sum().item()
-        total = 10
+        total_correct = torch.where(l2_norm_loss(preds_a, preds_p, preds_n, 0) == 0, 1.0, 0.0).sum().item()
+        total = preds_a.size(0)
         
         risk = total_loss / total
         accuracy = total_correct / total
