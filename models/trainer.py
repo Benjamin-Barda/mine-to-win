@@ -16,35 +16,24 @@ from MineDataset import MineDatasetMulti
 #     dn = torch.sqrt(torch.pow(anch - n, 2).sum(axis = 1))
 #     return (dp + margin) / dn
 
-# def l2_norm_loss(anch, p, n, margin):
-#     dp = torch.sqrt(torch.pow(anch - p, 2).sum(axis = 1))
-#     dn = torch.sqrt(torch.pow(anch - n, 2).sum(axis = 1))
-#     return torch.clamp(dp - dn + margin, min=0.0)
+def l2_norm_loss(anch, p, n, margin):
+    dp = torch.sqrt(torch.pow(anch - p, 2).sum(axis = (1,2,3)))
+    dn = torch.sqrt(torch.pow(anch - n, 2).sum(axis = (1,2,3)))
+    return torch.clamp(dp - dn + margin, min=0.0)
 
 # def cos_dist_loss(anch, p, n, margin):
 #     dp = 1.0 - torch.diagonal(anch @ p.T) / torch.sqrt(torch.pow(p,2).sum(axis = 1) * torch.pow(anch,2).sum(axis = 1))
 #     dn = 1.0 - torch.diagonal(anch @ n.T) / torch.sqrt(torch.pow(n,2).sum(axis = 1) * torch.pow(anch,2).sum(axis = 1))
 #     return torch.clamp(dp - dn + margin, min=0.0)
 
-# class TripletLoss(torch.nn.Module):
-#     # Shamelessly stolen from https://towardsdatascience.com/a-friendly-introduction-to-siamese-networks-85ab17522942
-#     def __init__(self, margin, l2_norm = False, mine = False):
-#         super(TripletLoss, self).__init__()
-#         self.margin = margin
-#         self.l2_norm = l2_norm
-#         self.mine = mine
+class TripletLoss(torch.nn.Module):
+    # Shamelessly stolen from https://towardsdatascience.com/a-friendly-introduction-to-siamese-networks-85ab17522942
+    def __init__(self, margin):
+        super(TripletLoss, self).__init__()
+        self.margin = margin
 
-#     def forward(self, anchor, p, n):
-#         if self.mine:
-#             if self.l2_norm:
-#                 return l2_norm_loss_mine(anchor, p, n, self.margin).sum()
-#             else:
-#                 return cos_dist_loss_mine(anchor, p, n, self.margin).sum()
-#         else:
-#             if self.l2_norm:
-#                 return l2_norm_loss(anchor, p, n, self.margin).sum()
-#             else:
-#                 return cos_dist_loss(anchor, p, n, self.margin).sum()
+    def forward(self, anchor, p, n):
+        return l2_norm_loss(anchor, p, n, self.margin).sum()
 
 
 load = False
@@ -73,7 +62,7 @@ optimizer = torch.optim.SGD(network.parameters(), lr=0.01, momentum=0.9)
 best_loss = torch.inf
 best_state = network.state_dict()
 
-loss_funct = torch.nn.TripletMarginLoss(margin=10)
+loss_funct = TripletLoss(margin=10)
 
 i = 0
 counter = 0
