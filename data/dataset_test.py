@@ -18,8 +18,8 @@ MOB_MAP  =  {
 
 d = MineDatasetMulti(os.path.join("data", "datasets"), "mine-classes")
 
-index = [300, 1002]
-choose = 1
+index = [300, 400, 700, 800, 1000, 1100, 1200, 1300]
+choose = 5
 
 imgs, labels = d[index]
 print(labels.iloc[choose])

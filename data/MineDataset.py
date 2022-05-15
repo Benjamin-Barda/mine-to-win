@@ -23,7 +23,7 @@ class MineDataset(Dataset):
         
         self.data = self.data.drop(self.data[self.data.purge].index).drop(["purge"], axis=1)
         
-        self.images = torch.Tensor(np.array(
+        self.images = torch.Tensor(np.asarray(
             [cv2.cvtColor(cv2.imread(os.path.join(img_dir, self.data.iloc[i].name)), cv2.COLOR_BGR2RGB) 
              for i in range(len(self.data))
              ]))
@@ -64,7 +64,7 @@ class MineDatasetMulti(Dataset):
         
     def __getitem__(self, idx):
         if not np.isscalar(idx):
-            images = torch.FloatTensor([cv2.imread(os.path.join(self.img_dir, name)) for name in  self.data.iloc[idx].index]).permute(0,3,1,2) / 255
+            images = torch.FloatTensor(np.asarray([cv2.imread(os.path.join(self.img_dir, name)) for name in  self.data.iloc[idx].index])).permute(0,3,1,2) / 255
             if self.transform:
                 images = self.transform(images)
             infos = self.data.iloc[idx]
