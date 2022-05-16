@@ -1,20 +1,25 @@
 import numpy as np
 import cv2
 
-name = "world3"
-i = 0
-k = 0
-cap = cv2.VideoCapture(name + ".mp4")
+names = ["creeper", "pig", "null"]
 
-ret, frame = cap.read()
+for j in range(1, 9):
+    print(j)
+    for name in names:
+        i = 0
+        k = 0
+        nname = name + f"{j}"
+        print(nname)
+        cap = cv2.VideoCapture("imgs/" + nname + ".mp4")
 
-while ret:
-    if i % 30 == 0:
-        frame = cv2.resize(frame,(640,360), interpolation=cv2.INTER_AREA)
-        cv2.imwrite("frames/" + name + f"-{k:05d}.png", frame)
-        k += 1
-    i += 1
-    ret, frame = cap.read()
+        ret, frame = cap.read()
 
-cap.release()
-cv2.destroyAllWindows()
+        while ret:
+            if i % 30 == 0:
+                frame = cv2.resize(frame,(426,240), interpolation=cv2.INTER_AREA)
+                cv2.imwrite("imgs/frames/" + nname + f"-{k:05d}.png", frame)
+                k += 1
+            i += 1
+            ret, frame = cap.read()
+
+        cap.release()
