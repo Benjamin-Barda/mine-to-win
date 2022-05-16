@@ -5,7 +5,7 @@ import json
 import sys
 import pathlib
 
-videoname = "pig1"
+videoname = "creeper3"
 
 imageFolderPath = "imgs/frames/"
 
@@ -98,7 +98,7 @@ for key, value in DUMP.items():
     i += 1
     image_name = all_imgs[i]
 
-cv2.namedWindow("win_id")
+cv2.namedWindow("win_id", cv2.WINDOW_NORMAL)
 cv2.setMouseCallback("win_id", draw)
 cv2.setWindowTitle("win_id", image_name)
 
