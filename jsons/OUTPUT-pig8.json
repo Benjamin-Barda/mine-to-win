@@ -1,0 +1,891 @@
+{
+    "pig8-00000.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                318,
+                135,
+                279,
+                190
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00001.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                319,
+                136,
+                282,
+                190
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00002.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                324,
+                145,
+                426,
+                239
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00003.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                278,
+                112,
+                217,
+                160
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00004.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                225,
+                101,
+                207,
+                124
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00005.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                231,
+                106,
+                220,
+                117
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00006.png": {
+        "Creeper": [],
+        "Pig": [],
+        "purge": false,
+        "written": false
+    },
+    "pig8-00007.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                223,
+                116,
+                232,
+                122
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00008.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                180,
+                131,
+                197,
+                145
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00009.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                211,
+                159,
+                239,
+                170
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00010.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                176,
+                162,
+                113,
+                197
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00011.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                93,
+                177,
+                23,
+                139
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00012.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                216,
+                139,
+                202,
+                158
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00013.png": {
+        "Creeper": [],
+        "Pig": [],
+        "purge": false,
+        "written": false
+    },
+    "pig8-00014.png": {
+        "Creeper": [],
+        "Pig": [],
+        "purge": false,
+        "written": false
+    },
+    "pig8-00015.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                215,
+                115,
+                203,
+                123
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00016.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                218,
+                133,
+                229,
+                118
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00017.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                194,
+                116,
+                208,
+                127
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00018.png": {
+        "Creeper": [],
+        "Pig": [],
+        "purge": false,
+        "written": false
+    },
+    "pig8-00019.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                161,
+                118,
+                134,
+                139
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00020.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                159,
+                123,
+                113,
+                165
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00021.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                162,
+                137,
+                36,
+                239
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00022.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                100,
+                240,
+                245,
+                174
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00023.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                217,
+                224,
+                173,
+                125
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00024.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                278,
+                117,
+                299,
+                154
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00025.png": {
+        "Creeper": [],
+        "Pig": [],
+        "purge": false,
+        "written": false
+    },
+    "pig8-00026.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                259,
+                86,
+                289,
+                95
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00027.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                280,
+                121,
+                308,
+                140
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00028.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                321,
+                149,
+                349,
+                168
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00029.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                400,
+                167,
+                425,
+                190
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00030.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                376,
+                146,
+                347,
+                127
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00031.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                345,
+                151,
+                367,
+                170
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00032.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                238,
+                116,
+                253,
+                126
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00033.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                182,
+                108,
+                169,
+                98
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00034.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                79,
+                168,
+                58,
+                181
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00035.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                71,
+                174,
+                52,
+                188
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00036.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                95,
+                161,
+                81,
+                179
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00037.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                158,
+                165,
+                168,
+                153
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00038.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                219,
+                151,
+                206,
+                164
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00039.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                236,
+                162,
+                217,
+                174
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00040.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                263,
+                169,
+                286,
+                187
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00041.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                365,
+                176,
+                403,
+                195
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00042.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                287,
+                163,
+                305,
+                176
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00043.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                217,
+                121,
+                231,
+                129
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00044.png": {
+        "Creeper": [],
+        "Pig": [],
+        "purge": false,
+        "written": false
+    },
+    "pig8-00045.png": {
+        "Creeper": [],
+        "Pig": [],
+        "purge": false,
+        "written": false
+    },
+    "pig8-00046.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                261,
+                168,
+                235,
+                219
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00047.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                228,
+                153,
+                265,
+                221
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00048.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                235,
+                163,
+                288,
+                207
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00049.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                228,
+                141,
+                199,
+                177
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00050.png": {
+        "Creeper": [],
+        "Pig": [],
+        "purge": false,
+        "written": false
+    },
+    "pig8-00051.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                279,
+                158,
+                252,
+                144
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00052.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                211,
+                209,
+                257,
+                239
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00053.png": {
+        "Creeper": [],
+        "Pig": [],
+        "purge": true,
+        "written": false
+    },
+    "pig8-00054.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                269,
+                169,
+                168,
+                239
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00055.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                200,
+                239,
+                250,
+                205
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00056.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                276,
+                180,
+                239,
+                207
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00057.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                300,
+                174,
+                330,
+                216
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00058.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                252,
+                134,
+                276,
+                157
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00059.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                93,
+                156,
+                129,
+                180
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00060.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                114,
+                112,
+                93,
+                143
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00061.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                170,
+                110,
+                136,
+                141
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00062.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                286,
+                99,
+                223,
+                143
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00063.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                419,
+                84,
+                338,
+                168
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00064.png": {
+        "Creeper": [],
+        "Pig": [],
+        "purge": false,
+        "written": false
+    },
+    "pig8-00065.png": {
+        "Creeper": [],
+        "Pig": [],
+        "purge": true,
+        "written": false
+    },
+    "pig8-00066.png": {
+        "Creeper": [],
+        "Pig": [],
+        "purge": true,
+        "written": false
+    },
+    "pig8-00067.png": {
+        "Creeper": [],
+        "Pig": [],
+        "purge": true,
+        "written": false
+    },
+    "pig8-00068.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                298,
+                194,
+                387,
+                142
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00069.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                313,
+                111,
+                264,
+                139
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00070.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                313,
+                94,
+                283,
+                112
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00071.png": {
+        "Creeper": [],
+        "Pig": [],
+        "purge": false,
+        "written": false
+    },
+    "pig8-00072.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                104,
+                130,
+                45,
+                166
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00073.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                86,
+                141,
+                40,
+                169
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "pig8-00074.png": {
+        "Creeper": [],
+        "Pig": [],
+        "purge": false,
+        "written": false
+    },
+    "pig8-00075.png": {
+        "Creeper": [],
+        "Pig": [],
+        "purge": false,
+        "written": false
+    },
+    "pig8-00076.png": {
+        "Creeper": [],
+        "Pig": [
+            [
+                335,
+                150,
+                426,
+                231
+            ]
+        ],
+        "purge": false,
+        "written": true
+    }
+}

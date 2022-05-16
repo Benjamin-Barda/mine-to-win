@@ -5,7 +5,7 @@ import json
 import sys
 import pathlib
 
-videoname = "pig1"
+videoname = "pig8"
 
 imageFolderPath = "imgs/frames/"
 
@@ -98,7 +98,7 @@ for key, value in DUMP.items():
     i += 1
     image_name = all_imgs[i]
 
-cv2.namedWindow("win_id")
+cv2.namedWindow("win_id", cv2.WINDOW_NORMAL)
 cv2.setMouseCallback("win_id", draw)
 cv2.setWindowTitle("win_id", image_name)
 
@@ -119,10 +119,10 @@ while run:
 
     for rect in rectList: 
         x0, y0, x1, y1, cols = rect
-        cv2.rectangle(buff, pt1 = (x0, y0), pt2 = (x1, y1), color = cols, thickness=2)
+        cv2.rectangle(buff, pt1 = (x0, y0), pt2 = (x1, y1), color = cols, thickness=1)
 
     if mode_state == 1:
-        cv2.rectangle(buff, pt1 = (strdX, strdY), pt2 = (currX, currY), color = col, thickness=2)
+        cv2.rectangle(buff, pt1 = (strdX, strdY), pt2 = (currX, currY), color = col, thickness=1)
 
 
     cv2.imshow("win_id", buff)
