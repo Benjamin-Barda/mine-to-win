@@ -5,25 +5,21 @@ import json
 import sys
 import pathlib
 
-videoname = "world3"
-
-FROM = 150
-TO = -1
-
+videoname = "pig1"
 
 imageFolderPath = "imgs/frames/"
 
 MOB_MAP  =  {
     ord('1') : ('Pig', (205, 170, 230)),
-    ord('2') : ('Cow', (50, 70, 120)),
-    ord('3') : ('Chicken', (5, 5, 200)),
-    ord('4') : ('Sheep', (125, 125, 121)),
-    ord('5') : ('Zombie', (50, 120, 20)),
-    ord('6') : ('Skeleton', (225, 225, 225)),
-    ord('7') : ('Creeper', (50, 168, 58)),
-    ord('8') : ('Spider', (20, 16, 26)),
-    ord('9') : ('Wolf', (255, 119, 82)),
-    ord('0') : ('Slime', (85, 255, 82)),
+    # ord('2') : ('Cow', (50, 70, 120)),
+    # ord('3') : ('Chicken', (5, 5, 200)),
+    # ord('4') : ('Sheep', (125, 125, 121)),
+    # ord('5') : ('Zombie', (50, 120, 20)),
+    # ord('6') : ('Skeleton', (225, 225, 225)),
+    ord('2') : ('Creeper', (50, 168, 58)),
+    # ord('8') : ('Spider', (20, 16, 26)),
+    # ord('9') : ('Wolf', (255, 119, 82)),
+    # ord('0') : ('Slime', (85, 255, 82)),
 }
 
 H, W = (300,150)
@@ -76,11 +72,17 @@ def draw(event, x, y, flags, params):
 cv2.namedWindow('LEGEND')
 cv2.imshow('LEGEND', legend)
 
-i = FROM
-all_imgs = os.listdir(imageFolderPath)
+i = 0
+all_files = os.listdir(imageFolderPath)
+
+all_imgs = []
+for filename in all_files:
+    if videoname in filename:
+        all_imgs.append(filename)
+
 image_name = all_imgs[i]
 
-output_name = "OUTPUT-" + videoname + "-0-150.json"
+output_name = "jsons/OUTPUT-" + videoname + ".json"
 
 output_file = pathlib.Path(output_name)
 
@@ -146,7 +148,7 @@ while run:
         else:
             i += 1
         
-        if i >= len(all_imgs) or TO > 0 and i >= TO:
+        if i >= len(all_imgs):
             run = False
             break
         
@@ -172,3 +174,5 @@ while run:
 with open(output_name, 'w') as out: 
     out.write(json.dumps(DUMP, sort_keys=True, indent=4))
     out.close()
+
+cv2.destroyAllWindows()

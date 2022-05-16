@@ -2,7 +2,7 @@
 
 import json
 
-mobList = ['Chicken', 'Cow', 'Creeper', 'Pig', 'Sheep', 'Skeleton', 'Slime', 'Spider', 'Wolf', 'Zombie', 'purge', 'written']
+mobList = ['Creeper', 'Pig', 'purge', 'written']
 
 directory = 'jsons/'
 
