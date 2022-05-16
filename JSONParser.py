@@ -6,7 +6,7 @@ mobList = ['Creeper', 'Pig', 'purge', 'written']
 
 directory = 'jsons/'
 
-json_name = 'OUTPUT-world3.json' 
+json_name = 'OUTPUT-pig2.json' 
 
 path_to_json = directory + json_name
 
@@ -24,7 +24,13 @@ for image_name , d in dic.items() :
 
     for mob, boxes in d.items() : 
 
-        if mob == 'purge' or mob == 'written' : 
+        if mob == 'purge':
+            if boxes:
+                break
+            else:
+                parsed[image_name][mob] = dic[image_name][mob]
+                continue
+        if mob == 'written': 
             parsed[image_name][mob] = dic[image_name][mob]
             continue
 
