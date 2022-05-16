@@ -5,7 +5,7 @@ import json
 import sys
 import pathlib
 
-videoname = "creeper3"
+videoname = "creeper4"
 
 imageFolderPath = "imgs/frames/"
 
@@ -119,7 +119,7 @@ while run:
 
     for rect in rectList: 
         x0, y0, x1, y1, cols = rect
-        cv2.rectangle(buff, pt1 = (x0, y0), pt2 = (x1, y1), color = cols, thickness=2)
+        cv2.rectangle(buff, pt1 = (x0, y0), pt2 = (x1, y1), color = cols, thickness=1)
 
     if mode_state == 1:
         cv2.rectangle(buff, pt1 = (strdX, strdY), pt2 = (currX, currY), color = col, thickness=2)
