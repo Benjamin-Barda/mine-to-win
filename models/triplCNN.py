@@ -31,12 +31,10 @@ class BackboneCNN(nn.Module):
         )
         
         self.conv5 = nn.Sequential(
-            nn.Conv2d(40, 80, kernel_size=5, stride=1, padding="same", padding_mode="replicate"),
-            nn.Mish(True),
-            nn.Dropout2d(p = 0.1, inplace=True),
+            nn.Conv2d(40, 80, kernel_size=5, stride=1, padding="same", padding_mode="replicate")
         )
 
-        self.out = nn.Linear(80, 3)
+        self.pool = nn.AvgPool2d(51, ceil_mode=True)
 
         
     def forward(self, x, ret=False):
@@ -47,6 +45,6 @@ class BackboneCNN(nn.Module):
         x = self.conv5(x)
 
         if ret:
-            return self.out(x), x.clone() # Avg pooling
+            return self.pool(x).reshape(x.shape[0], x.shape[1]), x.clone() # Avg pooling
         
-        return self.out(x)
+        return self.pool(x).reshape(x.shape[0], x.shape[1])
