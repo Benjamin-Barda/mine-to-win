@@ -7,10 +7,11 @@ import numpy as np
 
 class ClassData(data.Dataset):
 
-    def __init__(self, sources = [],  transform = None, device = "cpu"):
+    def __init__(self, sources = [],  transform = None, transform_target = None, device = "cpu"):
 
 
         self.transform = transform
+        self.transform_target = transform_target
         df_iter = (pd.read_json(src).T for src in sources)
         df = pd.concat(df_iter).T.drop(["purge", "written"]).T.sample(frac=1)
         self.images = np.asarray(
@@ -18,17 +19,13 @@ class ClassData(data.Dataset):
                 for i in df.index]
                 )
 
-        self.images = torch.ByteTensor(self.images).permute(0,3,1,2)
-        self.labels = torch.ByteTensor( 2 * df["Pig"].astype(bool).astype(int) 
-                                          + df["Creeper"].astype(bool).astype(int) )
+        self.images = np.asarray(self.images, dtype = "uint8")
+        self.labels = np.asarray( 2 * df["Pig"].astype(bool).astype(int) 
+                                          + df["Creeper"].astype(bool).astype(int))
 
         self.boundings = list(zip(df["Pig"], df["Creeper"]))
 
         assert(len(self.images) == len(self.labels) == len(self.boundings))
-
-        if device == "cuda":
-            self.images.pin_memory()
-            self.labels.pin_memory()
 
     def __len__(self):
         return len(self.images)
@@ -40,8 +37,11 @@ class ClassData(data.Dataset):
         img = self.images[index]
         if self.transform:
             img = self.transform(img)
-        
+
         label = self.labels[index]
+
+        if self.transform_target:
+            label = self.transform_target(label)
 
         sample = (img, label)
         return sample
