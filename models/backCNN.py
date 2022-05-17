@@ -17,12 +17,10 @@ class BackboneCNN(nn.Module):
             #nn.Dropout2d(p = 0.1, inplace=True)
         )
         
-        # self.conv3 = nn.Sequential(
-        #     nn.Conv2d(20, 40, kernel_size=3, stride=2, padding_mode="replicate"),
-        #     nn.Dropout2d(p = 1e-4, inplace=True),
-        #     nn.Mish(True),
-        #     nn.MaxPool2d(kernel_size=2, stride=1)
-        # )
+        self.conv3 = nn.Sequential(
+            nn.Conv2d(20, 40, kernel_size=3, stride=2, padding_mode="replicate"),
+            nn.Mish(True)
+        )
         
         self.conv4 = nn.Sequential(
             nn.Conv2d(40, 80, kernel_size=3, stride=2,  padding_mode="replicate"),
@@ -30,12 +28,17 @@ class BackboneCNN(nn.Module):
             #nn.Dropout2d(p = 1e-4, inplace=True),
         )
         
-        self.conv5 = nn.Sequential(
-            nn.Conv2d(80, 3, kernel_size=5, stride=2,  padding_mode="replicate"),
-            #nn.Dropout2d(p = 0.1, inplace=True),
+        # self.conv5 = nn.Sequential(
+        #     nn.Conv2d(80, 3, kernel_size=1, stride=1,  padding_mode="replicate"),
+        #     #nn.Dropout2d(p = 0.1, inplace=True),
+        # )
+
+        self.pool = nn.AdaptiveMaxPool2d(8)
+
+        self.out = nn.Sequential(
+            nn.Linear(5120,3)
         )
 
-        self.pool = nn.AdaptiveMaxPool2d(1)
 
         
     def forward(self, x, ret=False):
@@ -43,9 +46,11 @@ class BackboneCNN(nn.Module):
         x = self.conv2(x)
         # x = self.conv3(x)
         x = self.conv4(x)
-        x = self.conv5(x)
+        #x = self.conv5(x)
+
+        k = self.pool(x).reshape((x.shape[0], -1))
 
         if ret:
-            return self.pool(x).reshape((x.shape[0], -1)), x.clone() # Avg pooling
+            return self.out(k), x.clone() # Avg pooling
         
-        return self.pool(x).reshape((x.shape[0], -1))
+        return self.out(k)

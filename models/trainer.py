@@ -51,7 +51,7 @@ network = BackboneCNN().to(device)
 if load:
     network.load_state_dict(torch.load("./BackCNN_best_weights.pth"))
 
-optimizer = torch.optim.Adam(network.parameters(), lr=0.01)
+optimizer = torch.optim.Adam(network.parameters(), lr=0.001)
 
 best_loss = torch.inf
 best_state = network.state_dict()
@@ -63,7 +63,7 @@ counter = 0
 max_c = 10
 MAX_ITERS = 5
 
-cv2.namedWindow("Feature Map 1", cv2.WINDOW_NORMAL)
+# cv2.namedWindow("Feature Map 1", cv2.WINDOW_NORMAL)
 # cv2.namedWindow("Feature Map 2", cv2.WINDOW_NORMAL)
 # cv2.namedWindow("Feature Map 3", cv2.WINDOW_NORMAL)
 
@@ -86,6 +86,9 @@ while True:
         optimizer.step()
         
         j += 1
+
+        if j > 4:
+            break
         print(j)
 
 
@@ -109,14 +112,12 @@ while True:
         accuracy = total_correct / total
         print(f"Epoch {i}: accuracy={accuracy:.5f}, risk={risk:.5f}")
 
-        print(preds.argmax(axis=1))
-        print(labels)
+        #print(preds.argmax(axis=1))
+        #print(labels)
 
-        cv2.imshow("Feature Map 1", torch.clamp(feature_maps[0][:3] * 255, min=0, max=255).type(torch.uint8).permute(1,2,0).numpy())
+        #cv2.imshow("Feature Map 1", torch.clamp((feature_maps[0][:3] - feature_maps[0][:3].min()) * 255 / (feature_maps[0][:3].max() - feature_maps[0][:3].min()), min=0, max=255).type(torch.uint8).permute(1,2,0).numpy())
         # cv2.imshow("Feature Map 2", torch.clamp(feature_maps[0][3:6] * 255, min=0, max=255).type(torch.uint8).permute(1,2,0).numpy())
         # cv2.imshow("Feature Map 3", torch.clamp(feature_maps[0][6:9] * 255, min=0, max=255).type(torch.uint8).permute(1,2,0).numpy())
-
-        cv2.waitKey()
 
         if loss < best_loss:
             best_loss = loss

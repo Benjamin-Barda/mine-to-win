@@ -141,6 +141,7 @@ def create_dataset_with_tensor(JSON_dir, img_dir, path, name):
             ]))
 
     for filename in JSON_dir[1:]:
+        print(filename)
         df = pd.read_json(filename).T
         df.drop(["written"], axis=1, inplace=True)
         df.drop(df[df.purge].index, inplace=True)
