@@ -35,7 +35,7 @@ class BackboneCNN(nn.Module):
             #nn.Dropout2d(p = 0.1, inplace=True),
         )
 
-        self.pool = nn.AdaptiveAvgPool2d(1)
+        self.pool = nn.AdaptiveMaxPool2d(1)
 
         
     def forward(self, x, ret=False):
