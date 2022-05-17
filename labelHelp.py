@@ -5,7 +5,8 @@ import json
 import sys
 import pathlib
 
-videoname = "creeper8"
+videoname = "creeper8
+"
 
 imageFolderPath = "imgs/frames/"
 
