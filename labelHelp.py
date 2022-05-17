@@ -5,10 +5,9 @@ import json
 import sys
 import pathlib
 
-videoname = "creeper8
-"
+videoname = "2022-05"
 
-imageFolderPath = "imgs/frames/"
+imageFolderPath = "models/img_test/pig/"
 
 MOB_MAP  =  {
     ord('1') : ('Pig', (205, 170, 230)),

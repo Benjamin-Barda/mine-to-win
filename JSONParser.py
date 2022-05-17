@@ -13,7 +13,7 @@ jsons = ["OUTPUT-pig1.json","OUTPUT-pig2.json","OUTPUT-pig3.json","OUTPUT-pig4.j
          "OUTPUT-creeper5.json","OUTPUT-creeper6.json","OUTPUT-creeper7.json","OUTPUT-creeper8.json",
          "OUTPUT-null1.json","OUTPUT-null2.json","OUTPUT-null3.json","OUTPUT-null4.json",
          "OUTPUT-null5.json","OUTPUT-null6.json","OUTPUT-null7.json","OUTPUT-null8.json",
-         "OUTPUT-seanull1.json"]
+         "OUTPUT-seanull1.json", "OUTPUT-2022-05.json"]
 
 
 for json_name in jsons:
