@@ -41,21 +41,21 @@ for json_name in jsons:
                     continue
             if mob == 'written': 
                 parsed[image_name][mob] = dic[image_name][mob]
-            continue
+                continue
 
 
-        for box in boxes : 
+            for box in boxes : 
 
-            x0, x1 = box[0], box[2]
-            y0, y1 = box[1], box[3]
+                x0, x1 = box[0], box[2]
+                y0, y1 = box[1], box[3]
 
-            W = abs(x0 - x1)
-            H = abs(y0 - y1)
+                W = abs(x0 - x1)
+                H = abs(y0 - y1)
 
-            mid_x = (x0 + x1) // 2
-            mid_y = (y0 + y1) // 2
+                mid_x = (x0 + x1) // 2
+                mid_y = (y0 + y1) // 2
 
-            parsed[image_name][mob].append([mid_x, mid_y, W, H])
+                parsed[image_name][mob].append([mid_x, mid_y, W, H])
             
                 
     with open(directory + 'PARSED' + json_name, 'w') as g:

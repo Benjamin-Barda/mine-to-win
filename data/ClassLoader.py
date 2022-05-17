@@ -21,7 +21,7 @@ class ClassData(data.Dataset):
 
         self.images = np.asarray(self.images, dtype = "uint8")
         self.labels = np.asarray( 2 * df["Pig"].astype(bool).astype(int) 
-                                          + df["Creeper"].astype(bool).astype(int))
+                                          + df["Creeper"].astype(bool).astype(int), dtype="int64")
 
         self.boundings = list(zip(df["Pig"], df["Creeper"]))
 
