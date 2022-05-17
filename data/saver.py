@@ -1,5 +1,6 @@
-from MineDataset import create_dataset
+import MineDataset
 import os
+
 datasets = []
 
 for filename in os.listdir("jsons/"):
@@ -15,8 +16,6 @@ for filename in os.listdir("jsons/"):
     if ext == "json" and name.startswith("PARSED"):
         datasets.append(filename)
 
-datasets = ["jsons\\" + dataset for dataset in datasets]
-
-print(datasets)
+datasets = [os.path.join("jsons", dataset) for dataset in datasets]
     
-create_dataset(datasets, "imgs\\frames\\", os.path.join("data", "datasets"), "mine-classes")
+MineDataset.create_dataset_with_tensor(datasets, os.path.join("imgs","frames"), os.path.join("data", "datasets"), "mine-classes")

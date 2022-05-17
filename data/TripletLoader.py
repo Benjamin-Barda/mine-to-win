@@ -1,44 +1,55 @@
 from zmq import device
-import combinatorics
-import numpy as np
 import torch
+import random
 
 class TripletLoader:
-    def __init__(self, dataset, classes, k=10, cuda = False):
+    def __init__(self, dataset, classes = 2, batch_size=32,  device = None):
         self.dataset = dataset
-        self.triplets_per_class = k
-        self.classes = classes
-        self.cuda = cuda
-        self.available_images = []
+        self.device = device
+        self.batch_size = batch_size
+        self.classes = classes + 1
+        self.available_images = [list() for _ in range(classes + 1)]
 
         for i in range(len(dataset)):
             labels = dataset.data.iloc[i]
-            contains = set()
-            empty = True
-            no = False
             for j, label in enumerate(labels):
                 if len(label) > 0:
-                    empty = False
-                    contains.add(dataset.data.columns[j])
-                    if dataset.data.columns[j] not in classes:
-                        no = True
-                        break
-            if no:
-                continue
-
-            if empty:
-                contains.add("empty")
+                    self.available_images[j + 1].append(i)
+                    break
             
-            self.available_images.append((i, contains))
+            self.available_images[0].append(i)
 
+        self.ait = [torch.LongTensor(lst) for lst in self.available_images]
 
     def __iter__(self):
+        batch_remainder = 0
+        min_size = self.batch_size // self.classes
+        idxs = torch.empty((3, self.batch_size), dtype=torch.int64)
         while True:
-            triplets = combinatorics.create_triplets(self.available_images, self.triplets_per_class)
-            triplets = np.asarray(triplets, dtype=np.int32).T
-            anchs, a_labs = self.dataset[triplets[0]]
-            pos, p_labs = self.dataset[triplets[1]]
-            neg, n_labs = self.dataset[triplets[2]]
+            idxs = [[0] * self.batch_size for _ in range(3)]
+            n_per_class = [min_size] * self.classes
+            rem = self.batch_size % self.classes
+            while rem > 1:
+                n_per_class[batch_remainder] += 1
+                batch_remainder = (batch_remainder + 1) % self.classes
+                rem -= 1
+
+            accu = 0
+            for i, lst in enumerate(self.ait):
+                idx_lst = list(range(len(lst)))
+                random.shuffle(idx_lst)
+                idxs[0][accu : n_per_class[i] + accu] = lst[idx_lst[:n_per_class[i]]]
+                idxs[1][accu : n_per_class[i] + accu] = lst[idx_lst[n_per_class[i]:2*n_per_class[i]]]
+                negs = list(range(1, self.classes))
+                negs = random.choices(negs, k=n_per_class[i])
+                for n, k in enumerate([(j + i) % self.classes for j in negs]):
+                    choice = random.choice(self.available_images[k])
+                    idxs[2][accu + n] = choice
+                accu += n_per_class[i]
+
+            anchs, a_labs = self.dataset[idxs[0]]
+            pos, p_labs = self.dataset[idxs[1]]
+            neg, n_labs = self.dataset[idxs[2]]
             
-            outTensor = torch.vstack([anchs, pos, neg], device="cuda") if self.cuda else torch.stack([anchs, pos, neg]) 
+            outTensor = torch.vstack([anchs, pos, neg], device=device) if self.device != None else torch.stack([anchs, pos, neg]) 
             yield outTensor, list(zip(a_labs, p_labs, n_labs))
