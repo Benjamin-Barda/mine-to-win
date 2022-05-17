@@ -6,6 +6,7 @@ mobList = ['Creeper', 'Pig', 'purge', 'written']
 
 directory = 'jsons/'
 
+
 jsons = ["OUTPUT-pig1.json","OUTPUT-pig2.json","OUTPUT-pig3.json","OUTPUT-pig4.json",
          "OUTPUT-pig5.json","OUTPUT-pig6.json","OUTPUT-pig7.json","OUTPUT-pig8.json",
          "OUTPUT-creeper1.json","OUTPUT-creeper2.json","OUTPUT-creeper3.json","OUTPUT-creeper4.json",
@@ -13,6 +14,7 @@ jsons = ["OUTPUT-pig1.json","OUTPUT-pig2.json","OUTPUT-pig3.json","OUTPUT-pig4.j
          "OUTPUT-null1.json","OUTPUT-null2.json","OUTPUT-null3.json","OUTPUT-null4.json",
          "OUTPUT-null5.json","OUTPUT-null6.json","OUTPUT-null7.json","OUTPUT-null8.json",
          "OUTPUT-seanull1.json"]
+
 
 for json_name in jsons:
     path_to_json = directory + json_name
@@ -30,10 +32,17 @@ for json_name in jsons:
         parsed[image_name] = {x : [] for x in mobList}
 
         for mob, boxes in d.items() : 
-
-            if mob == 'purge' or mob == 'written' : 
+            
+             if mob == 'purge':
+                if boxes:
+                    break
+                else:
+                    parsed[image_name][mob] = dic[image_name][mob]
+                    continue
+             if mob == 'written': 
                 parsed[image_name][mob] = dic[image_name][mob]
                 continue
+
 
             for box in boxes : 
 
