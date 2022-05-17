@@ -8,6 +8,9 @@ from torch.utils.data import Subset
 import torch
 import cv2
 from backCNN import BackboneCNN
+from torch.backends import cuda
+
+cuda.benchmark = True
 
 trans = transforms.Compose(
 (
@@ -35,7 +38,7 @@ val_load =   DataLoader(val, batch_size = BATCH_SIZE, shuffle=True, pin_memory=T
 model = BackboneCNN().to("cuda", non_blocking=True)
 
 optimizer = torch.optim.AdamW(params=model.parameters() ,lr = 0.001)
-best_loss = torch.inf
+best_risk = torch.inf
 best_state = model.state_dict()
 
 loss_funct = torch.nn.CrossEntropyLoss()
@@ -89,14 +92,14 @@ while True:
         accuracy = total_correct / total
         print(f"Epoch {i}: accuracy={accuracy:.5f}, risk={risk:.5f}")
         
-        if loss < best_loss:
-            best_loss = loss
+        if risk < best_risk:
+            best_risk = risk
             best_state = model.state_dict()
             counter = 0
         elif counter < max_c:
             counter += 1
         else:
-            print(f"Worse loss reached, stopping training, best loss: {best_loss}.")
+            print(f"Worse loss reached, stopping training, best risk: {best_risk}.")
             break
 
     i += 1
