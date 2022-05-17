@@ -1,16 +1,15 @@
 import torch
-from triplCNN import BackboneCNN
+from backCNN import BackboneCNN
 import sys
 import os
 import cv2
 sys.path.append(os.path.join(os.path.dirname(__file__), "../data"))
-from TripletLoader import TripletLoader
 from MineDataset import MineDatasetMultiTensor
 
 
 def l2_norm_loss(anch, p, n, margin):
-    dp = torch.sqrt(torch.pow(anch - p, 2).sum(axis = (1,2,3)))
-    dn = torch.sqrt(torch.pow(anch - n, 2).sum(axis = (1,2,3)))
+    dp = torch.sqrt(torch.pow(anch - p, 2).sum(axis = 1))
+    dn = torch.sqrt(torch.pow(anch - n, 2).sum(axis = 1))
     return torch.clamp(dp - dn + margin, min=0.0)
 
 # def cos_dist_loss(anch, p, n, margin):
@@ -41,53 +40,48 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 print(device)
 
-BATCH_SIZE = 32
+BATCH_SIZE = 128
     
-dataset = MineDatasetMulti(os.path.join("data", "datasets"), "mine-classes")
-loader = TripletLoader(dataset, batch_size = BATCH_SIZE)
+dataset = MineDatasetMultiTensor(os.path.join("data", "datasets"), "mine-classes")
 
-loader_iter = iter(loader)
+loader = torch.utils.data.DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True)
+
 network = BackboneCNN().to(device)
     
 if load:
     network.load_state_dict(torch.load("./BackCNN_best_weights.pth"))
 
-optimizer = torch.optim.AdamW(network.parameters(), lr=0.01)
+optimizer = torch.optim.Adam(network.parameters(), lr=0.01)
 
 best_loss = torch.inf
 best_state = network.state_dict()
 
-loss_funct = TripletLoss(margin=0.1)
+loss_funct = torch.nn.CrossEntropyLoss()
 
 i = 0
 counter = 0
 max_c = 10
 MAX_ITERS = 5
 
-cv2.namedWindow("Anchor", cv2.WINDOW_NORMAL)
-cv2.namedWindow("Positive", cv2.WINDOW_NORMAL)
-cv2.namedWindow("Negative", cv2.WINDOW_NORMAL)
+cv2.namedWindow("Feature Map 1", cv2.WINDOW_NORMAL)
+# cv2.namedWindow("Feature Map 2", cv2.WINDOW_NORMAL)
+# cv2.namedWindow("Feature Map 3", cv2.WINDOW_NORMAL)
 
 while True:
     i += 1
     j = 0
 
     network.train()
-    
-    while j < MAX_ITERS:
-        imgs, _ = next(loader_iter)
-    
+
+    for imgs, labels in iter(loader):
         # Train
 
         imgs = imgs.to(device=device)
-        preds_a = network.forward(imgs[0])
-        preds_p = network.forward(imgs[1])
-        preds_n = network.forward(imgs[2])
+        preds = network.forward(imgs)
+
+        loss = loss_funct.forward(preds, labels)
 
         optimizer.zero_grad()
-
-        loss = loss_funct.forward(preds_a, preds_p, preds_n)
-
         loss.backward()
         optimizer.step()
         
@@ -99,27 +93,28 @@ while True:
     network.eval()
     with torch.no_grad():
 
-        imgs, _ = next(loader_iter)
+        imgs, labels = next(iter(loader))
 
         imgs = imgs.to(device=device)
         
-        preds_a, a = network.forward(imgs[0], True)
-        preds_p, p = network.forward(imgs[1], True)
-        preds_n, n = network.forward(imgs[2], True)
+        preds, feature_maps = network.forward(imgs, True)
 
-        loss = loss_funct.forward(preds_a, preds_p, preds_n)
+        loss = loss_funct.forward(preds, labels)
     
         total_loss = loss.item()
-        total_correct = torch.where(cos_dist_loss(preds_a, preds_p, preds_n, 0) == 0, 1.0, 0.0).sum().item()
-        total = preds_a.shape[1]
+        total_correct = preds.argmax(axis=1).eq(labels).sum().item()
+        total = preds.shape[0]
         
         risk = total_loss / total
         accuracy = total_correct / total
         print(f"Epoch {i}: accuracy={accuracy:.5f}, risk={risk:.5f}")
 
-        cv2.imshow("Anchor", a[0][0].numpy())
-        cv2.imshow("Positive", p[0][0].numpy())
-        cv2.imshow("Negative", n[0][0].numpy())
+        print(preds.argmax(axis=1))
+        print(labels)
+
+        cv2.imshow("Feature Map 1", torch.clamp(feature_maps[0][:3] * 255, min=0, max=255).type(torch.uint8).permute(1,2,0).numpy())
+        # cv2.imshow("Feature Map 2", torch.clamp(feature_maps[0][3:6] * 255, min=0, max=255).type(torch.uint8).permute(1,2,0).numpy())
+        # cv2.imshow("Feature Map 3", torch.clamp(feature_maps[0][6:9] * 255, min=0, max=255).type(torch.uint8).permute(1,2,0).numpy())
 
         cv2.waitKey()
 

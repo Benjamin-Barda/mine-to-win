@@ -105,7 +105,19 @@ class MineDatasetMultiTensor(Dataset):
         """
         self.transform = transform
         self.data, self.JSON_DIR, self.img_dir = torch.load(os.path.join(load_dir,name + ".dtset"))
-        self.images = torch.load(os.path.join(load_dir,name + "_images.dtset"))
+        self.images = torch.load(os.path.join(load_dir,name + "_images.dtset")).permute(0,3,1,2)
+
+        self.lbls = torch.empty(len(self.data), dtype=torch.uint8)
+        for i in range(len(self.data)):
+            labels = self.data.iloc[i]
+            empty = True
+            for j, label in enumerate(labels):
+                if len(label) > 0:
+                    empty = False
+                    self.lbls[i] = j + 1
+                    break
+            if empty:
+                self.lbls[i] = 0
         
     def __len__(self):
         return len(self.data)
@@ -114,9 +126,8 @@ class MineDatasetMultiTensor(Dataset):
         images = self.images[idx]
         if self.transform:
             images = self.transform(images)
-        infos = self.data.iloc[idx]
-            
-        return images, infos
+        
+        return images, self.lbls[idx]
 
 
 def create_dataset_with_tensor(JSON_dir, img_dir, path, name):

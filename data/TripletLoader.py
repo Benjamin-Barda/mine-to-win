@@ -16,16 +16,17 @@ class TripletLoader:
                 if len(label) > 0:
                     self.available_images[j + 1].append(i)
                     break
-
+            
             self.available_images[0].append(i)
 
-        self.available_images = [torch.IntTensor(lst) for lst in self.available_images]
+        self.ait = [torch.LongTensor(lst) for lst in self.available_images]
 
     def __iter__(self):
         batch_remainder = 0
         min_size = self.batch_size // self.classes
-        idxs = torch.empty((3,self.batch_size))
+        idxs = torch.empty((3, self.batch_size), dtype=torch.int64)
         while True:
+            idxs = [[0] * self.batch_size for _ in range(3)]
             n_per_class = [min_size] * self.classes
             rem = self.batch_size % self.classes
             while rem > 1:
@@ -34,17 +35,16 @@ class TripletLoader:
                 rem -= 1
 
             accu = 0
-            for i, lst in enumerate(self.available_images):
+            for i, lst in enumerate(self.ait):
                 idx_lst = list(range(len(lst)))
                 random.shuffle(idx_lst)
                 idxs[0][accu : n_per_class[i] + accu] = lst[idx_lst[:n_per_class[i]]]
                 idxs[1][accu : n_per_class[i] + accu] = lst[idx_lst[n_per_class[i]:2*n_per_class[i]]]
-
-                negs = list(range(1, self.classes - 1))
+                negs = list(range(1, self.classes))
                 negs = random.choices(negs, k=n_per_class[i])
                 for n, k in enumerate([(j + i) % self.classes for j in negs]):
-                    idxs[2][accu + n] = random.choice(self.available_images[k])
-
+                    choice = random.choice(self.available_images[k])
+                    idxs[2][accu + n] = choice
                 accu += n_per_class[i]
 
             anchs, a_labs = self.dataset[idxs[0]]
