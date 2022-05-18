@@ -26,7 +26,7 @@ class BackboneCNN(nn.Module):
             nn.Conv2d(40, 80, kernel_size=3, stride=2, padding_mode="replicate"),
             nn.Mish(True),
             nn.BatchNorm2d(80),
-            nn.Dropout2d(p = 0.1, inplace=True),
+            nn.Dropout2d(p = 0.2, inplace=True),
         )
         
         self.conv4 = nn.Sequential(
