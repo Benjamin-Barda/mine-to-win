@@ -52,13 +52,13 @@ val_load =   DataLoader(val, batch_size = BATCH_SIZE, shuffle=True, pin_memory=T
 
 model = BackboneCNN().to("cuda", non_blocking=True)
 
-optimizer = torch.optim.AdamW(params=model.parameters() ,lr = 0.002, amsgrad=True)
+optimizer = torch.optim.AdamW(params=model.parameters() ,lr = 0.0002, amsgrad=True)
 best_risk = torch.inf
 best_state = model.state_dict()
 
 loss_funct = torch.nn.CrossEntropyLoss()
 
-load = False
+load = True
 store = True
 
 if load:
