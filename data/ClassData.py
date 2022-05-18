@@ -48,3 +48,26 @@ class ClassData(data.Dataset):
 
     def shape(self):
         return self.images.shape
+    
+def create_and_save_dataset(srcs, filename):
+    from torchvision import transforms
+    
+    trans = transforms.Compose((
+        transforms.ToTensor(),
+        transforms.RandomHorizontalFlip(),
+        transforms.ColorJitter(brightness=(0.55, 1.45), contrast=(0.95, 1.05), saturation=(0.99, 1.01))
+    ))
+
+
+
+    ds = ClassData(srcs, transform=trans)
+    
+    torch.save(ds, filename)
+
+"""
+names = [f"jsons\\PARSEDOUTPUT-creeper{i}.json" for i in range(1, 9)]
+names += [f"jsons\\PARSEDOUTPUT-pig{i}.json" for i in range(1, 9)]
+names += [f"jsons\\PARSEDOUTPUT-null{i}.json" for i in range(1, 9)]
+names.append("jsons\\PARSEDOUTPUT-seanull1.json")
+create_and_save_dataset(names, "data\\datasets\\minedata_classifier.dtst")
+"""
