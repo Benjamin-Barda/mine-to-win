@@ -1,9 +1,11 @@
+from concurrent.futures import thread
 import sys, os
 import numpy as np
 sys.path.append(os.path.join(os.path.dirname(__file__), "../data"))
 from ClassData import ClassData
 from torch.utils.data import DataLoader
 from torchvision import transforms
+from torchvision.transforms import InterpolationMode
 from torch.utils.data import Subset
 import torch
 import cv2
@@ -28,18 +30,7 @@ def plot_confusion(lab, pred):
 
 cuda.benchmark = True
 
-trans = transforms.Compose((
-    transforms.ToTensor(),
-    transforms.RandomHorizontalFlip(),
-    transforms.ColorJitter(brightness=(0.55, 1.45), contrast=(0.95, 1.05), saturation=(0.99, 1.01))
-))
-
-names = [f"jsons\\PARSEDOUTPUT-creeper{i}.json" for i in range(1, 9)]
-names += [f"jsons\\PARSEDOUTPUT-pig{i}.json" for i in range(1, 9)]
-names += [f"jsons\\PARSEDOUTPUT-null{i}.json" for i in range(1, 9)]
-names.append("jsons\\PARSEDOUTPUT-seanull1.json")
-
-ds = ClassData(names, transform=trans)
+ds = torch.load("data\\datasets\minedata_classifier_local.dtst")
 print(ds.shape())
 
 split = int(ds.shape()[0] * 0.8)
@@ -52,20 +43,21 @@ val_load =   DataLoader(val, batch_size = BATCH_SIZE, shuffle=True, pin_memory=T
 
 model = BackboneCNN().to("cuda", non_blocking=True)
 
-optimizer = torch.optim.AdamW(params=model.parameters() ,lr = 0.0002, amsgrad=True)
+load = True
+store = True
+
+if load:
+    model.load_state_dict(torch.load("./BackCNN_deep_best_weights.pth"))
+
+optimizer = torch.optim.AdamW(params=model.parameters(), lr = 0.0002, amsgrad=True)
+
 best_risk = torch.inf
 best_state = model.state_dict()
 
 loss_funct = torch.nn.CrossEntropyLoss()
 
-load = True
-store = True
-
-if load:
-    model.load_state_dict(torch.load("./BackCNN_best_weights.pth"))
-
 i = 0
-max_c = 5
+max_c = 15
 
 tot_minibatch = np.ceil(split / BATCH_SIZE)
 tot_minibatch_val = np.ceil((split * 0.2) / BATCH_SIZE)
@@ -73,24 +65,35 @@ tot_minibatch_val = np.ceil((split * 0.2) / BATCH_SIZE)
 while True:
 
     model.train()
+    ds.set_train_mode(True)
+    
     for indx, (img, label) in enumerate(train_load):
+        
+        #cv2.imshow("HI", img[0].permute(1,2,0).numpy())
+        #cv2.waitKey(-1)
         
         img = img.to("cuda", non_blocking=True)
         label = label.to("cuda", non_blocking=True)
-         
+        
         preds = model.forward(img)
         loss = loss_funct.forward(preds, label)
         
-        optimizer.zero_grad()
+        optimizer.zero_grad(set_to_none=True)
         loss.backward()
         optimizer.step()
         
         print(f"Epoch {i}, {(100 * indx / tot_minibatch):.3f}%", end = "\r")
         
     model.eval()
+    ds.set_train_mode(False)
+    
     with torch.no_grad():
         total_loss, total_correct, total = 0,0,0
+        
         for img, label in val_load:
+            
+            #cv2.imshow("HI", img[0].permute(1,2,0).numpy())
+            #cv2.waitKey(-1)
             img = img.to("cuda", non_blocking=True)
             label = label.to("cuda", non_blocking=True)
             total += img.shape[0]
@@ -101,7 +104,7 @@ while True:
             total_loss += loss.item()
             total_correct += preds.argmax(axis=1).eq(label).sum().item()
             
-
+            
         risk = total_loss / tot_minibatch_val
         accuracy = total_correct / total
         print(f"Epoch {i}: accuracy={accuracy:.5f}, risk={risk:.5f}")
@@ -119,4 +122,4 @@ while True:
         i += 1
 
 if store:
-    torch.save(best_state, "./BackCNN_finetuned_best_weights.pth")
+    torch.save(best_state, "./BackCNN_deep_best_weights.pth")
