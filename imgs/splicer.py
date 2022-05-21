@@ -1,9 +1,9 @@
 import numpy as np
 import cv2
 
-names = ["creeper", "pig", "null"]
+names = ["zombie", "sheep"]
 
-for j in range(1, 9):
+for j in range(1, 7):
     print(j)
     for name in names:
         i = 0
