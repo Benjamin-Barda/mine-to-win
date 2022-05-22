@@ -46,9 +46,9 @@ class BackboneCNN(nn.Module):
         )
         
         self.conv6 = nn.Sequential(
-            nn.Conv2d(120, 3, kernel_size=1, stride=1, padding=1, padding_mode="replicate", bias = False),
+            nn.Conv2d(120, 5, kernel_size=1, stride=1, padding=1, padding_mode="replicate", bias = False),
             nn.Dropout2d(p = 0.2, inplace=True),
-            nn.BatchNorm2d(3),
+            nn.BatchNorm2d(5),
         )
 
         self.pool = nn.AdaptiveMaxPool2d(1)

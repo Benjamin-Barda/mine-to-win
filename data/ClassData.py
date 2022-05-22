@@ -22,10 +22,10 @@ class ClassData(data.Dataset):
                 )
 
         self.images = np.asarray(self.images, dtype = "uint8")
-        self.labels = np.asarray( 2 * df["Pig"].astype(bool).astype(int) 
-                                          + df["Creeper"].astype(bool).astype(int), dtype="int64")
+        self.labels = np.asarray( 4 * df["Sheep"].astype(bool).astype(int) + 3 * df["Zombie"].astype(bool).astype(int)
+                                + 2 * df["Pig"].astype(bool).astype(int) + df["Creeper"].astype(bool).astype(int), dtype="int64")
 
-        self.boundings = list(zip(df["Pig"], df["Creeper"]))
+        self.boundings = list(zip(df["Pig"], df["Creeper"], df["Sheep"], df["Zombie"]))
 
         assert(len(self.images) == len(self.labels) == len(self.boundings))
 
