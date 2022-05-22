@@ -1,0 +1,1091 @@
+{
+    "zombie9-00000.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                234,
+                238,
+                424,
+                0
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00001.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                341,
+                237,
+                424,
+                22
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00002.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                209,
+                237,
+                143,
+                143
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00003.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                211,
+                93,
+                237,
+                138
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00004.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                377,
+                153,
+                344,
+                111
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00005.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                323,
+                121,
+                361,
+                183
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00006.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                343,
+                198,
+                301,
+                121
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00007.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                293,
+                112,
+                376,
+                233
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00008.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                141,
+                78,
+                190,
+                174
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00009.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                195,
+                70,
+                251,
+                173
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00010.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                352,
+                168,
+                305,
+                110
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00011.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                424,
+                170,
+                366,
+                70
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00012.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                354,
+                208,
+                287,
+                90
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00013.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                424,
+                237,
+                305,
+                12
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00014.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "zombie9-00015.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                141,
+                107,
+                179,
+                146
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00016.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                222,
+                123,
+                197,
+                100
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00017.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "zombie9-00018.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                222,
+                130,
+                204,
+                103
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00019.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                258,
+                116,
+                279,
+                139
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00020.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                337,
+                133,
+                317,
+                114
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00021.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                389,
+                132,
+                364,
+                100
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00022.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                387,
+                103,
+                359,
+                71
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00023.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                349,
+                98,
+                329,
+                76
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00024.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                287,
+                79,
+                303,
+                93
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00025.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                226,
+                90,
+                239,
+                101
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00026.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                215,
+                97,
+                229,
+                110
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00027.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                250,
+                116,
+                235,
+                102
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00028.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                298,
+                90,
+                318,
+                118
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00029.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                401,
+                141,
+                360,
+                92
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00030.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                343,
+                142,
+                297,
+                75
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00031.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                210,
+                188,
+                153,
+                114
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00032.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                146,
+                169,
+                96,
+                98
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00033.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                178,
+                132,
+                142,
+                78
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00034.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                153,
+                88,
+                179,
+                126
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00035.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                148,
+                84,
+                166,
+                113
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00036.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                154,
+                86,
+                169,
+                109
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00037.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                161,
+                94,
+                147,
+                72
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00038.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                182,
+                92,
+                195,
+                109
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00039.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                214,
+                105,
+                225,
+                123
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00040.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                370,
+                106,
+                349,
+                85
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00041.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                329,
+                72,
+                313,
+                55
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00042.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                241,
+                85,
+                255,
+                105
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00043.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                305,
+                81,
+                324,
+                106
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00044.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                145,
+                105,
+                162,
+                132
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00045.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                55,
+                161,
+                13,
+                117
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00046.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                295,
+                136,
+                328,
+                167
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00047.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                274,
+                101,
+                317,
+                141
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00048.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                273,
+                84,
+                328,
+                151
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00049.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                326,
+                175,
+                255,
+                79
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00050.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                262,
+                181,
+                201,
+                86
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00051.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                312,
+                101,
+                253,
+                167
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00052.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                186,
+                90,
+                201,
+                114
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00053.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                155,
+                123,
+                140,
+                102
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00054.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                103,
+                188,
+                79,
+                159
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00055.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                187,
+                167,
+                204,
+                144
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00056.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                347,
+                217,
+                374,
+                187
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00057.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                293,
+                164,
+                315,
+                192
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00058.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                62,
+                103,
+                19,
+                73
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00059.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                61,
+                103,
+                18,
+                72
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00060.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                398,
+                119,
+                355,
+                91
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00061.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                306,
+                86,
+                341,
+                114
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00062.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                243,
+                107,
+                266,
+                134
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00063.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                208,
+                135,
+                242,
+                79
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00064.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                148,
+                70,
+                206,
+                170
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00065.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                221,
+                237,
+                124,
+                127
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00066.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                30,
+                237,
+                203,
+                37
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00067.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                175,
+                92,
+                120,
+                188
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00068.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                177,
+                150,
+                151,
+                105
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00069.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                217,
+                94,
+                195,
+                124
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00070.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [],
+        "purge": false,
+        "written": false
+    },
+    "zombie9-00071.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                291,
+                84,
+                310,
+                114
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00072.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                339,
+                55,
+                361,
+                80
+            ]
+        ],
+        "purge": false,
+        "written": true
+    },
+    "zombie9-00073.png": {
+        "Creeper": [],
+        "Pig": [],
+        "Sheep": [],
+        "Zombie": [
+            [
+                358,
+                80,
+                337,
+                50
+            ]
+        ],
+        "purge": false,
+        "written": true
+    }
+}
