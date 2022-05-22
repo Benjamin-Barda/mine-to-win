@@ -5,7 +5,7 @@ import json
 import sys
 import pathlib
 
-videoname = "pig10"
+videoname = "zombie3"
 
 imageFolderPath = "imgs/frames/"
 
