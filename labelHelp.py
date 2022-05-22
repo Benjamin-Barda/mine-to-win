@@ -5,18 +5,20 @@ import json
 import sys
 import pathlib
 
-videoname = "2022-05"
+videoname = "pig10"
 
-imageFolderPath = "models/img_test/pig/"
+imageFolderPath = "imgs/frames/"
 
 MOB_MAP  =  {
     ord('1') : ('Pig', (205, 170, 230)),
+    ord('2') : ('Creeper', (50, 168, 58)),
+    ord('3') : ('Zombie', (50, 120, 20)),
+    ord('4') : ('Sheep', (125, 125, 121)),
     # ord('2') : ('Cow', (50, 70, 120)),
     # ord('3') : ('Chicken', (5, 5, 200)),
     # ord('4') : ('Sheep', (125, 125, 121)),
     # ord('5') : ('Zombie', (50, 120, 20)),
     # ord('6') : ('Skeleton', (225, 225, 225)),
-    ord('2') : ('Creeper', (50, 168, 58)),
     # ord('8') : ('Spider', (20, 16, 26)),
     # ord('9') : ('Wolf', (255, 119, 82)),
     # ord('0') : ('Slime', (85, 255, 82)),
