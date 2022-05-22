@@ -3,8 +3,11 @@ from torch import nn
 # The Ziggurat
 
 class BackboneCNN(nn.Module):
-    def __init__(self):
+    def __init__(self, is_in_rpn = False):
         super(BackboneCNN, self).__init__()
+
+        # If true stop at the last con layer 
+        self.is_in_rpn = is_in_rpn
         
         self.conv1 = nn.Sequential(
             nn.BatchNorm2d(3),
@@ -51,6 +54,12 @@ class BackboneCNN(nn.Module):
         x = self.conv2(x)
         x = self.conv3(x)
         x = self.conv4(x)
+
+        if self.is_in_rpn :
+            # return after the 4th layer ... no need to go further down the net 
+            return x
+
+
         x = self.conv5(x)
 
         k = self.pool(x).reshape((x.shape[0], -1))
