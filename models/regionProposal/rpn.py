@@ -110,7 +110,7 @@ class _rpn(nn.Module):
         shift_center_x = shift_center_x.ravel()
         shift_center_y = shift_center_y.ravel()
         shifts = np.stack(
-            (shift_center_x.ravel(), shift_center_y.ravel(),
+            (shift_center_x, shift_center_y,
              np.zeros(shift_center_x.shape[0]), np.zeros(shift_center_y.shape[0])), axis=1)
 
         K = shifts.shape[0]
