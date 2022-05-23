@@ -1,17 +1,15 @@
 import sys
 import os
-from turtle import forward
+sys.path.append(os.path.join(os.path.dirname(__file__), "../../"))
+
 import torch
 from torch import nn 
 from torch.nn import functional as F 
 import pandas as pd
 import numpy as np
-
-print(sys.path)
-#sys.path.append(os.path.join(os.path.dirname(__file__), "../../"))
-from proposalLayer import _proposal
-from models.utils.config import cfg
-from utils.anchorUtils import generate_anchors, splashAnchors
+from models.regionProposal.proposalLayer import _proposal
+from utils.config import cfg
+from models.regionProposal.utils.anchorUtils import * 
 
 
 class _rpn(nn.Module) : 

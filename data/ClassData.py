@@ -65,14 +65,14 @@ def create_and_save_dataset(srcs, filename, for_colab = False):
     torch.save(ds, filename, _use_new_zipfile_serialization = (not False))
 
 
-names = [f"jsons\\PARSEDOUTPUT-creeper{i}.json" for i in range(1, 9)]
-names += [f"jsons\\PARSEDOUTPUT-pig{i}.json" for i in range(1, 9)]
-names += [f"jsons\\PARSEDOUTPUT-null{i}.json" for i in range(1, 9)]
-names.append("jsons\\PARSEDOUTPUT-seanull1.json")
-create_and_save_dataset(names, "data\\datasets\\minedata_classifier_local.dtst")
+# names = [f"jsons\\PARSEDOUTPUT-creeper{i}.json" for i in range(1, 9)]
+# names += [f"jsons\\PARSEDOUTPUT-pig{i}.json" for i in range(1, 9)]
+# names += [f"jsons\\PARSEDOUTPUT-null{i}.json" for i in range(1, 9)]
+# names.append("jsons\\PARSEDOUTPUT-seanull1.json")
+# create_and_save_dataset(names, "data\\datasets\\minedata_classifier_local.dtst")
 
-names = [f"jsons\\PARSEDOUTPUT-creeper{i}.json" for i in range(1, 9)]
-names += [f"jsons\\PARSEDOUTPUT-pig{i}.json" for i in range(1, 9)]
-names += [f"jsons\\PARSEDOUTPUT-null{i}.json" for i in range(1, 9)]
-names.append("jsons\\PARSEDOUTPUT-seanull1.json")
-create_and_save_dataset(names, "data\\datasets\\minedata_classifier_colab.dtst")
+# names = [f"jsons\\PARSEDOUTPUT-creeper{i}.json" for i in range(1, 9)]
+# names += [f"jsons\\PARSEDOUTPUT-pig{i}.json" for i in range(1, 9)]
+# names += [f"jsons\\PARSEDOUTPUT-null{i}.json" for i in range(1, 9)]
+# names.append("jsons\\PARSEDOUTPUT-seanull1.json")
+# create_and_save_dataset(names, "data\\datasets\\minedata_classifier_colab.dtst")
