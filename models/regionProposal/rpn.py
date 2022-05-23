@@ -6,17 +6,19 @@ from torch import nn
 from torch.nn import functional as F 
 import pandas as pd
 import numpy as np
-from utils.anchorUtils import generate_anchors, splashAnchors
+
+print(sys.path)
+#sys.path.append(os.path.join(os.path.dirname(__file__), "../../"))
 from proposalLayer import _proposal
-
-sys.path.append(os.path.join(os.path.dirname(__file__), "../../"))
 from models.utils.config import cfg
+from utils.anchorUtils import generate_anchors, splashAnchors
 
-class rpn (nn.Module) : 
+
+class _rpn(nn.Module) : 
 
     def __init__(self, inDimension, feature_stride = 15): 
 
-        super(rpn, self).__init__()
+        super(_rpn, self).__init__()
 
         # Depth of the in feature map
         self.inDimension = inDimension
