@@ -1,21 +1,16 @@
-import sys
 import os
+import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), "../../"))
-
-import torch
-from torch import nn 
-from torch.nn import functional as F 
-import pandas as pd
-import numpy as np
+from torch import nn
+from torch.nn import functional as F
 from models.regionProposal.proposalLayer import _proposal
 from utils.config import cfg
-from models.regionProposal.utils.anchorUtils import * 
+from models.regionProposal.utils.anchorUtils import *
 
 
-class _rpn(nn.Module) : 
+class _rpn(nn.Module):
 
-    def __init__(self, inDimension, feature_stride = 15): 
-
+    def __init__(self, inDimension, feature_stride = 2):
         super(_rpn, self).__init__()
 
         # Depth of the in feature map
@@ -28,10 +23,9 @@ class _rpn(nn.Module) :
         self.anchorScales = cfg.ANCHOR_SCALES
         self.anchorRatios = cfg.ANCHOR_RATIOS
 
-        self.A = self.anchorRatios.shape[0] * self.anchorScales.shape[0]
+        self.A = len(self.anchorScales) * len(self.anchorRatios)
 
-        self.anchors = generate_anchors(16, self.anchorRatios, self.anchorScales)
-
+        self.anchors = generate_anchors(1, self.anchorRatios, self.anchorScales)
 
         # Base of the convolution
         self.BASE_CONV = nn.Sequential(
@@ -41,8 +35,8 @@ class _rpn(nn.Module) :
         # -> Region Proposal LAyer here
 
         # Classification layer
-        self.cls_out_size = len(self.anchorScales) * len(self.anchorRatios) * 2 
-        self.classificationLayer = nn.Conv2d(self.baseConvOut, self.cls_out_size, kernel_size= 1, stride = 1, padding=0 )
+        self.cls_out_size = len(self.anchorScales) * len(self.anchorRatios) * 2
+        self.classificationLayer = nn.Conv2d(self.baseConvOut, self.cls_out_size, kernel_size=1, stride=1, padding=0)
 
         # Regression Layer on the BBOX
         self.regr_out_size = 4 * len(self.anchorScales) * len(self.anchorRatios)
@@ -50,9 +44,7 @@ class _rpn(nn.Module) :
 
         self.proposalLayer = _proposal()
 
-
-    def forward(self, x, img_size) : 
-        
+    def forward(self, x):
         '''
         args : 
             x : tensor : Feature map given by the last convolutional layer of the backbone network
@@ -65,22 +57,23 @@ class _rpn(nn.Module) :
         n, c, fH, fW = x.shape
 
         # Pass into first conv layer + ReLU
-        base = self.BASE_CONV(x) 
+        base = self.BASE_CONV(x)
+        anchors = self.splashAnchors(1, fH, fW)
 
-        anchors = splashAnchors(self.anchors)
+        print(anchors.shape)
 
         # Pass BASE first into the regressor -> BBox offset and scales for anchors
         rpn_reg = self.regressionLayer(base)
 
         # (n, W * H * A, 4)
-        rpn_reg = rpn_reg.permute(0,2,3,1).view(n, -1, 4)
+        rpn_reg = rpn_reg.permute(0, 2, 3, 1).view(n, -1, 4)
 
         # Pass BASE into the classificator -> Fg / Bg scores
         rpn_score = self.classificationLayer(base)
-        rpn_score = rpn_score.permute(0,2,3,1)
+        rpn_score = rpn_score.permute(0, 2, 3, 1)
 
         # The paper suggest a 2 class softmax architechture for the classification layer
-        rpn_softmax = F.softmax(rpn_score.view(n, fH, fW, self.A, 2 ), dim = 4)            
+        rpn_softmax = F.softmax(rpn_score.view(n, fH, fW, self.A, 2), dim=4)
         # take only the foreground prediction 
         fg_scores = rpn_softmax[:, :, :, :, 1]
         fg_scores = fg_scores.view(n, 1)
@@ -91,34 +84,39 @@ class _rpn(nn.Module) :
         #   rpn_reg.shape     = (n, W*H*A, 4)
         #   rpn_softmax.shape = (n*H*W*A, 1)
 
-
         rois = list()
         rois_indxs = list()
-        for batch_index in range(n) :
-
+        for batch_index in range(n):
             roi = self.proposalLayer(
                 fg_scores[batch_index].data.numpy(),
-                rpn_reg[batch_index].data.numpy(), 
-                anchors, 
-                img_size 
-                )
+                rpn_reg[batch_index].data.numpy(),
+                anchors,
+                img_size
+            )
             rois.append(roi)
             rois_indxs.append(rois_indxs)
-        
+
         return rpn_score, rpn_reg, rois, rois_indxs
 
-        
+    def splashAnchors(self, stride, feat_height, feat_width):
+        """
+        return list of anchors with computed center offset wrt to the feature map
+        """
 
+        shift_center_x = torch.arange(0, feat_width, stride)
+        shift_center_y = torch.arange(0, feat_height, stride)
 
+        shift_center_x, shift_center_y = np.meshgrid(shift_center_x, shift_center_y)
+        shift_center_x = shift_center_x.ravel()
+        shift_center_y = shift_center_y.ravel()
+        shifts = np.stack(
+            (shift_center_x.ravel(), shift_center_y.ravel(),
+             np.zeros(shift_center_x.shape[0]), np.zeros(shift_center_y.shape[0])), axis=1)
 
+        K = shifts.shape[0]
 
+        anchor = self.anchors.reshape((1, self.A, 4)) + shifts.reshape((1,K,4)).transpose((1,0,2))
+        anchor = anchor.view(K * self.A, 4)
+        return anchor
 
-
-      
-        
-
-
-
-        
-        
 
