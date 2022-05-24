@@ -35,6 +35,4 @@ if SHOW:
     cv.imshow("cs", img)
     cv.waitKey()
 
-rpn_conv_out = rpn(base_feat_map)
-#print(img_size)
-#print(rpn_conv_out.shape)
+rpn_conv_out = rpn(base_feat_map, img_size = img_size)

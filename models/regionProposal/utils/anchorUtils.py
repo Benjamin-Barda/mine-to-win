@@ -13,6 +13,6 @@ def generate_anchors(base, ratios, scales):
     """
 
     return torch.from_numpy(np.vstack(
-        [0, 0, base * scale * np.sqrt(ratio), base * scale * np.sqrt(1. / ratio)] for scale in scales for ratio in
-        ratios
+        [[0, 0, base * scale * np.sqrt(ratio), base * scale * np.sqrt(1. / ratio)] for scale in scales for ratio in
+         ratios]
     ))
