@@ -1,10 +1,11 @@
+import sys
 from models.extractor.backCNN import BackboneCNN
 from models.regionProposal.rpn import _rpn
 from torch.utils.data import DataLoader, Subset
-from utils import config as cfg
 import cv2 as cv
 import torch
 
+DEBUG = True
 SHOW = False
 
 name = 'jsons\\PARSEDOUTPUT-creeper1.json'
@@ -26,13 +27,18 @@ with torch.no_grad():
         img = img
         img_size = img.shape[-2:]
         base_feat_map = extractor.forward(img)
-
 _, inDim, hh, ww, = base_feat_map.size()
+
+if DEBUG:
+    print(f"shape of feature map before rpn= {base_feat_map.shape}")
+    print(f"shape of the image = {img_size}")
+
 rpn = _rpn(inDim)
+rpn_conv_out = rpn(base_feat_map, img_size)
 
 if SHOW:
     img = img.permute(0, 2, 3, 1)[0, ...].numpy()
-    cv.imshow("cs", img)
+    cv.imshow("img", img)
     cv.waitKey()
 
-rpn_conv_out = rpn(base_feat_map, img_size = img_size)
+

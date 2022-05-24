@@ -10,7 +10,7 @@ from models.regionProposal.utils.anchorUtils import *
 
 class _rpn(nn.Module):
 
-    def __init__(self, inDimension, feature_stride = 2,):
+    def __init__(self, inDimension, feature_stride=2, ):
         super(_rpn, self).__init__()
 
         # Depth of the in feature map
@@ -54,17 +54,14 @@ class _rpn(nn.Module):
         # c  : number of channels
         # fH : Feature map heigth
         # fW : Feature map width 
-        n, c, fW, fH = x.shape
+        n, c, fH, fW = x.shape
 
         # Pass into first conv layer + ReLU
         base = self.BASE_CONV(x)
         anchors = self.splashAnchors(1, fH, fW)
 
-
         # Pass BASE first into the regressor -> BBox offset and scales for anchors
         rpn_reg = self.regressionLayer(base)
-
-
 
         # (n, W * H * A, 4)
         rpn_reg = rpn_reg.permute(0, 2, 3, 1).contiguous().view(n, -1, 4)
@@ -85,7 +82,6 @@ class _rpn(nn.Module):
         #   rpn_softmax.shape = (n*H*W*A, 1)
 
         rois = list()
-        rois_indxs = list()
         for batch_index in range(n):
             roi = self.proposalLayer(
                 fg_scores[batch_index].data.numpy(),
@@ -94,10 +90,10 @@ class _rpn(nn.Module):
                 img_size
             )
             rois.append(roi)
-            rois_indxs.append(rois_indxs)
-            return 21
 
-        return rpn_score, rpn_reg, rois, rois_indxs
+        rois = np.concatenate(rois, axis=0)
+
+        return rpn_score, rpn_reg, rois
 
     def splashAnchors(self, stride, feat_height, feat_width):
         """
@@ -116,9 +112,7 @@ class _rpn(nn.Module):
 
         K = shifts.shape[0]
 
-        anchor = self.anchors.reshape((1, self.A, 4)) + shifts.reshape((1,K,4)).transpose((1,0,2))
+        anchor = self.anchors.reshape((1, self.A, 4)) + shifts.reshape((1, K, 4)).transpose((1, 0, 2))
         anchor = anchor.view(K * self.A, 4)
 
         return anchor
-
-

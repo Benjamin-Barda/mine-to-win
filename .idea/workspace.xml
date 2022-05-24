@@ -7,6 +7,7 @@
       <change beforePath="$PROJECT_DIR$/models/regionProposal/rpn.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/regionProposal/rpn.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/regionProposal/utils/anchorUtils.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/regionProposal/utils/anchorUtils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpn_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/rpn_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/config.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
