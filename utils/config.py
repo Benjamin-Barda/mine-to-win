@@ -32,6 +32,9 @@ RegionProposalNetwork
 # Number of dimension in out from the first Conv+ReLU layer in the region proposal
 __C.BASE_CONV_OUT_SIZE = 124
 
+# Total stride of the backbone network
+__C.FEATURE_STRIDE = 16
+
 """
 RegionProposalNetwork.RegionProposalLayer
 """

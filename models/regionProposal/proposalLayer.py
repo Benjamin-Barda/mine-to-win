@@ -1,36 +1,32 @@
-# TODO: Understand if we learn offsets from the feature map or from the original image ???
+# unTODO: Understand if we learn offsets from the feature map or from the original image ???
 
 import os
 import sys
-
+import torch.nn as nn
 import numpy as np
+import torch
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "../../"))
 from utils.config import cfg
 
 
-class _proposal:
+class _proposal(nn.Module):
 
-    def __init__(self,
-                 pre_nms_train=cfg.PRE_NMS_TRAIN,
-                 post_nms_train=cfg.POST_NMS_TRAIN,
-                 pre_nms_test=cfg.PRE_NMS_TEST,
-                 post_nms_test=cfg.POST_NMS_TEST,
-                 training=False
-                 ):
-        self.pre_nms_train = pre_nms_train
-        self.post_nms_train = post_nms_train
+    def __init__(self, training=False):
+        super(_proposal, self).__init__()
 
-        self.pre_nms_test = pre_nms_test
-        self.post_nms_test = post_nms_test
+        self.pre_nms_train = cfg.PRE_NMS_TRAIN,
+        self.post_nms_train = cfg.POST_NMS_TRAIN,
+        self.pre_nms_test = cfg.PRE_NMS_TEST,
+        self.post_nms_test = cfg.POST_NMS_TEST,
 
-    def __call__(self, fg_scores, reg_scores, anchors, img_size):
+    def forward(self, fg_scores, reg_scores, anchors, img_size):
         """
         args :
-            fg_score : ()
+            fg_score :
             reg_scores
-            anchors
-            img_size
+            anchors : {x, y, W, H}
+            img_size : {H, W}
         return :
             RoI
 
@@ -39,21 +35,28 @@ class _proposal:
             Sort them based on fg_scores
             Apply NMS and take only top K
         """
-
-
-
         # Apply predicted offset to original anchors thus turning them into proposals
+        # print(anchors.shape)
         rois = getROI(anchors, reg_scores)
-        # clip to proposals
-        # clip boxes to image ???? but why if we still need them on the feature map
-        # remove too small of proposals
-        # Keep only top scorers
-        # apply NMS
-        #return them
+        # Let's clip them to the image
+
+        # TODO: Clearly i cannot clip from center coordinates heigth and W with this
+        # We need to add above the conversion ... not really fun tbh
+        rois[:, :, 0:4:2] = torch.clip(
+            rois[:, :, 0:4:2], 0, img_size[1]
+        )
+        rois[:, :, 1:4:2] = torch.clip(
+            rois[:, :, 1:4:2], 0, img_size[0]
+        )
+
+        # TODO : Add threshold for too small of anchors
+
         return rois
 
 
 def getROI(src_box, offset):
+    # unTODO : Check if the batch size is a problem
+
     """
     Taken from R-CNN paper
 
@@ -65,21 +68,21 @@ def getROI(src_box, offset):
 
     """
 
-    src_x = src_box[:, 0]
-    src_y = src_box[:, 1]
-    src_w = src_box[:, 2]
-    src_h = src_box[:, 3]
+    src_x = src_box[:, :, 0::4]
+    src_y = src_box[:, :, 1::4]
+    src_w = src_box[:, :, 2::4]
+    src_h = src_box[:, :, 3::4]
 
-    off_x = offset[:, 0]
-    off_y = offset[:, 1]
-    off_w = offset[:, 2]
-    off_h = offset[:, 3]
+    off_x = offset[:, :, 0::4]
+    off_y = offset[:, :, 1::4]
+    off_w = offset[:, :, 2::4]
+    off_h = offset[:, :, 3::4]
 
-    dst_x = src_w * off_x + src_x
-    dst_y = src_h * off_y + src_y
-    dst_w = src_w * np.exp(off_w)
-    dst_h = src_h * np.exp(off_h)
+    dst = offset.clone()
 
-    dst = np.vstack((dst_x, dst_y, dst_w, dst_h)).T
+    dst[:, :, 0::4] = src_w * off_x + src_x
+    dst[:, :, 1::4] = src_h * off_y + src_y
+    dst[:, :, 2::4] = src_w * torch.exp(off_w)
+    dst[:, :, 3::4] = src_h * torch.exp(off_h)
 
     return dst

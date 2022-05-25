@@ -30,4 +30,4 @@ def centr2corner(box):
     br_x = x + (w / 2)
     br_y = y + (h / 2)
 
-    return (ul_x, ul_y, br_x, br_y)
+    return ul_x, ul_y, br_x, br_y

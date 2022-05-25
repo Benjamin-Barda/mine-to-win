@@ -1,5 +1,6 @@
 import os
 import sys
+
 sys.path.append(os.path.join(os.path.dirname(__file__), "../../"))
 from torch import nn
 from torch.nn import functional as F
@@ -10,7 +11,7 @@ from models.regionProposal.utils.anchorUtils import *
 
 class _rpn(nn.Module):
 
-    def __init__(self, inDimension, feature_stride=2, ):
+    def __init__(self, inDimension, feature_stride=16):
         super(_rpn, self).__init__()
 
         # Depth of the in feature map
@@ -58,7 +59,7 @@ class _rpn(nn.Module):
 
         # Pass into first conv layer + ReLU
         base = self.BASE_CONV(x)
-        anchors = self.splashAnchors(1, fH, fW)
+        anchors = self.splashAnchors(fH, fW, n)
 
         # Pass BASE first into the regressor -> BBox offset and scales for anchors
         rpn_reg = self.regressionLayer(base)
@@ -81,31 +82,24 @@ class _rpn(nn.Module):
         #   rpn_reg.shape     = (n, W*H*A, 4)
         #   rpn_softmax.shape = (n*H*W*A, 1)
 
-        rois = list()
-        for batch_index in range(n):
-            roi = self.proposalLayer(
-                fg_scores[batch_index].data.numpy(),
-                rpn_reg[batch_index].data.numpy(),
-                anchors,
-                img_size
-            )
-            rois.append(roi)
-
-        rois = np.concatenate(rois, axis=0)
+        rois = self.proposalLayer(
+            fg_scores,
+            rpn_reg,
+            anchors,
+            img_size
+        )
 
         return rpn_score, rpn_reg, rois
 
-    def splashAnchors(self, stride, feat_height, feat_width):
-        """
-        return list of anchors with computed center offset wrt to the feature map
-        """
-
-        shift_center_x = torch.arange(0, feat_width, stride)
-        shift_center_y = torch.arange(0, feat_height, stride)
+    def splashAnchors(self, feat_height, feat_width, batch_size):
+        shift_center_x = torch.arange(0, feat_width * self.feature_stride, self.feature_stride)
+        shift_center_y = torch.arange(0, feat_height * self.feature_stride, self.feature_stride)
 
         shift_center_x, shift_center_y = np.meshgrid(shift_center_x, shift_center_y)
         shift_center_x = shift_center_x.ravel()
         shift_center_y = shift_center_y.ravel()
+        # TODO: Height and width of the anchors are not modified ... this is beacuase regression is done in the image
+        #  space - Question is if it is correct ????
         shifts = np.stack(
             (shift_center_x, shift_center_y,
              np.zeros(shift_center_x.shape[0]), np.zeros(shift_center_y.shape[0])), axis=1)
@@ -113,6 +107,6 @@ class _rpn(nn.Module):
         K = shifts.shape[0]
 
         anchor = self.anchors.reshape((1, self.A, 4)) + shifts.reshape((1, K, 4)).transpose((1, 0, 2))
-        anchor = anchor.view(K * self.A, 4)
+        anchor = anchor.view(K * self.A, 4).expand(batch_size, K * self.A, 4)
 
         return anchor

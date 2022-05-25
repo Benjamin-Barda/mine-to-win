@@ -1,19 +1,22 @@
 import sys
 from models.extractor.backCNN import BackboneCNN
 from models.regionProposal.rpn import _rpn
+from models.regionProposal.utils.anchorUtils import  *
 from torch.utils.data import DataLoader, Subset
 import cv2 as cv
 import torch
 
-DEBUG = True
+DEBUG = False
 SHOW = False
+
+bs = 1
 
 name = 'jsons\\PARSEDOUTPUT-creeper1.json'
 
 # Loading only one image
 ds = torch.load("data\\datasets\\minedata_classifier_local.dtst")
-ds = Subset(ds, [0])
-dl = DataLoader(ds, batch_size=1, pin_memory=True)
+ds = Subset(ds, [x for x in range(bs)])
+dl = DataLoader(ds, batch_size=bs, pin_memory=True)
 
 # Model initialized with flag so after the last conv layer return the featmap
 extractor = BackboneCNN(is_in_rpn=True).to(("cpu"))
@@ -35,9 +38,19 @@ if DEBUG:
 
 rpn = _rpn(inDim)
 rpn_conv_out = rpn(base_feat_map, img_size)
+anchors = rpn_conv_out[-1].reshape(2808,4)
+print(anchors.shape)
 
 if SHOW:
     img = img.permute(0, 2, 3, 1)[0, ...].numpy()
+    for an in anchors:
+        x,y,w,z =  centr2corner(an)
+        x = int(x)
+        y = int(y)
+        w = int(w)
+        z = int(z)
+
+
     cv.imshow("img", img)
     cv.waitKey()
 
