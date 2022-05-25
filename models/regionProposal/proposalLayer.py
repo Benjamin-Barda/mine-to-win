@@ -8,6 +8,7 @@ import torch
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "../../"))
 from utils.config import cfg
+from models.regionProposal.utils.anchorUtils import *
 
 
 class _proposal(nn.Module):
@@ -35,23 +36,34 @@ class _proposal(nn.Module):
             Sort them based on fg_scores
             Apply NMS and take only top K
         """
+
         # Apply predicted offset to original anchors thus turning them into proposals
         # print(anchors.shape)
         rois = getROI(anchors, reg_scores)
         # Let's clip them to the image
+        to_clip = centr2corner(rois)
 
-        # TODO: Clearly i cannot clip from center coordinates heigth and W with this
-        # We need to add above the conversion ... not really fun tbh
-        rois[:, :, 0:4:2] = torch.clip(
-            rois[:, :, 0:4:2], 0, img_size[1]
+        to_clip[:, :, 0:4:2] = torch.clip(
+            to_clip[:, :, 0:4:2], 0, img_size[1]
         )
-        rois[:, :, 1:4:2] = torch.clip(
-            rois[:, :, 1:4:2], 0, img_size[0]
+        to_clip[:, :, 1:4:2] = torch.clip(
+            to_clip[:, :, 1:4:2], 0, img_size[0]
         )
 
         # TODO : Add threshold for too small of anchors
+        # TODO : Add PRE and POST nms pruning
 
-        return rois
+        # return the indices of the sorted array reversed
+        order = fg_scores.argsort(descending=False)
+
+        # TODO: I have to sort ROIS based on score ... how the fuck i can do IT without this ugly loop ???
+        for i in range(len(order)) :
+            rois[i] = rois[i, order[i], :]
+
+        print(order.shape)
+        print(rois.shape)
+
+        return to_clip
 
 
 def getROI(src_box, offset):

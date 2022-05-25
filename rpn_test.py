@@ -1,7 +1,7 @@
 import sys
 from models.extractor.backCNN import BackboneCNN
 from models.regionProposal.rpn import _rpn
-from models.regionProposal.utils.anchorUtils import  *
+from models.regionProposal.utils.anchorUtils import *
 from torch.utils.data import DataLoader, Subset
 import cv2 as cv
 import torch
@@ -9,7 +9,7 @@ import torch
 DEBUG = False
 SHOW = False
 
-bs = 1
+bs = 3
 
 name = 'jsons\\PARSEDOUTPUT-creeper1.json'
 
@@ -38,20 +38,15 @@ if DEBUG:
 
 rpn = _rpn(inDim)
 rpn_conv_out = rpn(base_feat_map, img_size)
-anchors = rpn_conv_out[-1].reshape(2808,4)
-print(anchors.shape)
 
 if SHOW:
+    anchors = rpn_conv_out[-1].reshape(2808, 4)
     img = img.permute(0, 2, 3, 1)[0, ...].numpy()
+    img = np.ascontiguousarray(img)
     for an in anchors:
-        x,y,w,z =  centr2corner(an)
-        x = int(x)
-        y = int(y)
-        w = int(w)
-        z = int(z)
-
+        x, y, w, z = an
+        print(z)
+        cv.rectangle(img, (x, y), (y, z), color=(255, 0, 0), thickness=1)
 
     cv.imshow("img", img)
     cv.waitKey()
-
-

@@ -11,7 +11,7 @@ from models.regionProposal.utils.anchorUtils import *
 
 class _rpn(nn.Module):
 
-    def __init__(self, inDimension, feature_stride=16):
+    def __init__(self, inDimension, feature_stride=cfg.FEATURE_STRIDE):
         super(_rpn, self).__init__()
 
         # Depth of the in feature map
@@ -36,7 +36,7 @@ class _rpn(nn.Module):
         # -> Region Proposal LAyer here
 
         # Classification layer
-        self.cls_out_size = len(self.anchorScales) * len(self.anchorRatios) * 2
+        self.cls_out_size = self.A * 2
         self.classificationLayer = nn.Conv2d(self.baseConvOut, self.cls_out_size, kernel_size=1, stride=1, padding=0)
 
         # Regression Layer on the BBOX
@@ -48,7 +48,8 @@ class _rpn(nn.Module):
     def forward(self, x, img_size):
         '''
         args : 
-            x : tensor : Feature map given by the last convolutional layer of the backbone network
+            x : tensor : Feature map give
+            n by the last convolutional layer of the backbone network
         '''
 
         # n  : Batchsize

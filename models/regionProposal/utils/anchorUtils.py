@@ -18,16 +18,19 @@ def generate_anchors(base, ratios, scales):
     ))
 
 
-def centr2corner(box):
-    x = box[0]
-    y = box[1]
-    w = box[2]
-    h = box[3]
+def centr2corner(tensor_batch):
+    n_batch, n_box, _ = tensor_batch.shape
 
-    ul_x = x - (w / 2)
-    ul_y = y - (h / 2)
+    x = tensor_batch[:, :, 0::4]
+    y = tensor_batch[:, :, 1::4]
+    w = tensor_batch[:, :, 2::4]
+    h = tensor_batch[:, :, 3::4]
 
-    br_x = x + (w / 2)
-    br_y = y + (h / 2)
+    trans = tensor_batch.clone()
 
-    return ul_x, ul_y, br_x, br_y
+    trans[:, :, 0::4] = x - (w / 2)
+    trans[:, :, 1::4] = y - (h / 2)
+    trans[:, :, 2::4] = x + (w / 2)
+    trans[:, :, 3::4] = y + (h / 2)
+
+    return trans
