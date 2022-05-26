@@ -48,6 +48,7 @@ class _proposal(nn.Module):
 
         # Apply predicted offset to original anchors thus turning them into proposals
         # print(anchors.shape)
+        
         rois = getROI(anchors, reg_scores)
         # Let's clip them to the image
         to_clip = center2corner(rois)
@@ -70,11 +71,12 @@ class _proposal(nn.Module):
             to_clip[i] = rois[i, order[i], :]
             fg_scores[i] = fg_scores[i, order[i]]
 
-        # Here we couls decide to cur some of the proposals but for the moment is better to skip
+        # Here we could decide to cur some of the proposals but for the moment is better to skip
         '''
          rois = rois[:, :pre_nms, :]
          fg_scores = fg_scores[:, :pre_nms, :]
         '''
+
         print(to_clip.shape)
         print(fg_scores.shape)
 

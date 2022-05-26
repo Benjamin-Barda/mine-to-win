@@ -40,6 +40,7 @@ class _rpn(nn.Module):
         self.classificationLayer = nn.Conv2d(self.baseConvOut, self.cls_out_size, kernel_size=1, stride=1, padding=0)
 
         # Regression Layer on the BBOX
+        print(4 * self.A)
         self.regr_out_size = 4 * self.A
         self.regressionLayer = nn.Conv2d(self.baseConvOut, self.regr_out_size, kernel_size=1, stride=1, padding=0)
 
@@ -93,12 +94,12 @@ class _rpn(nn.Module):
         return rpn_score, rpn_reg, rois
 
     def splashAnchors(self, feat_height, feat_width, batch_size):
-        shift_center_x = torch.arange(0, feat_width * self.feature_stride, self.feature_stride)
+        shift_center_x = torch.arange(0, feat_width  * self.feature_stride, self.feature_stride)
         shift_center_y = torch.arange(0, feat_height * self.feature_stride, self.feature_stride)
-
         shift_center_x, shift_center_y = np.meshgrid(shift_center_x, shift_center_y)
         shift_center_x = shift_center_x.ravel()
         shift_center_y = shift_center_y.ravel()
+
         # TODO: Height and width of the anchors are not modified ... this is beacuase regression is done in the image
         #  space - Question is if it is correct ????
         shifts = np.stack(

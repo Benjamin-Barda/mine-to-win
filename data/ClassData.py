@@ -17,7 +17,7 @@ class ClassData(data.Dataset):
         df_iter = (pd.read_json(src).T for src in sources)
         df = pd.concat(df_iter).T.drop(["purge", "written"]).T.sample(frac=1)
         self.images = np.asarray(
-                [cv2.imread("imgs\\frames\\" + i) 
+                [cv2.imread("imgs\\frames_new\\" + i) 
                 for i in df.index]
                 )
 

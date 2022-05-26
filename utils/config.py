@@ -33,7 +33,7 @@ RegionProposalNetwork
 __C.BASE_CONV_OUT_SIZE = 124
 
 # Total stride of the backbone network
-__C.FEATURE_STRIDE = 32
+__C.FEATURE_STRIDE = 18
 
 """
 RegionProposalNetwork.RegionProposalLayer
