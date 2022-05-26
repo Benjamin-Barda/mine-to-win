@@ -20,5 +20,12 @@ We then decided that we would build the dataset by ourselves from scratch. the p
 ![creeper9-00010](https://user-images.githubusercontent.com/80880329/170502171-b2a44f8b-b230-45d9-aeaa-96fa9761e92b.png)
 ![creeper1-00001](https://user-images.githubusercontent.com/80880329/170502252-260fa24c-e935-4ef1-a457-17987717cb84.png)
 ![creeper10-00052](https://user-images.githubusercontent.com/80880329/170502386-a71f9d92-946d-4e5b-90b2-4a9375e1e157.png)
+![null1-00032](https://user-images.githubusercontent.com/80880329/170502656-f8623ef3-f428-4669-9e35-61f87ea7d49b.png)
 
+While we were processing the videos we started working on the [labeling tool](https://github.com/Benjamin-Barda/mine-to-win/blob/main/utils/labelHelp.py). We needed not only to annotate what mobs where in the frames but also draw bounding boxes around them. \
+This is a process that we knew was going to take a lot of effort and time but in the end we managed to get around 2000 labeled images in a weekend of work.
+\
+Building the dataset was a process that we continued to carry during the whole project. **For more detail about the dataset reference the document attached to this informal journal.**
 
+## [14-05-22]
+###
