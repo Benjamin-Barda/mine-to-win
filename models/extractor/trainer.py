@@ -12,42 +12,47 @@ import cv2
 from models.extractor import BackboneCNN
 from torch.backends import cuda
 
-import seaborn as sn
-from sklearn.metrics import confusion_matrix
-import pandas as pd
-import matplotlib.pyplot as plt
+# import seaborn as sn
+# from sklearn.metrics import confusion_matrix
+# import pandas as pd
+# import matplotlib.pyplot as plt
 
-def plot_confusion(lab, pred):
-    cmat = confusion_matrix(lab, pred)
-    df_cm = pd.DataFrame(cmat, index = [i for i in ["Nothing", "Creeper", "Pig"]],
-                    columns = [i for i in ["Nothing", "Creeper", "Pig"]])
+# def plot_confusion(lab, pred):
+#     cmat = confusion_matrix(lab, pred)
+#     df_cm = pd.DataFrame(cmat, index = [i for i in ["Nothing", "Creeper", "Pig"]],
+#                     columns = [i for i in ["Nothing", "Creeper", "Pig"]])
 
-    plt.figure(figsize = (10,7))
-    ax = sn.heatmap(df_cm, annot=True, linewidths=0.5)
-    ax.set_xlabel('Targets', fontsize=14)
-    ax.set_ylabel('Predictions', fontsize=14)
-    plt.show()
+#     plt.figure(figsize = (10,7))
+#     ax = sn.heatmap(df_cm, annot=True, linewidths=0.5)
+#     ax.set_xlabel('Targets', fontsize=14)
+#     ax.set_ylabel('Predictions', fontsize=14)
+#     plt.show()
 
 cuda.benchmark = True
 
 ds = torch.load("data\\datasets\minedata_classifier_local.dtst")
 print(ds.shape())
 
-split = int(ds.shape()[0] * 0.8)
-train, val = Subset(ds, list(range(split))), Subset(ds, list(range(split, ds.shape()[0])))
+device = "cuda" if torch.cuda.is_available() else "cpu"
 
-BATCH_SIZE = 32
+# split = int(ds.shape()[0] * 0.8)
+# train, val = Subset(ds, list(range(split))), Subset(ds, list(range(split, ds.shape()[0])))
+
+split = int(ds.shape()[0] * 0.6)
+train, val = Subset(ds, list(range(split))), Subset(ds, list(range(split, int(ds.shape()[0] * 0.8))))
+
+BATCH_SIZE = 256
 
 train_load = DataLoader(train, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True)
 val_load =   DataLoader(val, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True)
 
-model = BackboneCNN().to("cuda", non_blocking=True)
+model = BackboneCNN().to(device, non_blocking=True)
 
 load = True
 store = True
 
 if load:
-    model.load_state_dict(torch.load("./BackCNN_deep_best_weights.pth"))
+    model.load_state_dict(torch.load("./BackCNN_deep3_best_weights2.pth"))
 
 optimizer = torch.optim.AdamW(params=model.parameters(), lr = 0.0002, amsgrad=True)
 
@@ -72,8 +77,8 @@ while True:
         #cv2.imshow("HI", img[0].permute(1,2,0).numpy())
         #cv2.waitKey(-1)
         
-        img = img.to("cuda", non_blocking=True)
-        label = label.to("cuda", non_blocking=True)
+        img = img.to(device, non_blocking=True)
+        label = label.to(device, non_blocking=True)
         
         preds = model.forward(img)
         loss = loss_funct.forward(preds, label)
@@ -82,7 +87,7 @@ while True:
         loss.backward()
         optimizer.step()
         
-        print(f"Epoch {i}, {(100 * indx / tot_minibatch):.3f}%", end = "\r")
+        print(f"Epoch {i}, {(100 * indx / tot_minibatch):.3f}%")
         
     model.eval()
     ds.set_train_mode(False)
@@ -94,8 +99,8 @@ while True:
             
             #cv2.imshow("HI", img[0].permute(1,2,0).numpy())
             #cv2.waitKey(-1)
-            img = img.to("cuda", non_blocking=True)
-            label = label.to("cuda", non_blocking=True)
+            img = img.to(device, non_blocking=True)
+            label = label.to(device, non_blocking=True)
             total += img.shape[0]
             
             preds = model.forward(img)
@@ -118,8 +123,10 @@ while True:
         else:
             print(f"Worse loss reached, stopping training, best risk: {best_risk}.")
             break
-
+    
         i += 1
+    if i % 50 == 0:
+        torch.save(best_state, f"/content/drive/MyDrive/Colab Notebooks/MineCNN/curr_state{i}_1.pth")
 
 if store:
-    torch.save(best_state, "./BackCNN_deep_best_weights.pth")
+    torch.save(best_state, "./BackCNN_deep3_best_weights3.pth")
