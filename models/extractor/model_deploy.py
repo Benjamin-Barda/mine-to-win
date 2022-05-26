@@ -35,21 +35,18 @@ dl = DataLoader(data, pin_memory=True, batch_size=2)
 
 torch.save(data, "data.dtset")
 
-data = torch.load("data.dtset")
-
-
 def get_features(name):
     def hook(model, input, output):
         features[name] = output.detach()
     return hook
 
 model = BackboneCNN().to("cuda")
-model.load_state_dict(torch.load("./BackCNN_finetuned_best_weights.pth"))
+model.load_state_dict(torch.load("./BackCNN_deep_best_weights.pth"))
 lossfn = torch.nn.CrossEntropyLoss()
 
 print(model)
 
-model.conv5.register_forward_hook(get_features('feats'))
+model.conv6.register_forward_hook(get_features('feats'))
 
 cv2.namedWindow("Sample", cv2.WINDOW_NORMAL)
 cv2.namedWindow("Map", cv2.WINDOW_NORMAL)

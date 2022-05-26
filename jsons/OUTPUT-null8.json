@@ -2,6 +2,8 @@
     "null8-00000.png": {
         "Creeper": [],
         "Pig": [],
+        "Sheep": [],
+        "Zombie": [],
         "purge": false,
         "written": false
     },
