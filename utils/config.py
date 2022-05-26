@@ -14,6 +14,8 @@ __C.ANCHOR_SCALES = [8, 16, 32]
 # Ratio list to generate anchors
 __C.ANCHOR_RATIOS = [.5, 1, 2]
 
+__C.A = len(__C.ANCHOR_SCALES) * len(__C.ANCHOR_RATIOS)
+
 # TODO: Remove after tesing
 __C.COMPUTED_ANCHORS = np.array([[ -83.,  -39.,  100.,   56.],
                                 [-175.,  -87.,  192.,  104.],

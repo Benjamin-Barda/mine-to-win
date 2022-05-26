@@ -72,7 +72,7 @@ while True:
     model.train()
     ds.set_train_mode(True)
     
-    for indx, (img, label) in enumerate(train_load):
+    for indx, (img, label, _) in enumerate(train_load):
         
         #cv2.imshow("HI", img[0].permute(1,2,0).numpy())
         #cv2.waitKey(-1)

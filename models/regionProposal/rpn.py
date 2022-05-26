@@ -61,7 +61,8 @@ class _rpn(nn.Module):
 
         # Pass into first conv layer + ReLU
         base = self.BASE_CONV(x)
-        anchors = self.splashAnchors(fH, fW, n)
+        anchors = splashAnchors(fH, fW, n, self.anchors, self.feature_stride)
+        return anchors
 
         # Pass BASE first into the regressor -> BBox offset and scales for anchors
         rpn_reg = self.regressionLayer(base)
@@ -92,23 +93,3 @@ class _rpn(nn.Module):
         )
 
         return rpn_score, rpn_reg, rois
-
-    def splashAnchors(self, feat_height, feat_width, batch_size):
-        shift_center_x = torch.arange(0, feat_width  * self.feature_stride, self.feature_stride)
-        shift_center_y = torch.arange(0, feat_height * self.feature_stride, self.feature_stride)
-        shift_center_x, shift_center_y = np.meshgrid(shift_center_x, shift_center_y)
-        shift_center_x = shift_center_x.ravel()
-        shift_center_y = shift_center_y.ravel()
-
-        # TODO: Height and width of the anchors are not modified ... this is beacuase regression is done in the image
-        #  space - Question is if it is correct ????
-        shifts = np.stack(
-            (shift_center_x, shift_center_y,
-             np.zeros(shift_center_x.shape[0]), np.zeros(shift_center_y.shape[0])), axis=1)
-
-        K = shifts.shape[0]
-
-        anchor = self.anchors.reshape((1, self.A, 4)) + shifts.reshape((1, K, 4)).transpose((1, 0, 2))
-        anchor = anchor.view(K * self.A, 4).expand(batch_size, K * self.A, 4)
-
-        return anchor

@@ -12,12 +12,9 @@ SHOW = True
 
 bs = 1
 
-name = 'jsons\\PARSEDOUTPUT-creeper1.json'
-
 # Loading only one image
-ds = torch.load("data\\datasets\\minedata_classifier_local.dtst")
-ds = Subset(ds, [x for x in range(bs)])
-dl = DataLoader(ds, batch_size=bs, pin_memory=True)
+ds = torch.load("data\\datasets\\minedata_actual_local.dtst")
+dl = DataLoader(ds, batch_size=bs, pin_memory=True, shuffle=True)
 
 # Model initialized with flag so after the last conv layer return the featmap
 extractor = BackboneCNN(is_in_rpn=True).to(("cpu"))
@@ -27,10 +24,11 @@ lossfn = torch.nn.CrossEntropyLoss()
 extractor.eval()
 
 with torch.no_grad():
-    for img, lbl in dl:
-        img = img
-        img_size = img.shape[-2:]
-        base_feat_map = extractor.forward(img)
+    img, lbl, bounds = ds[400]
+    print(bounds)
+    img = img[None, ...]
+    img_size = img.shape[-2:]
+    base_feat_map = extractor.forward(img)
 _, inDim, hh, ww, = base_feat_map.size()
 
 if DEBUG:
@@ -42,16 +40,25 @@ rpn_conv_out = rpn(base_feat_map, img_size)
 
 if SHOW:
     anchors = rpn_conv_out[-1].reshape(-1, 4).type(torch.int32)
+    labels = label_anchors([bounds], hh, ww, rpn.anchors)[0]
     img = img.permute(0, 2, 3, 1)[0, ...].numpy()
     img = np.ascontiguousarray(img)
-    for an in anchors:
+    cv.imshow("orig img", img)
+    for indx, an in enumerate(anchors):
+        col = (0,255,0)
+        if labels[indx] == -1:
+            col = (0,0,255)
+            continue
+        elif labels[indx] == 0:
+            col = (255,0,0)
         x, y, h, w = an
 
         x1,y1,x2,y2 = x.item() - w.item()//2, y.item() - h.item()//2, x.item() + w.item()//2, y.item() + h.item()//2
 
         #print(x1,y1,x2,y2)
 
-        cv.rectangle(img, (x1,y1),(x2,y2), color=(0,0,255), thickness=1)
+        cv.rectangle(img, (x1,y1),(x2,y2), color=col, thickness=1)
 
+    cv.namedWindow("img", cv.WINDOW_NORMAL)
     cv.imshow("img", img)
-    cv.waitKey()
+    cv.waitKey(0)

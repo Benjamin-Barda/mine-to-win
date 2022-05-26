@@ -48,7 +48,7 @@ class ClassData(data.Dataset):
         if self.train and self.transform_target:
             label = self.transform_target(label)
 
-        sample = (img, label)
+        sample = (img, label, self.boundings[index])
         return sample
 
     def shape(self):
@@ -62,11 +62,11 @@ def create_and_save_dataset(srcs, filename, for_colab = False):
     
     trans = transforms.Compose((
     transforms.ToTensor(),
-    transforms.RandomHorizontalFlip(),
+    #transforms.RandomHorizontalFlip(),
     transforms.ColorJitter(brightness=(0.6, 1.4), contrast=(0.95, 1.05), saturation=(0.99, 1.01)),
     transforms.RandomAdjustSharpness(1.25, p=0.2),
     transforms.RandomAdjustSharpness(0.75, p=0.2),
-    transforms.RandomRotation((-15, 15)),
+    #transforms.RandomRotation((-15, 15)),
     ))
 
     ds = ClassData(srcs, transform=trans)
@@ -80,7 +80,7 @@ if __name__ == "__main__":
     names += [f"jsons\\rePARSEDOUTPUT-zombie{i}.json" for i in range(1, 10)]
     names += [f"jsons\\rePARSEDOUTPUT-sheep{i}.json" for i in range(1, 10)]
     names.append("jsons\\rePARSEDOUTPUT-seanull1.json")
-    create_and_save_dataset(names, "data\\datasets\\minedata_classifier_local.dtst")
+    create_and_save_dataset(names, "data\\datasets\\minedata_actual_local.dtst")
 
     # names = [f"jsons\\PARSEDOUTPUT-creeper{i}.json" for i in range(1, 11)]
     # names += [f"jsons\\PARSEDOUTPUT-pig{i}.json" for i in range(1, 11)]

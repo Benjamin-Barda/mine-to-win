@@ -1,5 +1,10 @@
 import torch
 import numpy as np
+import sys
+import os
+
+sys.path.append(os.path.join(os.path.dirname(__file__), "../../"))
+from utils.config import cfg
 
 
 def generate_anchors(base, ratios, scales):
@@ -54,3 +59,49 @@ def corner2center(tensor_batch):
     trans[:, :, 2::4] = x1 - x0
     # Height
     trans[:, :, 3::4] = y1 - y0
+
+def splashAnchors(feat_height, feat_width, batch_size, base_anchors, feature_stride=cfg.FEATURE_STRIDE, A=cfg.A):
+    shift_center_x = torch.arange(0, feat_width  * feature_stride, feature_stride)
+    shift_center_y = torch.arange(0, feat_height * feature_stride, feature_stride)
+    shift_center_x, shift_center_y = np.meshgrid(shift_center_x, shift_center_y)
+    shift_center_x = shift_center_x.ravel()
+    shift_center_y = shift_center_y.ravel()
+
+    # TODO: Height and width of the anchors are not modified ... this is beacuase regression is done in the image
+    #  space - Question is if it is correct ????
+    shifts = np.stack(
+        (shift_center_x, shift_center_y, 
+            np.zeros(shift_center_x.shape[0]), np.zeros(shift_center_y.shape[0])), axis=1)
+
+    K = shifts.shape[0]
+
+    anchor = base_anchors.reshape((1, A, 4)) + shifts.reshape((1, K, 4)).transpose((1, 0, 2))
+    anchor = anchor.view(K * A, 4).expand(batch_size, K * A, 4)
+
+    return anchor
+
+def label_anchors(image_info, feat_height, feat_width, base_anchors, feature_stride=cfg.FEATURE_STRIDE, A=cfg.A):
+
+    sp_anch = splashAnchors(feat_height, feat_width, 1, base_anchors, feature_stride, A=A)[0].T
+    labels = torch.zeros(len(image_info), sp_anch.shape[1])
+    # 4 * n_anchors
+    for indx, infos in enumerate(image_info):
+        boxes = torch.Tensor([box for boxes_of_label in infos for box in boxes_of_label]) # 4 * n_boxes
+        if boxes.shape[0] > 0:
+            boxes = boxes.T
+            sp_anch = torch.broadcast_to(sp_anch[:, :, None], (4, sp_anch.shape[1], boxes.shape[1]))
+            boxes = torch.broadcast_to(boxes[:, None, :], (4, sp_anch.shape[1], boxes.shape[1]))
+            # x, y, h, w
+
+            w_i = torch.clip((sp_anch[3] + boxes[3]) / 2 - torch.abs(boxes[0] - sp_anch[0]), min=0)
+            h_i = torch.clip((sp_anch[2] + boxes[2]) / 2 - torch.abs(boxes[1] - sp_anch[1]), min=0)
+            I = w_i * h_i
+            U = boxes[3] * boxes[2] + sp_anch[3] * sp_anch[2] - I
+            IoU = I / U # n_anchors * n_boxes
+            max_iou, _ = torch.max(IoU, dim=1) # Dunno why it also returns indices
+            labels[indx] = torch.where(max_iou <= .3, -1, 0) + torch.where(max_iou >= .7, 1, 0)
+            # -1 is negative, 0 is null and 1 is positive
+        else:
+            labels[indx] = -torch.ones(sp_anch.shape[1])
+    
+    return labels
