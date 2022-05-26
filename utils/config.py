@@ -39,10 +39,12 @@ __C.FEATURE_STRIDE = 32
 RegionProposalNetwork.RegionProposalLayer
 """
 # in train how many ROI to retain before NMS
-__C.PRE_NMS_TRAIN  = 12000
+__C.PRE_NMS_TRAIN  = 1000
 # in train how many ROI to retain after NMS
-__C.POST_NMS_TRAIN = 2000
+__C.POST_NMS_TRAIN = 200
 # in testing how many ROI to retain before NMS
-__C.PRE_NMS_TEST   = 6000
+__C.PRE_NMS_TEST   = 2000
 # in testing how many ROI to retain after NMS
-__C.POST_NMS_TEST  = 300
+__C.POST_NMS_TEST  = 150
+# Threshhold for nms
+__C.NMS_THRESHOLD = .7

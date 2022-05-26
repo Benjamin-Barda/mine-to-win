@@ -9,7 +9,7 @@ import torch
 DEBUG = False
 SHOW = False
 
-bs = 3
+bs = 1
 
 name = 'jsons\\PARSEDOUTPUT-creeper1.json'
 

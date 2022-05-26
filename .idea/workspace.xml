@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="34424815-f47f-497d-94bb-0805f6030ee3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/R-CNN/ziggurrat.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/R-CNN/ziggurrat.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/regionProposal/proposalLayer.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/regionProposal/proposalLayer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/regionProposal/rpn.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/regionProposal/rpn.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/regionProposal/utils/anchorUtils.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/regionProposal/utils/anchorUtils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpn_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/rpn_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/config.py" afterDir="false" />
