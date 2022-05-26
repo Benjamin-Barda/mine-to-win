@@ -1,8 +1,9 @@
 from msilib.schema import Class
 import sys, os
+sys.path.append(os.path.join(os.path.dirname(__file__), "../../"))
 import numpy as np
-sys.path.append(os.path.join(os.path.dirname(__file__), "../data"))
-from ClassData import ClassData
+
+from data.ClassData import ClassData
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from torch.utils.data import Subset

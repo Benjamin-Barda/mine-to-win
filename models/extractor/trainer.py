@@ -1,15 +1,15 @@
 from concurrent.futures import thread
 import sys, os
 import numpy as np
-sys.path.append(os.path.join(os.path.dirname(__file__), "../data"))
-from ClassData import ClassData
+sys.path.append(os.path.join(os.path.dirname(__file__), "../../"))
+from data.ClassData import ClassData
 from torch.utils.data import DataLoader
 from torchvision import transforms
 from torchvision.transforms import InterpolationMode
 from torch.utils.data import Subset
 import torch
 import cv2
-from backCNN import BackboneCNN
+from models.extractor import BackboneCNN
 from torch.backends import cuda
 
 import seaborn as sn
