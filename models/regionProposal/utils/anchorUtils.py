@@ -84,24 +84,38 @@ def label_anchors(image_info, feat_height, feat_width, base_anchors, feature_str
 
     sp_anch = splashAnchors(feat_height, feat_width, 1, base_anchors, feature_stride, A=A)[0].T
     labels = torch.zeros(len(image_info), sp_anch.shape[1])
+    values = torch.zeros(len(image_info), 4, sp_anch.shape[1])
     # 4 * n_anchors
     for indx, infos in enumerate(image_info):
         boxes = torch.Tensor([box for boxes_of_label in infos for box in boxes_of_label]) # 4 * n_boxes
         if boxes.shape[0] > 0:
             boxes = boxes.T
-            sp_anch = torch.broadcast_to(sp_anch[:, :, None], (4, sp_anch.shape[1], boxes.shape[1]))
-            boxes = torch.broadcast_to(boxes[:, None, :], (4, sp_anch.shape[1], boxes.shape[1]))
+            sp_anch_mesh = torch.broadcast_to(sp_anch[:, :, None], (4, sp_anch.shape[1], boxes.shape[1]))
+            boxes_mesh = torch.broadcast_to(boxes[:, None, :], (4, sp_anch.shape[1], boxes.shape[1]))
             # x, y, h, w
 
-            w_i = torch.clip((sp_anch[3] + boxes[3]) / 2 - torch.abs(boxes[0] - sp_anch[0]), min=0)
-            h_i = torch.clip((sp_anch[2] + boxes[2]) / 2 - torch.abs(boxes[1] - sp_anch[1]), min=0)
+
+            # Calculate intersections and IoU
+            w_i = torch.clip((sp_anch_mesh[3] + boxes_mesh[3]) / 2 - torch.abs(boxes[0] - sp_anch_mesh[0]), min=0)
+            h_i = torch.clip((sp_anch_mesh[2] + boxes_mesh[2]) / 2 - torch.abs(boxes[1] - sp_anch_mesh[1]), min=0)
             I = w_i * h_i
-            U = boxes[3] * boxes[2] + sp_anch[3] * sp_anch[2] - I
+            U = boxes_mesh[3] * boxes_mesh[2] + sp_anch_mesh[3] * sp_anch_mesh[2] - I
             IoU = I / U # n_anchors * n_boxes
-            max_iou, _ = torch.max(IoU, dim=1) # Dunno why it also returns indices
+
+            max_iou, max_indices = torch.max(IoU, dim=1) # Why yes, we do really need the indices
+
+            # Classification object or not
             labels[indx] = torch.where(max_iou <= .3, -1, 0) + torch.where(max_iou >= .7, 1, 0)
             # -1 is negative, 0 is null and 1 is positive
+
+            # Values for regressor
+            boxes = boxes[:, max_indices]
+            values[indx, 0] = (boxes[0] - sp_anch[0])/sp_anch[3]
+            values[indx, 1] = (boxes[1] - sp_anch[1])/sp_anch[2]
+            values[indx, 2] = torch.log(boxes[2]/sp_anch[2])
+            values[indx, 3] = torch.log(boxes[3]/sp_anch[3])
+
         else:
             labels[indx] = -torch.ones(sp_anch.shape[1])
     
-    return labels
+    return labels, values

@@ -40,7 +40,9 @@ rpn_conv_out = rpn(base_feat_map, img_size)
 
 if SHOW:
     anchors = rpn_conv_out[-1].reshape(-1, 4).type(torch.int32)
-    labels = label_anchors([bounds], hh, ww, rpn.anchors)[0]
+    labels, values = label_anchors([bounds], hh, ww, rpn.anchors)
+    labels = labels[0]
+    values = values[0]
     img = img.permute(0, 2, 3, 1)[0, ...].numpy()
     img = np.ascontiguousarray(img)
     cv.imshow("orig img", img)
@@ -48,9 +50,11 @@ if SHOW:
         col = (0,255,0)
         if labels[indx] == -1:
             col = (0,0,255)
-            continue
         elif labels[indx] == 0:
             col = (255,0,0)
+            continue
+        else:
+            print(values.T[indx])
         x, y, h, w = an
 
         x1,y1,x2,y2 = x.item() - w.item()//2, y.item() - h.item()//2, x.item() + w.item()//2, y.item() + h.item()//2

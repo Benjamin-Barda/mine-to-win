@@ -26,7 +26,7 @@ class _rpn(nn.Module):
 
         self.A = len(self.anchorScales) * len(self.anchorRatios)
 
-        self.anchors = generate_anchors(1, self.anchorRatios, self.anchorScales)
+        self.anchors = generate_anchors(16, self.anchorRatios, self.anchorScales)
 
         # Base of the convolution
         self.BASE_CONV = nn.Sequential(

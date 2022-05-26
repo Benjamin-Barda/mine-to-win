@@ -8,8 +8,8 @@ cfg = __C
 """
 Anchors
 """
-# Scale list to generata anchors
-__C.ANCHOR_SCALES = [8, 16, 32]
+# Scale list to generate anchors
+__C.ANCHOR_SCALES = [1, 2, 4]
 
 # Ratio list to generate anchors
 __C.ANCHOR_RATIOS = [.5, 1, 2]
