@@ -31,16 +31,16 @@ class _rpn(nn.Module):
         # Base of the convolution
         self.BASE_CONV = nn.Sequential(
             nn.Conv2d(self.inDimension, self.baseConvOut, kernel_size=3, stride=1, padding=1, bias=True),
-            nn.ReLU(inplace=True))
+            nn.Mish(inplace=True)
+            )
 
-        # -> Region Proposal LAyer here
+        # -> Region Proposal Layer here
 
         # Classification layer
         self.cls_out_size = self.A * 2
         self.classificationLayer = nn.Conv2d(self.baseConvOut, self.cls_out_size, kernel_size=1, stride=1, padding=0)
 
         # Regression Layer on the BBOX
-        print(4 * self.A)
         self.regr_out_size = 4 * self.A
         self.regressionLayer = nn.Conv2d(self.baseConvOut, self.regr_out_size, kernel_size=1, stride=1, padding=0)
 
@@ -63,8 +63,6 @@ class _rpn(nn.Module):
         base = self.BASE_CONV(x)
         anchors = splashAnchors(fH, fW, n, self.anchors, self.feature_stride)
 
-        return anchors
-
         # Pass BASE first into the regressor -> BBox offset and scales for anchors
         rpn_reg = self.regressionLayer(base)
 
@@ -74,7 +72,7 @@ class _rpn(nn.Module):
         rpn_score = self.classificationLayer(base)
         rpn_score = rpn_score.permute(0, 2, 3, 1).contiguous()
 
-        # The paper suggest a 2 class softmax architechture for the classification layer
+        # The paper suggest a 2 class softmax architecture for the classification layer
         rpn_softmax = F.softmax(rpn_score.view(n, fH, fW, self.A, 2), dim=4)
         # take only the foreground prediction 
         fg_scores = rpn_softmax[:, :, :, :, 1].contiguous()

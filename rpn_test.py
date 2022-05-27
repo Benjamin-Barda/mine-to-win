@@ -25,7 +25,6 @@ extractor.eval()
 
 with torch.no_grad():
     img, lbl, bounds = ds[1000]
-    print(bounds)
     img = img[None, ...]
     img_size = img.shape[-2:]
     base_feat_map = extractor.forward(img)
@@ -39,28 +38,26 @@ rpn = _rpn(inDim)
 rpn_conv_out = rpn(base_feat_map, img_size)
 
 if SHOW:
-    anchors = rpn_conv_out[-1].reshape(-1, 4).type(torch.int32)
+    rois, anch_indxs = rpn_conv_out[-1][0]
+    print(rois.shape)
+    rois = rois.type(torch.int32)
     labels, values = label_anchors([bounds], hh, ww, rpn.anchors)
     labels = labels[0]
     values = values[0]
     img = img.permute(0, 2, 3, 1)[0, ...].numpy()
     img = np.ascontiguousarray(img)
     cv.imshow("orig img", img)
-    for indx, an in enumerate(anchors):
+    for indx, an in enumerate(rois):
         col = (0,255,0)
         if labels[indx] == -1:
             col = (0,0,255)
-            continue
         elif labels[indx] == 0:
             col = (255,0,0)
-            continue
         else:
             print(values.T[indx])
-        x, y, h, w = an
+        x, y, w, h = an
 
         x1,y1,x2,y2 = x.item() - w.item()//2, y.item() - h.item()//2, x.item() + w.item()//2, y.item() + h.item()//2
-
-        #print(x1,y1,x2,y2)
 
         cv.rectangle(img, (x1,y1),(x2,y2), color=col, thickness=1)
 

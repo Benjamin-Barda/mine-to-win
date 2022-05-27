@@ -96,18 +96,17 @@ def label_anchors(image_info, feat_height, feat_width, base_anchors, feature_str
 
 
             # Calculate intersections and IoU
-            w_sum = sp_anch_mesh[3] + boxes_mesh[3]
+            w_sum = sp_anch_mesh[2] + boxes_mesh[2]
             w_i = torch.clip(w_sum - torch.max(
                 torch.abs(boxes_mesh[0] - sp_anch_mesh[0] - w_sum * .5),
                 torch.abs(boxes_mesh[0] - sp_anch_mesh[0] + w_sum * .5)), min=0)
-            h_sum = sp_anch_mesh[2] + boxes_mesh[2]
+            h_sum = sp_anch_mesh[3] + boxes_mesh[3]
             h_i = torch.clip(h_sum - torch.max(
                 torch.abs(boxes_mesh[1] - sp_anch_mesh[1] - h_sum * .5),
                 torch.abs(boxes_mesh[1] - sp_anch_mesh[1] + h_sum * .5)), min=0)
             I = w_i * h_i
-            U = boxes_mesh[3] * boxes_mesh[2] + sp_anch_mesh[3] * sp_anch_mesh[2] - I
+            U = boxes_mesh[2] * boxes_mesh[3] + sp_anch_mesh[2] * sp_anch_mesh[3] - I
             IoU = I / U # n_anchors * n_boxes
-            print(IoU)
 
             max_iou, max_indices = torch.max(IoU, dim=1) # Why yes, we do really need the indices
 
@@ -117,8 +116,8 @@ def label_anchors(image_info, feat_height, feat_width, base_anchors, feature_str
 
             # Values for regressor
             boxes = boxes[:, max_indices]
-            values[indx, 0] = (boxes[0] - sp_anch[0])/sp_anch[3]
-            values[indx, 1] = (boxes[1] - sp_anch[1])/sp_anch[2]
+            values[indx, 0] = (boxes[0] - sp_anch[0])/sp_anch[2]
+            values[indx, 1] = (boxes[1] - sp_anch[1])/sp_anch[3]
             values[indx, 2] = torch.log(boxes[2]/sp_anch[2])
             values[indx, 3] = torch.log(boxes[3]/sp_anch[3])
 

@@ -54,10 +54,10 @@ class _proposal(nn.Module):
         to_clip = center2corner(rois)
 
         to_clip[:, :, 0:4:2] = torch.clip(
-            to_clip[:, :, 0:4:2], 0, img_size[1]
+            to_clip[:, :, 0:4:2], min=0, max=img_size[1]-1
         )
         to_clip[:, :, 1:4:2] = torch.clip(
-            to_clip[:, :, 1:4:2], 0, img_size[0]
+            to_clip[:, :, 1:4:2], min=0, max=img_size[0]-1
         )
 
         # TODO : Add threshold for too small of anchors
@@ -66,12 +66,12 @@ class _proposal(nn.Module):
         # return the indices of the sorted array reversed
         order = fg_scores.argsort(descending=True)
 
-        # Sort region of intrest based on score
+        # Sort region of interest based on score
         for i in range(batch_size):
-            to_clip[i] = rois[i, order[i], :]
+            to_clip[i] = rois[i, order[i]]
             fg_scores[i] = fg_scores[i, order[i]]
 
-        # Here we could decide to cur some of the proposals but for the moment is better to skip
+        # Here we could decide to cut some of the proposals but for the moment is better to skip
         '''
          rois = rois[:, :pre_nms, :]
          fg_scores = fg_scores[:, :pre_nms, :]
@@ -80,19 +80,20 @@ class _proposal(nn.Module):
         print(to_clip.shape)
         print(fg_scores.shape)
 
-        for i in range(batch_size) :
+        final_rois = list()
+
+        for i in range(batch_size):
             to_keep = nms(
                 to_clip[i],
                 fg_scores[i],
                 self.nms_thresh
             )
-            to_clip[i] = to_clip[i, to_keep, :]
+            if post_nms > 0:
+                final_rois.append((torch.index_select(to_clip[i], dim=0, index=to_keep[:post_nms]), to_keep[:post_nms]))
+            else:
+                final_rois.append((torch.index_select(to_clip[i], dim=0, index=to_keep), to_keep))
 
-        if post_nms != 0 :
-            print(post_nms)
-            return to_clip[:, :post_nms, :]
-
-        return to_clip
+        return final_rois
 
 
 def getROI(src_box, offset):
