@@ -9,7 +9,7 @@ cfg = __C
 Anchors
 """
 # Scale list to generate anchors
-__C.ANCHOR_SCALES = [1, 2, 4]
+__C.ANCHOR_SCALES = [0.7, 1, 1.43]
 
 # Ratio list to generate anchors
 __C.ANCHOR_RATIOS = [.5, 1, 2]

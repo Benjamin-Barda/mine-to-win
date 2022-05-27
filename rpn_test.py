@@ -24,7 +24,7 @@ lossfn = torch.nn.CrossEntropyLoss()
 extractor.eval()
 
 with torch.no_grad():
-    img, lbl, bounds = ds[400]
+    img, lbl, bounds = ds[1000]
     print(bounds)
     img = img[None, ...]
     img_size = img.shape[-2:]
@@ -50,6 +50,7 @@ if SHOW:
         col = (0,255,0)
         if labels[indx] == -1:
             col = (0,0,255)
+            continue
         elif labels[indx] == 0:
             col = (255,0,0)
             continue

@@ -96,11 +96,18 @@ def label_anchors(image_info, feat_height, feat_width, base_anchors, feature_str
 
 
             # Calculate intersections and IoU
-            w_i = torch.clip((sp_anch_mesh[3] + boxes_mesh[3]) / 2 - torch.abs(boxes[0] - sp_anch_mesh[0]), min=0)
-            h_i = torch.clip((sp_anch_mesh[2] + boxes_mesh[2]) / 2 - torch.abs(boxes[1] - sp_anch_mesh[1]), min=0)
+            w_sum = sp_anch_mesh[3] + boxes_mesh[3]
+            w_i = torch.clip(w_sum - torch.max(
+                torch.abs(boxes_mesh[0] - sp_anch_mesh[0] - w_sum * .5),
+                torch.abs(boxes_mesh[0] - sp_anch_mesh[0] + w_sum * .5)), min=0)
+            h_sum = sp_anch_mesh[2] + boxes_mesh[2]
+            h_i = torch.clip(h_sum - torch.max(
+                torch.abs(boxes_mesh[1] - sp_anch_mesh[1] - h_sum * .5),
+                torch.abs(boxes_mesh[1] - sp_anch_mesh[1] + h_sum * .5)), min=0)
             I = w_i * h_i
             U = boxes_mesh[3] * boxes_mesh[2] + sp_anch_mesh[3] * sp_anch_mesh[2] - I
             IoU = I / U # n_anchors * n_boxes
+            print(IoU)
 
             max_iou, max_indices = torch.max(IoU, dim=1) # Why yes, we do really need the indices
 
