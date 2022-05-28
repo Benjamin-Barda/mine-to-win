@@ -22,7 +22,7 @@ def generate_anchors(base, ratios, scales):
          ratios]
     ))
 
-
+@torch.jit.script
 def center2corner(tensor_batch):
     n_batch, n_box, _ = tensor_batch.shape
 
@@ -40,7 +40,7 @@ def center2corner(tensor_batch):
 
     return trans
 
-
+@torch.jit.script
 def corner2center(tensor_batch):
     n_batch, n_box, _ = tensor_batch.shape
 
@@ -81,13 +81,11 @@ def splashAnchors(feat_height, feat_width, batch_size, base_anchors, feature_str
     return anchor
 
 def label_anchors(image_info, feat_height, feat_width, base_anchors, feature_stride=cfg.FEATURE_STRIDE, A=cfg.A):
-
     sp_anch = splashAnchors(feat_height, feat_width, 1, base_anchors, feature_stride, A=A)[0].T
-    labels = torch.zeros(len(image_info), sp_anch.shape[1])
-    values = torch.zeros(len(image_info), 4, sp_anch.shape[1])
+    labels = torch.zeros(image_info.shape[0], sp_anch.shape[1])
+    values = torch.zeros(image_info.shape[0], 4, sp_anch.shape[1])
     # 4 * n_anchors
-    for indx, infos in enumerate(image_info):
-        boxes = torch.Tensor([box for boxes_of_label in infos for box in boxes_of_label]) # 4 * n_boxes
+    for indx, boxes in enumerate(image_info):
         if boxes.shape[0] > 0:
             boxes = boxes.T
             sp_anch_mesh = torch.broadcast_to(sp_anch[:, :, None], (4, sp_anch.shape[1], boxes.shape[1]))
@@ -116,12 +114,24 @@ def label_anchors(image_info, feat_height, feat_width, base_anchors, feature_str
 
             # Values for regressor
             boxes = boxes[:, max_indices]
-            values[indx, 0] = (boxes[0] - sp_anch[0])/sp_anch[2]
-            values[indx, 1] = (boxes[1] - sp_anch[1])/sp_anch[3]
-            values[indx, 2] = torch.log(boxes[2]/sp_anch[2])
-            values[indx, 3] = torch.log(boxes[3]/sp_anch[3])
-
+            values[indx, 0] = (boxes[0] - sp_anch[0])/sp_anch[2]    # t_x
+            values[indx, 1] = (boxes[1] - sp_anch[1])/sp_anch[3]    # t_y
+            values[indx, 2] = torch.log(boxes[2]/sp_anch[2])        # t_w
+            values[indx, 3] = torch.log(boxes[3]/sp_anch[3])        # t_h
         else:
             labels[indx] = -torch.ones(sp_anch.shape[1])
     
     return labels, values
+
+
+@torch.jit.script
+def invert_values(values, anchors):
+    values = values.permute(2,1,0)
+    anchors = anchors.permute(2,1,0) 
+    ret_vals = torch.empty_like(values)
+    ret_vals[0] = anchors[2] * values[0] + anchors[0]
+    ret_vals[1] = anchors[3] * values[1] + anchors[1]
+    ret_vals[2] = anchors[2] * torch.exp(values[2])
+    ret_vals[3] = anchors[3] * torch.exp(values[3])
+
+    return ret_vals.permute(2,1,0)

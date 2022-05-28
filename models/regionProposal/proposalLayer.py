@@ -48,7 +48,7 @@ class _proposal(nn.Module):
 
         # Apply predicted offset to original anchors thus turning them into proposals
         # print(anchors.shape)
-        
+
         rois = getROI(anchors, reg_scores)
         # Let's clip them to the image
         to_clip = center2corner(rois)
@@ -77,9 +77,6 @@ class _proposal(nn.Module):
          fg_scores = fg_scores[:, :pre_nms, :]
         '''
 
-        print(to_clip.shape)
-        print(fg_scores.shape)
-
         final_rois = list()
 
         for i in range(batch_size):
@@ -89,9 +86,9 @@ class _proposal(nn.Module):
                 self.nms_thresh
             )
             if post_nms > 0:
-                final_rois.append((torch.index_select(to_clip[i], dim=0, index=to_keep[:post_nms]), to_keep[:post_nms]))
-            else:
-                final_rois.append((torch.index_select(to_clip[i], dim=0, index=to_keep), to_keep))
+                to_keep = to_keep[:post_nms]
+            
+            final_rois.append((torch.index_select(to_clip[i], dim=0, index=to_keep), to_keep))
 
         return final_rois
 

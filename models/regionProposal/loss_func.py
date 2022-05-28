@@ -6,8 +6,10 @@ class RPNLoss(torch.nn.Module):
         super(RPNLoss, self).__init__()
         self.value = value
         self.cls_loss = torch.nn.NLLLoss(reduction='mean') # Instead of dividing the sum by N
-        self.reg_loss = torch.nn.SmoothL1Loss(reduction='mean') # Same
+        self.reg_loss = torch.nn.SmoothL1Loss(reduction='none') # Same
 
-    def forward(self, cls, reg, ground_cls, ground_reg):
+    def forward(self, classifier, reg, ground_cls, ground_reg):
         # Implemented as Faster R-CNN intended
-        return self.cls_loss(cls, ground_cls) + self.value * self.reg_loss(reg, ground_reg)
+        reg_loss = self.value * torch.mean(ground_cls[:, None].expand(-1, 4) * self.reg_loss(reg, ground_reg))
+        class_loss = self.cls_loss(classifier, ground_cls)
+        return reg_loss + class_loss

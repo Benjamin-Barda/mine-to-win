@@ -1,6 +1,7 @@
 import sys
 from models.extractor.backCNN import BackboneCNN
 from models.regionProposal.rpn import _rpn
+from models.regionProposal.loss_func import RPNLoss
 from models.regionProposal.utils.anchorUtils import *
 from torch.utils.data import DataLoader, Subset
 import cv2 as cv
@@ -18,13 +19,13 @@ dl = DataLoader(ds, batch_size=bs, pin_memory=True, shuffle=True)
 
 # Model initialized with flag so after the last conv layer return the featmap
 extractor = BackboneCNN(is_in_rpn=True).to(("cpu"))
-extractor.load_state_dict(torch.load("./BackCNN_deep3_best_weights3.pth", map_location=torch.device('cpu')))
-lossfn = torch.nn.CrossEntropyLoss()
+extractor.load_state_dict(torch.load("./models/extractor/backbone_trained_weights.pth", map_location=torch.device('cpu')))
+lossfn = RPNLoss()
 
 extractor.eval()
 
 with torch.no_grad():
-    img, lbl, bounds = ds[1000]
+    img, lbl, bounds = ds[100]
     img = img[None, ...]
     img_size = img.shape[-2:]
     base_feat_map = extractor.forward(img)
@@ -35,11 +36,11 @@ if DEBUG:
     print(f"shape of the image = {img_size}")
 
 rpn = _rpn(inDim)
-rpn_conv_out = rpn(base_feat_map, img_size)
+score, reg, rois_index = rpn(base_feat_map, img_size)
+
+print(rois_index)
 
 if SHOW:
-    rois, anch_indxs = rpn_conv_out[-1][0]
-    print(rois.shape)
     rois = rois.type(torch.int32)
     labels, values = label_anchors([bounds], hh, ww, rpn.anchors)
     labels = labels[0]
@@ -47,6 +48,7 @@ if SHOW:
     img = img.permute(0, 2, 3, 1)[0, ...].numpy()
     img = np.ascontiguousarray(img)
     cv.imshow("orig img", img)
+
     for indx, an in enumerate(rois):
         col = (0,255,0)
         if labels[indx] == -1:

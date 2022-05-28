@@ -25,7 +25,7 @@ class ClassData(data.Dataset):
         self.labels = np.asarray( 4 * df["Sheep"].astype(bool).astype(int) + 3 * df["Zombie"].astype(bool).astype(int)
                                 + 2 * df["Pig"].astype(bool).astype(int) + df["Creeper"].astype(bool).astype(int), dtype="int64")
 
-        self.boundings = list(zip(df["Pig"], df["Creeper"], df["Sheep"], df["Zombie"]))
+        self.boundings = list(zip(df["Creeper"], df["Pig"], df["Zombie"], df["Sheep"]))
 
         assert(len(self.images) == len(self.labels) == len(self.boundings))
 
@@ -34,7 +34,7 @@ class ClassData(data.Dataset):
 
     def __getitem__(self, index):
         if torch.is_tensor(index):
-                    index = index.tolist()
+            index = index.tolist()
 
         img = self.images[index]
         if self.train:
@@ -47,9 +47,23 @@ class ClassData(data.Dataset):
 
         if self.train and self.transform_target:
             label = self.transform_target(label)
+        
+        boxes = None
+        if type(index) != int:
+            if index.shape[0] > 1:
+                boxes = torch.zeros(index.shape[0], 1, 5)
+            else:
+                boxes = torch.tensor([(i + 1, box[0], box[1], box[2], box[3]) for i,lst_box in enumerate(self.boundings[index]) if len(lst_box) > 0 for box in lst_box])
 
-        sample = (img, label, self.boundings[index])
-        return sample
+                if len(boxes.shape) < 2:
+                    boxes = torch.zeros(0, 5)
+        else:
+            boxes = torch.tensor([(i + 1, box[0], box[1], box[2], box[3]) for i,lst_box in enumerate(self.boundings[index]) if len(lst_box) > 0 for box in lst_box])
+
+            if len(boxes.shape) < 2:
+                boxes = torch.zeros(0, 5)
+
+        return img, label, boxes # N * b * 5
 
     def shape(self):
         return self.images.shape

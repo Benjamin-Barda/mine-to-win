@@ -13,9 +13,12 @@ class Monster(nn.Module):
         self.extractor = extractor
         self.rpn = rpn
 
+
     def forward(self, x):
+        img_size = x.shape[-2:]
+
         base_feat_map = self.extractor(x)
 
-        score, offsets, rois = self.rpn(base_feat_map)
+        score, offsets, rois_x_index = self.rpn(base_feat_map, img_size)
 
-        return rois
+        return rois_x_index[0]

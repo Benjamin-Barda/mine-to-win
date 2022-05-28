@@ -37,7 +37,7 @@ class _rpn(nn.Module):
         # -> Region Proposal Layer here
 
         # Classification layer
-        self.cls_out_size = self.A * 2
+        self.cls_out_size = 2 * self.A
         self.classificationLayer = nn.Conv2d(self.baseConvOut, self.cls_out_size, kernel_size=1, stride=1, padding=0)
 
         # Regression Layer on the BBOX
@@ -45,6 +45,11 @@ class _rpn(nn.Module):
         self.regressionLayer = nn.Conv2d(self.baseConvOut, self.regr_out_size, kernel_size=1, stride=1, padding=0)
 
         self.proposalLayer = _proposal()
+
+        nn.init.kaiming_uniform_(self.BASE_CONV[0].weight, nonlinearity='relu')
+        nn.init.kaiming_uniform_(self.classificationLayer.weight, nonlinearity='relu')
+        nn.init.kaiming_uniform_(self.regressionLayer.weight, nonlinearity='relu')
+
 
     def forward(self, x, img_size):
         '''
@@ -77,7 +82,7 @@ class _rpn(nn.Module):
         # take only the foreground prediction 
         fg_scores = rpn_softmax[:, :, :, :, 1].contiguous()
         fg_scores = fg_scores.view(n, -1)
-        rpn_score = rpn_score.view(n, -1, 2)
+        #rpn_score = rpn_score.view(n, -1, 2)
 
         # At the end we have 
         #   rpn_score.shape   = (n, W*H*A, 2) 
@@ -91,4 +96,4 @@ class _rpn(nn.Module):
             img_size
         )
 
-        return rpn_score, rpn_reg, rois
+        return fg_scores, rpn_reg, rois

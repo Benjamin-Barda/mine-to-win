@@ -43,10 +43,10 @@ RegionProposalNetwork.RegionProposalLayer
 # in train how many ROI to retain before NMS
 __C.PRE_NMS_TRAIN  = 1000
 # in train how many ROI to retain after NMS
-__C.POST_NMS_TRAIN = 200
+__C.POST_NMS_TRAIN = 1000
 # in testing how many ROI to retain before NMS
 __C.PRE_NMS_TEST   = 2000
 # in testing how many ROI to retain after NMS
-__C.POST_NMS_TEST  = 150
+__C.POST_NMS_TEST  = 1000
 # Threshhold for nms
 __C.NMS_THRESHOLD = .7

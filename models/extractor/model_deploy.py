@@ -41,7 +41,7 @@ def get_features(name):
     return hook
 
 model = BackboneCNN().to("cuda")
-model.load_state_dict(torch.load("./BackCNN_deep_best_weights.pth"))
+model.load_state_dict(torch.load("./models/extractor/backbone_trained_weights.pth"))
 lossfn = torch.nn.CrossEntropyLoss()
 
 print(model)
