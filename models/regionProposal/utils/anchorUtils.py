@@ -140,13 +140,13 @@ def invert_values(values, anchors):
 
 # Fine guess I'll do it myself
 def our_nms(anchors, threshold=0.7):
-    anchors = anchors.to(("cpu")).T
+    anchors = anchors.to(cfg.DEVICE).T
 
     IoUs = IOU(anchors, anchors)
-    IoUs = IoUs - torch.eye(IoUs.shape[0])
+    IoUs = IoUs - torch.eye(IoUs.shape[0], device=cfg.DEVICE)
     IoUsl = IoUs.tril()
     maximum, _ = IoUsl.max(dim=1)
     to_keep = (maximum <= threshold).nonzero()
     rows = IoUs.max(dim=1)[0][to_keep]
-    return to_keep[rows.sort(dim=0, descending=True)[1]]
+    return to_keep[rows.sort(dim=0, descending=True)[1]].squeeze()
     

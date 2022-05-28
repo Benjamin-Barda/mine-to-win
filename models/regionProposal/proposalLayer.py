@@ -87,7 +87,7 @@ class _proposal(nn.Module):
             if post_nms > 0:
                 to_keep = to_keep[:post_nms]
             
-            final_rois.append((to_clip[i][to_keep], torch.tensor(to_keep)))
+            final_rois.append((to_clip[i][to_keep], to_keep))
 
         return final_rois
 
