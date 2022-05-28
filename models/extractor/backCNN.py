@@ -60,7 +60,7 @@ class BackboneCNN(nn.Module):
         nn.init.kaiming_uniform_(self.conv5[0].weight, nonlinearity='relu')
         nn.init.kaiming_uniform_(self.conv6[0].weight, nonlinearity='relu')
 
-    def forward(self, x, ret=False):
+    def forward(self, x):
         x = self.conv1(x)
         x = self.conv2(x)
         x = self.conv3(x)
@@ -74,9 +74,6 @@ class BackboneCNN(nn.Module):
         x = self.conv6(x)
 
         k = self.pool(x).reshape((x.shape[0], -1))
-
-        if ret:
-            return k, x.clone()
         
         return k
 

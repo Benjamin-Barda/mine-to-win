@@ -11,8 +11,10 @@ from models.regionProposal.utils.anchorUtils import *
 
 class _rpn(nn.Module):
 
-    def __init__(self, inDimension, feature_stride=cfg.FEATURE_STRIDE):
+    def __init__(self, inDimension, feature_stride=cfg.FEATURE_STRIDE, device = "cpu"):
         super(_rpn, self).__init__()
+        
+        self.device = device
 
         # Depth of the in feature map
         self.inDimension = inDimension
@@ -31,27 +33,32 @@ class _rpn(nn.Module):
         # Base of the convolution
         self.BASE_CONV = nn.Sequential(
             nn.Conv2d(self.inDimension, self.baseConvOut, kernel_size=3, stride=1, padding=1, bias=True),
-            nn.Mish(inplace=True)
+            nn.Mish(inplace=True),
+            nn.BatchNorm2d(self.baseConvOut)
             )
 
         # -> Region Proposal Layer here
 
         # Classification layer
         self.cls_out_size = 2 * self.A
-        self.classificationLayer = nn.Conv2d(self.baseConvOut, self.cls_out_size, kernel_size=1, stride=1, padding=0)
-
+        self.classificationLayer = nn.Sequential(
+            nn.Conv2d(self.baseConvOut, self.cls_out_size, kernel_size=1, stride=1, padding=0, bias=False),
+            nn.BatchNorm2d(self.cls_out_size)
+        )
         # Regression Layer on the BBOX
         self.regr_out_size = 4 * self.A
-        self.regressionLayer = nn.Conv2d(self.baseConvOut, self.regr_out_size, kernel_size=1, stride=1, padding=0)
-
-        self.proposalLayer = _proposal()
+        self.regressionLayer = nn.Sequential(
+            nn.Conv2d(self.baseConvOut, self.regr_out_size, kernel_size=1, stride=1, padding=0, bias=False),
+            nn.BatchNorm2d(self.regr_out_size)
+        )
+        self.proposalLayer = _proposal(device=self.device)
 
         nn.init.kaiming_uniform_(self.BASE_CONV[0].weight, nonlinearity='relu')
-        nn.init.kaiming_uniform_(self.classificationLayer.weight, nonlinearity='relu')
-        nn.init.kaiming_uniform_(self.regressionLayer.weight, nonlinearity='relu')
+        nn.init.kaiming_uniform_(self.classificationLayer[0].weight, nonlinearity='relu')
+        nn.init.kaiming_uniform_(self.regressionLayer[0].weight, nonlinearity='relu')
 
 
-    def forward(self, x, img_size):
+    def forward(self, x , img_size):
         '''
         args : 
             x : tensor : Feature map give
@@ -64,9 +71,11 @@ class _rpn(nn.Module):
         # fW : Feature map width 
         n, c, fH, fW = x.shape
 
+        
         # Pass into first conv layer + ReLU
         base = self.BASE_CONV(x)
         anchors = splashAnchors(fH, fW, n, self.anchors, self.feature_stride)
+        anchors = anchors.to(self.device, non_blocking=True)
 
         # Pass BASE first into the regressor -> BBox offset and scales for anchors
         rpn_reg = self.regressionLayer(base)

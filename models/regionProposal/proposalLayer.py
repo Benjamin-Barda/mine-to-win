@@ -6,6 +6,7 @@ import torch
 import torch.nn as nn
 from torchvision.ops import nms
 import numpy as np
+from zmq import device
 
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "../../"))
@@ -15,9 +16,10 @@ from models.regionProposal.utils.anchorUtils import *
 
 class _proposal(nn.Module):
 
-    def __init__(self, training=False):
+    def __init__(self, training=False, device="cpu"):
         super(_proposal, self).__init__()
 
+        self.device = device
         self.pre_nms_train = cfg.PRE_NMS_TRAIN
         self.post_nms_train = cfg.POST_NMS_TRAIN
         self.pre_nms_test = cfg.PRE_NMS_TEST
@@ -49,7 +51,7 @@ class _proposal(nn.Module):
         # Apply predicted offset to original anchors thus turning them into proposals
         # print(anchors.shape)
 
-        rois = getROI(anchors, reg_scores)
+        rois = self.getROI(anchors, reg_scores)
         # Let's clip them to the image
         to_clip = center2corner(rois)
 
@@ -88,40 +90,40 @@ class _proposal(nn.Module):
             if post_nms > 0:
                 to_keep = to_keep[:post_nms]
             
-            final_rois.append((torch.index_select(to_clip[i], dim=0, index=to_keep), to_keep))
+            final_rois.append((to_clip[i][to_keep], to_keep))
 
         return final_rois
 
 
-def getROI(src_box, offset):
-    # unTODO : Check if the batch size is a problem
+    def getROI(self, src_box, offset):
+        # unTODO : Check if the batch size is a problem
 
-    """
-    Taken from R-CNN paper
+        """
+        Taken from R-CNN paper
 
-    offset calc  :
-        dst_x = src_w * off_x + src_x
-        dst_y = src_h * off_y + src_y
-        dst_w = src_w * exp(off_w)
-        dst_h = src_h * exp(off_h)
+        offset calc  :
+            dst_x = src_w * off_x + src_x
+            dst_y = src_h * off_y + src_y
+            dst_w = src_w * exp(off_w)
+            dst_h = src_h * exp(off_h)
 
-    """
+        """
 
-    src_x = src_box[:, :, 0::4]
-    src_y = src_box[:, :, 1::4]
-    src_w = src_box[:, :, 2::4]
-    src_h = src_box[:, :, 3::4]
+        src_x = src_box[:, :, 0::4]
+        src_y = src_box[:, :, 1::4]
+        src_w = src_box[:, :, 2::4]
+        src_h = src_box[:, :, 3::4]
 
-    off_x = offset[:, :, 0::4]
-    off_y = offset[:, :, 1::4]
-    off_w = offset[:, :, 2::4]
-    off_h = offset[:, :, 3::4]
+        off_x = offset[:, :, 0::4]
+        off_y = offset[:, :, 1::4]
+        off_w = offset[:, :, 2::4]
+        off_h = offset[:, :, 3::4]
 
-    dst = offset.clone()
+        dst = offset.clone().to(self.device)
 
-    dst[:, :, 0::4] = src_w * off_x + src_x
-    dst[:, :, 1::4] = src_h * off_y + src_y
-    dst[:, :, 2::4] = src_w * torch.exp(off_w)
-    dst[:, :, 3::4] = src_h * torch.exp(off_h)
+        dst[:, :, 0::4] = src_w * off_x + src_x
+        dst[:, :, 1::4] = src_h * off_y + src_y
+        dst[:, :, 2::4] = src_w * torch.exp(off_w)
+        dst[:, :, 3::4] = src_h * torch.exp(off_h)
 
-    return dst
+        return dst

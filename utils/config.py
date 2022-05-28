@@ -50,3 +50,9 @@ __C.PRE_NMS_TEST   = 2000
 __C.POST_NMS_TEST  = 1000
 # Threshhold for nms
 __C.NMS_THRESHOLD = .7
+
+"""
+CUDA Device
+"""
+import torch
+__C.DEVICE =  "cuda" if torch.cuda.is_available() else "cpu"

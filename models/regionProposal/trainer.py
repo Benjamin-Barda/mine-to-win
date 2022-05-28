@@ -1,5 +1,6 @@
 import sys
 import os
+from turtle import pos
 sys.path.append(os.path.join(os.path.dirname(__file__), "../../"))
 from models.extractor.backCNN import BackboneCNN
 from models.regionProposal.rpn import _rpn
@@ -12,6 +13,7 @@ from data.ClassData import ClassData
 from torch.backends import cuda
 import random
 
+from torch.profiler import profile, record_function, ProfilerActivity
 
 cuda.benchmark = True
 SHOW = True
@@ -33,7 +35,8 @@ test_load =   DataLoader(test, batch_size = BATCH_SIZE, shuffle=True, pin_memory
 # Model initialized with flag so after the last conv layer return the featmap
 extractor = BackboneCNN(is_in_rpn=True).to(device)
 extractor.load_state_dict(torch.load("./models/extractor/backbone_trained_weights.pth", map_location=device))
-rpn = _rpn(240).to(device)
+extractor = torch.jit.script(extractor)
+rpn = _rpn(240, device=device).to(device)
 
 load = True
 store = True
@@ -41,7 +44,7 @@ store = True
 if load:
     state_extractor, state_rpn = torch.load("./MineRPN_best_weights.pth", map_location=device)
     extractor.load_state_dict(state_extractor)
-    rpn.load_state_dict(state_rpn)
+    #rpn.load_state_dict(state_rpn)
 
 params = list(extractor.parameters()) + list(rpn.parameters())
 optimizer = torch.optim.AdamW(params=params, lr = 0.0001, amsgrad=True)
@@ -49,7 +52,7 @@ optimizer = torch.optim.AdamW(params=params, lr = 0.0001, amsgrad=True)
 best_risk = torch.inf
 best_state = (extractor.state_dict(), rpn.state_dict())
 
-loss_funct = RPNLoss()
+loss_funct = torch.jit.script(RPNLoss())
 
 i = 0
 counter = 0
@@ -74,35 +77,44 @@ while True:
         _, inDim, hh, ww, = base_feat_map.size()
 
         score, reg, rois_index = rpn(base_feat_map, img.shape[-2:])
-
         labels, values = label_anchors(bounds, hh, ww, rpn.anchors)
+        
+
+
+        labels = labels.to(device, non_blocking=True)
+        values = values.to(device, non_blocking=True)
 
         values = values.permute(0,2,1)
 
-        score = score[0][rois_index[0][1].tolist()]
-        reg = reg[0][rois_index[0][1].tolist()]
-        labels = labels[0][rois_index[0][1].tolist()].type(torch.int64)
-        values = values[0][rois_index[0][1].tolist()]
+        score = score[0][rois_index[0][1]]
+        reg = reg[0][rois_index[0][1]]
+        labels = labels[0][rois_index[0][1]].type(torch.int64)
+        values = values[0][rois_index[0][1]]
+            
+        with torch.no_grad():
 
-        positives = list()
-        negatives = list()
-        for j,label in enumerate(labels):
-            if label == 1:
-                positives.append(j)
-            elif label == -1:
-                negatives.append(j)
-                labels[j] = 0
-        
-        random.shuffle(positives)
-        random.shuffle(negatives)
+            positives = (labels == 1).nonzero().T.squeeze()
+            negatives = (labels == -1).nonzero().T.squeeze()
+            
+            labels = torch.clip(labels, min = 0)
+            
+            if not len(positives.shape):
+                positives = torch.zeros((0))
+                
+            if not len(negatives.shape):
+                negatives = torch.zeros((0))
+                
+            positives = positives[torch.randperm(positives.shape[0])]
+            negatives = negatives[torch.randperm(negatives.shape[0])]
+            
 
-        to_use = []
-        if len(positives) >= ANCHORS_HALF_BATCH_SIZE:
-            to_use += positives[:ANCHORS_HALF_BATCH_SIZE]
-            to_use += negatives[:ANCHORS_HALF_BATCH_SIZE]
-        else:
-            to_use = positives
-            to_use += negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - len(to_use)]
+            to_use = torch.empty((ANCHORS_HALF_BATCH_SIZE*2), dtype=torch.int64, device=device)
+            if positives.shape[0] >= ANCHORS_HALF_BATCH_SIZE:
+                to_use[:ANCHORS_HALF_BATCH_SIZE] = positives[:ANCHORS_HALF_BATCH_SIZE]
+                to_use[ANCHORS_HALF_BATCH_SIZE:] = negatives[:ANCHORS_HALF_BATCH_SIZE]
+            else:
+                to_use[:positives.shape[0]] = positives
+                to_use[positives.shape[0]:] = negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - positives.shape[0]]
 
         loss = loss_funct.forward(score[to_use], reg[to_use], labels[to_use], values[to_use])
         
@@ -131,7 +143,9 @@ while True:
             score, reg, rois_index = rpn(base_feat_map, img.shape[-2:])
 
             labels, values = label_anchors(bounds, hh, ww, rpn.anchors)
-
+            labels = labels.to(device, non_blocking=True)
+            values = values.to(device, non_blocking=True)
+            
             values = values.permute(0,2,1)
 
             score = score[0][rois_index[0][1].tolist()]
@@ -139,25 +153,28 @@ while True:
             labels = labels[0][rois_index[0][1].tolist()].type(torch.int64)
             values = values[0][rois_index[0][1].tolist()]
 
-            positives = list()
-            negatives = list()
-            for j,label in enumerate(labels):
-                if label == 1:
-                    positives.append(j)
-                elif label == -1:
-                    negatives.append(j)
-                    labels[j] = 0
+            positives = (labels == 1).nonzero().T.squeeze()
+            negatives = (labels == -1).nonzero().T.squeeze()
             
-            random.shuffle(positives)
-            random.shuffle(negatives)
-
-            to_use = []
-            if len(positives) >= ANCHORS_HALF_BATCH_SIZE:
-                to_use += positives[:ANCHORS_HALF_BATCH_SIZE]
-                to_use += negatives[:ANCHORS_HALF_BATCH_SIZE]
+            labels = torch.clip(labels, min = 0)
+            
+            if not len(positives.shape):
+                positives = torch.zeros((0))
+                
+            if not len(negatives.shape):
+                negatives = torch.zeros((0))
+                
+            positives = positives[torch.randperm(positives.shape[0])]
+            negatives = negatives[torch.randperm(negatives.shape[0])]
+            
+            to_use = torch.empty((ANCHORS_HALF_BATCH_SIZE*2), dtype=torch.int64, device=device)
+            if positives.shape[0] >= ANCHORS_HALF_BATCH_SIZE:
+                to_use[:ANCHORS_HALF_BATCH_SIZE] = positives[:ANCHORS_HALF_BATCH_SIZE]
+                to_use[ANCHORS_HALF_BATCH_SIZE:] = negatives[:ANCHORS_HALF_BATCH_SIZE]
             else:
-                to_use = positives
-                to_use += negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - len(to_use)]
+                to_use[:positives.shape[0]] = positives
+                to_use[positives.shape[0]:] = negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - positives.shape[0]]
+
 
             loss = loss_funct.forward(score[to_use], reg[to_use], labels[to_use], values[to_use])
 
@@ -165,8 +182,7 @@ while True:
             total_loss += loss.item()
             total_correct += torch.where(score[to_use] < .5, 0, 1).eq(labels[to_use]).sum().item()
             total_sqrd_error += (torch.pow(reg[to_use] - values[to_use], 2)).sum().item()
-            
-            
+
         risk = total_loss / tot_minibatch_val
         accuracy = total_correct / total
         print(f"Epoch {i}: accuracy={accuracy:.5f}, sqrd_error={total_sqrd_error/(total*4):.5f}, risk={risk:.5f}")
@@ -180,7 +196,8 @@ while True:
         else:
             print(f"Worse loss reached, stopping training, best risk: {best_risk}.")
             break
-    break
+        
+        i+=1
 
 if store:
     torch.save(best_state, "./MineRPN_best_weights.pth")

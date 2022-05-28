@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex mineRCNN"] 1653731619 "mineRCNN.aux" "mineRCNN.bbl" "mineRCNN" 1653731623
+["bibtex mineRCNN"] 1653737049 "mineRCNN.aux" "mineRCNN.bbl" "mineRCNN" 1653737058
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/bibtex/bst/ieeetran/IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "mineRCNN.aux" 1653731622 1038 60906d641d85dc271dab723efd0b2c9b "pdflatex"
+  "mineRCNN.aux" 1653737057 1203 c6a34cb76ab6a0c3430345e2655be546 "pdflatex"
   "ref.bib" 1653731476 1109 029e79f4eaa07062506d182935d09f63 ""
   (generated)
   "mineRCNN.bbl"
   "mineRCNN.blg"
-["pdflatex"] 1653731620 "d:/Repos/mine-to-win/docs/mineRCNN.tex" "mineRCNN.pdf" "mineRCNN" 1653731623
+["pdflatex"] 1653737055 "d:/Repos/mine-to-win/docs/mineRCNN.tex" "mineRCNN.pdf" "mineRCNN" 1653737058
   "C:/Users/candi/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1638217565 9769173 8b747b87e99ef39157853c0307c68d10 ""
-  "C:/Users/candi/AppData/Local/MiKTeX/pdftex/config/pdftex.map" 1653730755 283253 eae3cb146731df65abf3cbbfa0b26c3e ""
+  "C:/Users/candi/AppData/Local/MiKTeX/pdftex/config/pdftex.map" 1653735719 283253 eae3cb146731df65abf3cbbfa0b26c3e ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458477487 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/tfm/adobe/helvetic/phvb7t.tfm" 1136772254 2240 eb56c13537f4d8a0bd3fafc25572b1bd ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/tfm/adobe/helvetic/phvb8r.tfm" 1136772254 4484 b828043cbd581d289d955903c1339981 ""
@@ -91,6 +91,7 @@
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/caption/caption3.sty" 1646064735 71256 07c325fe077d3ffe63ecca13ea9cde02 ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/cite/cite.sty" 1425357082 26218 19edeff8cdc2bcb704e8051dc55eb5a7 ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1623003186 13886 d1306dcf79a944f6988e688c1785f9ce ""
+  "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/eso-pic/eso-pic.sty" 1607186570 11772 8d0db0794e6aeb45348f60bbe3a3e093 ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/float/float.sty" 1469023953 6916 16d2656a1984957e674b149555f1ea1d ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/graphics-cfg/color.cfg" 1465894292 1213 620bba36b25224fa9b7e1ccb4ecb76fd ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/graphics-cfg/graphics.cfg" 1465894292 1224 978390e9c2234eab29404bc21b268d1e ""
@@ -127,14 +128,13 @@
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/tools/tabularx.sty" 1636713860 7147 5ac8a9ef36411064b1a501137af0fa54 ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/tools/xspace.sty" 1636713860 4545 d84d0b20a11b9c36c6ecf45697be591c ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388494052 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
+  "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1636288472 56029 3f7889dab51d620aa43177c391b7b190 ""
   "IEEEtran.cls" 1260888356 202048 7a5cc2729ebe2b1f0119271c4ce792e3 ""
   "cvpr.sty" 1366324252 1726 5ff707839b9f7ec26e0dadbb1e041e13 ""
-  "cvpr_eso.sty" 1653729610 3878 6aa7c08ff2621006e0603349e40a30a8 ""
-  "d:/Repos/mine-to-win/docs/mineRCNN.tex" 1653731613 3745 ccf02b1fb96a7c5fe67f8b2628e27954 ""
-  "eso-pic.sty" 1347371228 9460 d2935ae95b5cd343fcf5887ff530288d ""
-  "mineRCNN.aux" 1653731622 1038 60906d641d85dc271dab723efd0b2c9b "pdflatex"
-  "mineRCNN.bbl" 1653731620 1455 56ead6d1a0305723206a80cc0e2359d4 "bibtex mineRCNN"
-  "mineRCNN.tex" 1653731613 3745 ccf02b1fb96a7c5fe67f8b2628e27954 ""
+  "d:/Repos/mine-to-win/docs/mineRCNN.tex" 1653737055 4399 27280964c5454d543131d230a6ab0209 ""
+  "mineRCNN.aux" 1653737057 1203 c6a34cb76ab6a0c3430345e2655be546 "pdflatex"
+  "mineRCNN.bbl" 1653737049 1455 56ead6d1a0305723206a80cc0e2359d4 "bibtex mineRCNN"
+  "mineRCNN.tex" 1653737055 4399 27280964c5454d543131d230a6ab0209 ""
   (generated)
   "mineRCNN.aux"
   "mineRCNN.log"
