@@ -14,7 +14,7 @@ SHOW = True
 bs = 1
 
 # Loading only one image
-ds = torch.load("data\\datasets\\minedata_actual_local.dtst")
+ds = torch.load("data\\datasets\\minedata_nonull_local.dtst")
 dl = DataLoader(ds, batch_size=bs, pin_memory=True, shuffle=True)
 
 state_extractor, state_rpn = torch.load("./MineRPN_best_weights.pth", map_location=torch.device('cpu'))
@@ -46,7 +46,6 @@ for indx, an in enumerate(rois_index[0][0]):
     col = (0,255,0)
     if score[0][indx] < .5:
         col = (0,0,255)
-        break
     x, y, w, h = an
 
     x1,y1,x2,y2 = int(x.item() - w.item()//2), int(y.item() - h.item()//2), int(x.item() + w.item()//2), int(y.item() + h.item()//2)

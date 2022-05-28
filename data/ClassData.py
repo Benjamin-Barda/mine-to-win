@@ -90,11 +90,11 @@ def create_and_save_dataset(srcs, filename, for_colab = False):
 if __name__ == "__main__":
     names = [f"jsons\\rePARSEDOUTPUT-creeper{i}.json" for i in range(1, 11)]
     names += [f"jsons\\rePARSEDOUTPUT-pig{i}.json" for i in range(1, 11)]
-    names += [f"jsons\\rePARSEDOUTPUT-null{i}.json" for i in range(1, 20)]
+    #names += [f"jsons\\rePARSEDOUTPUT-null{i}.json" for i in range(1, 20)]
     names += [f"jsons\\rePARSEDOUTPUT-zombie{i}.json" for i in range(1, 10)]
     names += [f"jsons\\rePARSEDOUTPUT-sheep{i}.json" for i in range(1, 10)]
-    names.append("jsons\\rePARSEDOUTPUT-seanull1.json")
-    create_and_save_dataset(names, "data\\datasets\\minedata_actual_local.dtst")
+    #names.append("jsons\\rePARSEDOUTPUT-seanull1.json")
+    create_and_save_dataset(names, "data\\datasets\\minedata_nonull_local.dtst")
 
     # names = [f"jsons\\PARSEDOUTPUT-creeper{i}.json" for i in range(1, 11)]
     # names += [f"jsons\\PARSEDOUTPUT-pig{i}.json" for i in range(1, 11)]

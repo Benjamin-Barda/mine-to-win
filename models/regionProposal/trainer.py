@@ -18,19 +18,18 @@ from torch.profiler import profile, record_function, ProfilerActivity
 cuda.benchmark = True
 SHOW = True
 
-ds = torch.load("data\\datasets\minedata_actual_local.dtst")
+ds = torch.load("data\\datasets\minedata_nonull_local.dtst")
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-split = int(ds.shape()[0] * 0.75)
-train, val, test = Subset(ds, list(range(split))), Subset(ds, list(range(split, int(ds.shape()[0] * 0.9)))), Subset(ds, list(range(int(ds.shape()[0] * 0.9), int(ds.shape()[0]))))
+split = int(ds.shape()[0] * 0.8)
+train, val = Subset(ds, list(range(split))), Subset(ds, list(range(split, int(ds.shape()[0]))))
 
 BATCH_SIZE = 1
-ANCHORS_HALF_BATCH_SIZE = 64
+ANCHORS_HALF_BATCH_SIZE = 8
 
 train_load = DataLoader(train, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True)
 val_load =   DataLoader(val, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True)
-test_load =   DataLoader(test, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True)
 
 # Model initialized with flag so after the last conv layer return the featmap
 extractor = BackboneCNN(is_in_rpn=True).to(device)
@@ -38,13 +37,13 @@ extractor.load_state_dict(torch.load("./models/extractor/backbone_trained_weight
 extractor = torch.jit.script(extractor)
 rpn = _rpn(240, device=device).to(device)
 
-load = True
+load = False
 store = True
 
 if load:
     state_extractor, state_rpn = torch.load("./MineRPN_best_weights.pth", map_location=device)
     extractor.load_state_dict(state_extractor)
-    #rpn.load_state_dict(state_rpn)
+    rpn.load_state_dict(state_rpn)
 
 params = list(extractor.parameters()) + list(rpn.parameters())
 optimizer = torch.optim.AdamW(params=params, lr = 0.0001, amsgrad=True)
@@ -56,10 +55,12 @@ loss_funct = torch.jit.script(RPNLoss())
 
 i = 0
 counter = 0
-max_c = 15
+max_c = 2
 
 tot_minibatch = np.ceil(split / BATCH_SIZE)
 tot_minibatch_val = np.ceil((split * 0.2) / BATCH_SIZE)
+
+print(len(val))
 
 while True:
     extractor.train()
@@ -86,10 +87,10 @@ while True:
 
         values = values.permute(0,2,1)
 
-        score = score[0][rois_index[0][1]]
-        reg = reg[0][rois_index[0][1]]
-        labels = labels[0][rois_index[0][1]].type(torch.int64)
-        values = values[0][rois_index[0][1]]
+        score =   score[0]
+        reg =       reg[0]
+        labels = labels[0].type(torch.int64)
+        values = values[0]
             
         with torch.no_grad():
 
@@ -130,6 +131,7 @@ while True:
     
     with torch.no_grad():
         total_loss, total_correct, total_sqrd_error, total = 0,0,0,0
+        total_pos, total_neg = 0, 0
         
         for img, label, bounds in val_load:
             img = img.to(device, non_blocking=True)
@@ -148,13 +150,14 @@ while True:
             
             values = values.permute(0,2,1)
 
-            score = score[0][rois_index[0][1].tolist()]
-            reg = reg[0][rois_index[0][1].tolist()]
-            labels = labels[0][rois_index[0][1].tolist()].type(torch.int64)
-            values = values[0][rois_index[0][1].tolist()]
+            score =   score[0]
+            reg =       reg[0]
+            labels = labels[0].type(torch.int64)
+            values = values[0]
 
             positives = (labels == 1).nonzero().T.squeeze()
             negatives = (labels == -1).nonzero().T.squeeze()
+            
             
             labels = torch.clip(labels, min = 0)
             
@@ -166,6 +169,9 @@ while True:
                 
             positives = positives[torch.randperm(positives.shape[0])]
             negatives = negatives[torch.randperm(negatives.shape[0])]
+            
+            total_pos += positives.shape[0]
+            total_neg += negatives.shape[0]
             
             to_use = torch.empty((ANCHORS_HALF_BATCH_SIZE*2), dtype=torch.int64, device=device)
             if positives.shape[0] >= ANCHORS_HALF_BATCH_SIZE:
@@ -186,7 +192,7 @@ while True:
         risk = total_loss / tot_minibatch_val
         accuracy = total_correct / total
         print(f"Epoch {i}: accuracy={accuracy:.5f}, sqrd_error={total_sqrd_error/(total*4):.5f}, risk={risk:.5f}")
-        
+        print(f"Total positive anchors: {total_pos}, Total negative anchors: {total_neg}, Ratio: {total_pos/total_neg:.5f}")
         if risk < best_risk:
             best_risk = risk
             best_state = (extractor.state_dict(), rpn.state_dict())
@@ -198,6 +204,5 @@ while True:
             break
         
         i+=1
-
 if store:
     torch.save(best_state, "./MineRPN_best_weights.pth")
