@@ -89,16 +89,10 @@ def IOU(boxes, anchors):
     anchors_mesh = torch.broadcast_to(anchors[:, :, None], (4, anchors.shape[1], boxes.shape[1]))
     boxes_mesh = torch.broadcast_to(boxes[:, None, :], (4, anchors.shape[1], boxes.shape[1]))
     # Calculate intersections and IoU
-    w_sum = anchors_mesh[2] + boxes_mesh[2]
-    w_i = torch.clip(w_sum - torch.max(
-        torch.abs(boxes_mesh[0] - anchors_mesh[0] - w_sum * .5),
-        torch.abs(boxes_mesh[0] - anchors_mesh[0] + w_sum * .5)), min=0)
-    h_sum = anchors_mesh[3] + boxes_mesh[3]
-    h_i = torch.clip(h_sum - torch.max(
-        torch.abs(boxes_mesh[1] - anchors_mesh[1] - h_sum * .5),
-        torch.abs(boxes_mesh[1] - anchors_mesh[1] + h_sum * .5)), min=0)
+    w_i = torch.clip(.5 * (anchors_mesh[2] + boxes_mesh[2]) - torch.abs(boxes_mesh[0] - anchors_mesh[0]), min=torch.zeros_like(anchors_mesh[2]), max=torch.minimum(anchors_mesh[2],boxes_mesh[2]))
+    h_i = torch.clip(.5 * (anchors_mesh[3] + boxes_mesh[3]) - torch.abs(boxes_mesh[1] - anchors_mesh[1]), min=torch.zeros_like(anchors_mesh[3]), max=torch.minimum(anchors_mesh[3],boxes_mesh[3]))
     I = w_i * h_i
-    U = boxes_mesh[2] * boxes_mesh[3] + anchors_mesh[2] * anchors_mesh[3] - I
+    U = (boxes_mesh[2] * boxes_mesh[3]) + (anchors_mesh[2] * anchors_mesh[3]) - I
     IoU = I / U # n_anchors * n_boxes
     return IoU
 
@@ -112,7 +106,6 @@ def label_anchors(image_info, feat_height, feat_width, base_anchors, feature_str
         for indx, boxes in enumerate(image_info):
             if boxes.shape[0] > 0:
                 boxes=boxes.T
-
                 max_iou, max_indices = torch.max(IOU(boxes=boxes, anchors=sp_anch), dim=1) # Why yes, we do really need the indices
 
                 # Classification object or not
@@ -143,3 +136,17 @@ def invert_values(values, anchors):
         ret_vals[3] = anchors[3] * torch.exp(values[3])
 
         return ret_vals.permute(2,1,0)
+
+
+# Fine guess I'll do it myself
+def our_nms(anchors, threshold=0.7):
+    anchors = anchors.to(("cpu")).T
+
+    IoUs = IOU(anchors, anchors)
+    IoUs = IoUs - torch.eye(IoUs.shape[0])
+    IoUsl = IoUs.tril()
+    maximum, _ = IoUsl.max(dim=1)
+    to_keep = (maximum <= threshold).nonzero()
+    rows = IoUs.max(dim=1)[0][to_keep]
+    return to_keep[rows.sort(dim=0, descending=True)[1]]
+    

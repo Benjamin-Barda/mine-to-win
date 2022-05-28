@@ -82,15 +82,12 @@ class _proposal(nn.Module):
         final_rois = list()
 
         for i in range(batch_size):
-            # to_keep = nms(
-            #     to_clip[i],
-            #     fg_scores[i],
-            #     self.nms_thresh
-            # )
-            # if post_nms > 0:
-            #     to_keep = to_keep[:post_nms]
+            to_keep = our_nms(to_clip[i])
+
+            if post_nms > 0:
+                to_keep = to_keep[:post_nms]
             
-            final_rois.append((to_clip[i], list(range(to_clip[i].shape[0]))))
+            final_rois.append((to_clip[i][to_keep], torch.tensor(to_keep)))
 
         return final_rois
 
