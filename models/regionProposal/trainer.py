@@ -31,15 +31,17 @@ val_load =   DataLoader(val, batch_size = BATCH_SIZE, shuffle=True, pin_memory=T
 test_load =   DataLoader(test, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True)
 
 # Model initialized with flag so after the last conv layer return the featmap
-extractor = BackboneCNN(is_in_rpn=True).to(("cpu"))
-extractor.load_state_dict(torch.load("./models/extractor/backbone_trained_weights.pth", map_location=torch.device('cpu')))
-rpn = _rpn(240)
+extractor = BackboneCNN(is_in_rpn=True).to(device)
+extractor.load_state_dict(torch.load("./models/extractor/backbone_trained_weights.pth", map_location=device))
+rpn = _rpn(240).to(device)
 
-load = False
+load = True
 store = True
 
 if load:
-    state_extractor, state_rpn = torch.load_state_dict(torch.load("./MineRPN_best_weights.pth"))
+    state_extractor, state_rpn = torch.load("./MineRPN_best_weights.pth", map_location=device)
+    extractor.load_state_dict(state_extractor)
+    rpn.load_state_dict(state_rpn)
 
 params = list(extractor.parameters()) + list(rpn.parameters())
 optimizer = torch.optim.AdamW(params=params, lr = 0.0001, amsgrad=True)
@@ -50,6 +52,7 @@ best_state = (extractor.state_dict(), rpn.state_dict())
 loss_funct = RPNLoss()
 
 i = 0
+counter = 0
 max_c = 15
 
 tot_minibatch = np.ceil(split / BATCH_SIZE)
@@ -114,7 +117,7 @@ while True:
     ds.set_train_mode(False)
     
     with torch.no_grad():
-        total_loss, total_correct, total = 0,0,0
+        total_loss, total_correct, total_sqrd_error, total = 0,0,0,0
         
         for img, label, bounds in val_load:
             img = img.to(device, non_blocking=True)
@@ -158,13 +161,15 @@ while True:
 
             loss = loss_funct.forward(score[to_use], reg[to_use], labels[to_use], values[to_use])
 
+            total += len(to_use)
             total_loss += loss.item()
-            total_correct += score.eq(labels).sum().item()
+            total_correct += torch.where(score[to_use] < .5, 0, 1).eq(labels[to_use]).sum().item()
+            total_sqrd_error += (torch.pow(reg[to_use] - values[to_use], 2)).sum().item()
             
             
         risk = total_loss / tot_minibatch_val
         accuracy = total_correct / total
-        print(f"Epoch {i}: accuracy={accuracy:.5f}, risk={risk:.5f}")
+        print(f"Epoch {i}: accuracy={accuracy:.5f}, sqrd_error={total_sqrd_error/(total*4):.5f}, risk={risk:.5f}")
         
         if risk < best_risk:
             best_risk = risk
@@ -175,8 +180,7 @@ while True:
         else:
             print(f"Worse loss reached, stopping training, best risk: {best_risk}.")
             break
-    
-        i += 1
+    break
 
 if store:
     torch.save(best_state, "./MineRPN_best_weights.pth")

@@ -62,6 +62,7 @@ best_state = model.state_dict()
 loss_funct = torch.nn.CrossEntropyLoss()
 
 i = 0
+counter = 0
 max_c = 15
 
 tot_minibatch = np.ceil(split / BATCH_SIZE)
