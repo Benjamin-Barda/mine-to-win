@@ -65,13 +65,15 @@ class _proposal(nn.Module):
         # TODO : Add threshold for too small of anchors
         # unTODO : Add PRE and POST nms pruning
 
-        # return the indices of the sorted array reversed
-        order = fg_scores.argsort(descending=True)
+        # BENJAMIN I DEMAND YOUR HEAD ON A F**#@* PIKE
+        #   I WENT TO SLEEP AT 2 am FOR THIS S*?#
+        # # # return the indices of the sorted array reversed
+        # # # order = fg_scores.argsort(dim=1, descending=True)
 
-        # Sort region of interest based on score
-        for i in range(batch_size):
-            to_clip[i] = rois[i, order[i]]
-            fg_scores[i] = fg_scores[i, order[i]]
+        # # # # Sort region of interest based on score
+        # # # for i in range(batch_size):
+        # # #     to_clip[i] = rois[i, order[i]]
+        # # #     fg_scores[i] = fg_scores[i, order[i]]
 
         # Here we could decide to cut some of the proposals but for the moment is better to skip
         '''
@@ -82,12 +84,16 @@ class _proposal(nn.Module):
         final_rois = list()
 
         for i in range(batch_size):
-            to_keep = our_nms(to_clip[i])
-
-            if post_nms > 0:
-                to_keep = to_keep[:post_nms]
+            # to_keep = nms(
+            #     to_clip[i],
+            #     fg_scores[i],
+            #     self.nms_thresh
+            #     )
+            # print(to_keep.shape)
+            # if post_nms > 0:
+            #     to_keep = to_keep[:post_nms]
             
-            final_rois.append((to_clip[i][to_keep], to_keep))
+            final_rois.append((to_clip[i], None))
 
         return final_rois
 

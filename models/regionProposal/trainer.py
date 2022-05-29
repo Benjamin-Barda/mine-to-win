@@ -84,15 +84,15 @@ def main():
 
             values = values.permute(0,2,1)
 
-            score =   score[0][rois_index[0][1]]
-            reg =       reg[0][rois_index[0][1]]
-            labels = labels[0][rois_index[0][1]].type(torch.int64)
-            values = values[0][rois_index[0][1]]
+            score =   score[0]
+            reg =       reg[0]
+            labels = labels[0]
+            values = values[0]
                 
             with torch.no_grad():
 
-                positives = (labels == 1).nonzero().T.squeeze()
-                negatives = (labels == -1).nonzero().T.squeeze()
+                positives = (labels > .999).nonzero().T.squeeze()
+                negatives = (labels < -.999).nonzero().T.squeeze()
                 
                 labels = torch.clip(labels, min = 0)
                 
@@ -147,13 +147,13 @@ def main():
                 
                 values = values.permute(0,2,1)
 
-                score =   score[0][rois_index[0][1]]
-                reg =       reg[0][rois_index[0][1]]
-                labels = labels[0][rois_index[0][1]].type(torch.int64)
-                values = values[0][rois_index[0][1]]
+                score =   score[0]
+                reg =       reg[0]
+                labels = labels[0]
+                values = values[0]
 
-                positives = (labels == 1).nonzero().T.squeeze()
-                negatives = (labels == -1).nonzero().T.squeeze()
+                positives = (labels > .999).nonzero().T.squeeze()
+                negatives = (labels < -.999).nonzero().T.squeeze()
                 
                 
                 labels = torch.clip(labels, min = 0)

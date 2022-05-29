@@ -75,6 +75,7 @@ class _rpn(nn.Module):
         # Pass into first conv layer + ReLU
         base = self.BASE_CONV(x)
         anchors = splashAnchors(fH, fW, n, self.anchors, self.feature_stride)
+
         anchors = anchors.to(self.device, non_blocking=True)
 
         # Pass BASE first into the regressor -> BBox offset and scales for anchors
