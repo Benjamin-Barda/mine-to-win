@@ -1,6 +1,5 @@
 import sys
 import os
-from turtle import pos
 sys.path.append(os.path.join(os.path.dirname(__file__), "../../"))
 from models.extractor.backCNN import BackboneCNN
 from data.ClassData import ClassData
@@ -22,9 +21,9 @@ def main():
     split = int(ds.shape()[0] * 0.8)
     train, val = Subset(ds, list(range(split))), Subset(ds, list(range(split, int(ds.shape()[0]))))
 
-    BATCH_SIZE = 16
-    ANCHORS_HALF_BATCH_SIZE = 16
-    THREADS = 2
+    BATCH_SIZE = 48
+    ANCHORS_HALF_BATCH_SIZE = 24
+    THREADS = 4
     
     train_load = DataLoader(train, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True, num_workers=THREADS)
     val_load =   DataLoader(val, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True, num_workers=THREADS)
@@ -59,6 +58,9 @@ def main():
     tot_minibatch_val = np.ceil((split * 0.2) / BATCH_SIZE)
 
     print(len(val))
+    
+    if device == "cuda":
+        ds.tocuda()
 
     while True:
         extractor.train()
@@ -69,7 +71,7 @@ def main():
             
             img = img.to(device, non_blocking=True)
             label = label.to(device, non_blocking=True)
-            elements = elements.to(device, non_blocking=True)
+            #elements = elements.to(device, non_blocking=True)
             loss = 0
             
             base_feat_map = extractor.forward(img)
@@ -129,7 +131,7 @@ def main():
             total_loss, total_correct, total_sqrd_error, total = 0,0,0,0
             total_pos, total_neg = 0, 0
             
-            for indx, (img, label, elements) in enumerate(train_load):
+            for indx, (img, label, elements) in enumerate(val_load):
             
                 img = img.to(device, non_blocking=True)
                 label = label.to(device, non_blocking=True)
@@ -168,6 +170,8 @@ def main():
                         positives = positives[torch.randperm(positives.shape[0])]
                         negatives = negatives[torch.randperm(negatives.shape[0])]
                         
+                        total_neg += negatives.shape[0]
+                        total_pos += positives.shape[0]
 
                         to_use = torch.empty((ANCHORS_HALF_BATCH_SIZE*2), dtype=torch.int64, device=device)
                         if positives.shape[0] >= ANCHORS_HALF_BATCH_SIZE:
@@ -179,10 +183,12 @@ def main():
 
                     loss += loss_funct.forward(score[elem_indx, to_use], reg[elem_indx, to_use], labels[to_use], values[to_use])
 
-                total += len(to_use)
+                    total += len(to_use)
+                    
+                    total_correct += torch.where(score[elem_indx, to_use] < .5, 0, 1).eq(labels[to_use]).sum().item()
+                    total_sqrd_error += (torch.pow(reg[elem_indx, to_use] - values[to_use], 2)).sum().item()
+                    
                 total_loss += loss.item()
-                total_correct += torch.where(score[to_use] < .5, 0, 1).eq(labels[to_use]).sum().item()
-                total_sqrd_error += (torch.pow(reg[to_use] - values[to_use], 2)).sum().item()
 
             risk = total_loss / tot_minibatch_val
             accuracy = total_correct / total
