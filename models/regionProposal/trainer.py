@@ -23,8 +23,8 @@ def main():
     train, val = Subset(ds, list(range(split))), Subset(ds, list(range(split, int(ds.shape()[0]))))
 
     BATCH_SIZE = 16
-    ANCHORS_HALF_BATCH_SIZE = 8
-    THREADS = 1
+    ANCHORS_HALF_BATCH_SIZE = 16
+    THREADS = 2
     
     train_load = DataLoader(train, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True, num_workers=THREADS)
     val_load =   DataLoader(val, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True, num_workers=THREADS)
@@ -77,7 +77,7 @@ def main():
 
             score, reg, rois_index = rpn(base_feat_map, img.shape[-2:])
             
-            for elem in elements:
+            for elem_indx, elem in enumerate(elements):
                 
                 bounds, b_label = ds.getvertex(elem)
                 
@@ -86,12 +86,7 @@ def main():
                 labels = labels.to(device, non_blocking=True)
                 values = values.to(device, non_blocking=True)
 
-                values = values.permute(0,2,1)
-
-                score =   score[0]
-                reg =       reg[0]
-                labels = labels[0]
-                values = values[0]
+                values = values.permute(1,0)
                     
                 with torch.no_grad():
 
@@ -118,7 +113,7 @@ def main():
                         to_use[:positives.shape[0]] = positives
                         to_use[positives.shape[0]:] = negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - positives.shape[0]]
 
-                loss += loss_funct.forward(score[to_use], reg[to_use], labels[to_use], values[to_use])
+                loss += loss_funct.forward(score[elem_indx, to_use], reg[elem_indx, to_use], labels[to_use], values[to_use])
             
             optimizer.zero_grad(set_to_none=True)
             loss.backward()
@@ -146,7 +141,7 @@ def main():
 
                 score, reg, rois_index = rpn(base_feat_map, img.shape[-2:])
                 
-                for elem in elements:
+                for elem_indx,elem in enumerate(elements):
                     
                     bounds, b_label = ds.getvertex(elem)
                     
@@ -155,12 +150,7 @@ def main():
                     labels = labels.to(device, non_blocking=True)
                     values = values.to(device, non_blocking=True)
 
-                    values = values.permute(0,2,1)
-
-                    score =   score[0]
-                    reg =       reg[0]
-                    labels = labels[0]
-                    values = values[0]
+                    values = values.permute(1,0)
                         
                     with torch.no_grad():
 
@@ -187,7 +177,7 @@ def main():
                             to_use[:positives.shape[0]] = positives
                             to_use[positives.shape[0]:] = negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - positives.shape[0]]
 
-                    loss += loss_funct.forward(score[to_use], reg[to_use], labels[to_use], values[to_use])
+                    loss += loss_funct.forward(score[elem_indx, to_use], reg[elem_indx, to_use], labels[to_use], values[to_use])
 
                 total += len(to_use)
                 total_loss += loss.item()
