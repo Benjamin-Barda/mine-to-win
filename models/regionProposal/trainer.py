@@ -15,7 +15,7 @@ def main():
     cuda.benchmark = True
     SHOW = True
 
-    ds = torch.load("data\\datasets\minedata_nonull_local.dtst")
+    ds = torch.load("data\\datasets\minedata_compressed_local.dtst")
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -24,7 +24,7 @@ def main():
 
     BATCH_SIZE = 16
     ANCHORS_HALF_BATCH_SIZE = 8
-    THREADS = 4
+    THREADS = 1
     
     train_load = DataLoader(train, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True, num_workers=THREADS)
     val_load =   DataLoader(val, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True, num_workers=THREADS)
@@ -65,57 +65,60 @@ def main():
         rpn.train()
         ds.set_train_mode(True)
 
-        for indx, (img, label, bounds) in enumerate(train_load):
+        for indx, (img, label, elements) in enumerate(train_load):
             
             img = img.to(device, non_blocking=True)
             label = label.to(device, non_blocking=True)
-            bounds = bounds[:, :, 1:]
-            bounds = bounds.to(device, non_blocking=True)
+            elements = elements.to(device, non_blocking=True)
+            loss = 0
             
             base_feat_map = extractor.forward(img)
             _, inDim, hh, ww, = base_feat_map.size()
 
             score, reg, rois_index = rpn(base_feat_map, img.shape[-2:])
-            labels, values = label_anchors(bounds, hh, ww, rpn.anchors)
             
-
-
-            labels = labels.to(device, non_blocking=True)
-            values = values.to(device, non_blocking=True)
-
-            values = values.permute(0,2,1)
-
-            score =   score[0]
-            reg =       reg[0]
-            labels = labels[0]
-            values = values[0]
+            for elem in elements:
                 
-            with torch.no_grad():
+                bounds, b_label = ds.getvertex(elem)
+                
+                bounds = bounds.to(device, non_blocking=True)
+                labels, values = label_anchors(bounds, hh, ww, rpn.anchors)
+                labels = labels.to(device, non_blocking=True)
+                values = values.to(device, non_blocking=True)
 
-                positives = (labels > .999).nonzero().T.squeeze()
-                negatives = (labels < -.999).nonzero().T.squeeze()
-                
-                labels = torch.clip(labels, min = 0)
-                
-                if not len(positives.shape):
-                    positives = torch.zeros((0))
+                values = values.permute(0,2,1)
+
+                score =   score[0]
+                reg =       reg[0]
+                labels = labels[0]
+                values = values[0]
                     
-                if not len(negatives.shape):
-                    negatives = torch.zeros((0))
+                with torch.no_grad():
+
+                    positives = (labels > .999).nonzero().T.squeeze()
+                    negatives = (labels < -.999).nonzero().T.squeeze()
                     
-                positives = positives[torch.randperm(positives.shape[0])]
-                negatives = negatives[torch.randperm(negatives.shape[0])]
-                
+                    labels = torch.clip(labels, min = 0)
+                    
+                    if not len(positives.shape):
+                        positives = torch.zeros((0))
+                        
+                    if not len(negatives.shape):
+                        negatives = torch.zeros((0))
+                        
+                    positives = positives[torch.randperm(positives.shape[0])]
+                    negatives = negatives[torch.randperm(negatives.shape[0])]
+                    
 
-                to_use = torch.empty((ANCHORS_HALF_BATCH_SIZE*2), dtype=torch.int64, device=device)
-                if positives.shape[0] >= ANCHORS_HALF_BATCH_SIZE:
-                    to_use[:ANCHORS_HALF_BATCH_SIZE] = positives[:ANCHORS_HALF_BATCH_SIZE]
-                    to_use[ANCHORS_HALF_BATCH_SIZE:] = negatives[:ANCHORS_HALF_BATCH_SIZE]
-                else:
-                    to_use[:positives.shape[0]] = positives
-                    to_use[positives.shape[0]:] = negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - positives.shape[0]]
+                    to_use = torch.empty((ANCHORS_HALF_BATCH_SIZE*2), dtype=torch.int64, device=device)
+                    if positives.shape[0] >= ANCHORS_HALF_BATCH_SIZE:
+                        to_use[:ANCHORS_HALF_BATCH_SIZE] = positives[:ANCHORS_HALF_BATCH_SIZE]
+                        to_use[ANCHORS_HALF_BATCH_SIZE:] = negatives[:ANCHORS_HALF_BATCH_SIZE]
+                    else:
+                        to_use[:positives.shape[0]] = positives
+                        to_use[positives.shape[0]:] = negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - positives.shape[0]]
 
-            loss = loss_funct.forward(score[to_use], reg[to_use], labels[to_use], values[to_use])
+                loss += loss_funct.forward(score[to_use], reg[to_use], labels[to_use], values[to_use])
             
             optimizer.zero_grad(set_to_none=True)
             loss.backward()
@@ -131,56 +134,60 @@ def main():
             total_loss, total_correct, total_sqrd_error, total = 0,0,0,0
             total_pos, total_neg = 0, 0
             
-            for img, label, bounds in val_load:
+            for indx, (img, label, elements) in enumerate(train_load):
+            
                 img = img.to(device, non_blocking=True)
                 label = label.to(device, non_blocking=True)
-                bounds = bounds[:, :, 1:]
-                bounds = bounds.to(device, non_blocking=True)
+                elements = elements.to(device, non_blocking=True)
+                loss = 0
                 
                 base_feat_map = extractor.forward(img)
                 _, inDim, hh, ww, = base_feat_map.size()
 
                 score, reg, rois_index = rpn(base_feat_map, img.shape[-2:])
-
-                labels, values = label_anchors(bounds, hh, ww, rpn.anchors)
-                labels = labels.to(device, non_blocking=True)
-                values = values.to(device, non_blocking=True)
                 
-                values = values.permute(0,2,1)
-
-                score =   score[0]
-                reg =       reg[0]
-                labels = labels[0]
-                values = values[0]
-
-                positives = (labels > .999).nonzero().T.squeeze()
-                negatives = (labels < -.999).nonzero().T.squeeze()
-                
-                
-                labels = torch.clip(labels, min = 0)
-                
-                if not len(positives.shape):
-                    positives = torch.zeros((0))
+                for elem in elements:
                     
-                if not len(negatives.shape):
-                    negatives = torch.zeros((0))
+                    bounds, b_label = ds.getvertex(elem)
                     
-                positives = positives[torch.randperm(positives.shape[0])]
-                negatives = negatives[torch.randperm(negatives.shape[0])]
-                
-                total_pos += positives.shape[0]
-                total_neg += negatives.shape[0]
-                
-                to_use = torch.empty((ANCHORS_HALF_BATCH_SIZE*2), dtype=torch.int64, device=device)
-                if positives.shape[0] >= ANCHORS_HALF_BATCH_SIZE:
-                    to_use[:ANCHORS_HALF_BATCH_SIZE] = positives[:ANCHORS_HALF_BATCH_SIZE]
-                    to_use[ANCHORS_HALF_BATCH_SIZE:] = negatives[:ANCHORS_HALF_BATCH_SIZE]
-                else:
-                    to_use[:positives.shape[0]] = positives
-                    to_use[positives.shape[0]:] = negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - positives.shape[0]]
+                    bounds = bounds.to(device, non_blocking=True)
+                    labels, values = label_anchors(bounds, hh, ww, rpn.anchors)
+                    labels = labels.to(device, non_blocking=True)
+                    values = values.to(device, non_blocking=True)
 
+                    values = values.permute(0,2,1)
 
-                loss = loss_funct.forward(score[to_use], reg[to_use], labels[to_use], values[to_use])
+                    score =   score[0]
+                    reg =       reg[0]
+                    labels = labels[0]
+                    values = values[0]
+                        
+                    with torch.no_grad():
+
+                        positives = (labels > .999).nonzero().T.squeeze()
+                        negatives = (labels < -.999).nonzero().T.squeeze()
+                        
+                        labels = torch.clip(labels, min = 0)
+                        
+                        if not len(positives.shape):
+                            positives = torch.zeros((0))
+                            
+                        if not len(negatives.shape):
+                            negatives = torch.zeros((0))
+                            
+                        positives = positives[torch.randperm(positives.shape[0])]
+                        negatives = negatives[torch.randperm(negatives.shape[0])]
+                        
+
+                        to_use = torch.empty((ANCHORS_HALF_BATCH_SIZE*2), dtype=torch.int64, device=device)
+                        if positives.shape[0] >= ANCHORS_HALF_BATCH_SIZE:
+                            to_use[:ANCHORS_HALF_BATCH_SIZE] = positives[:ANCHORS_HALF_BATCH_SIZE]
+                            to_use[ANCHORS_HALF_BATCH_SIZE:] = negatives[:ANCHORS_HALF_BATCH_SIZE]
+                        else:
+                            to_use[:positives.shape[0]] = positives
+                            to_use[positives.shape[0]:] = negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - positives.shape[0]]
+
+                    loss += loss_funct.forward(score[to_use], reg[to_use], labels[to_use], values[to_use])
 
                 total += len(to_use)
                 total_loss += loss.item()

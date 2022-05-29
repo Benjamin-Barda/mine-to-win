@@ -27,7 +27,7 @@ class ClassData(data.Dataset):
         boundings = list(zip(df["Creeper"], df["Pig"], df["Zombie"], df["Sheep"]))
         
         vertices = np.empty((0), dtype = np.float32)
-        elements = np.empty((len(boundings), 2), dtype = np.uint32)
+        elements = np.empty((len(boundings), 2), dtype = np.int32)
         vertices_l = np.empty(0, dtype = np.ubyte)
 
         previous = 0
@@ -45,9 +45,9 @@ class ClassData(data.Dataset):
                 
             elements[i][1] = previous
     
-        self.vertices   = vertices
-        self.elements   = elements
-        self.vertices_l = elements
+        self.vertices   = torch.tensor(vertices, dtype = torch.float32)
+        self.elements   = torch.tensor(elements, dtype = torch.int32)
+        self.vertices_l = torch.tensor(elements, dtype = torch.uint8)
         
         assert(len(self.images) == len(self.labels) == len(boundings))
 
@@ -77,6 +77,13 @@ class ClassData(data.Dataset):
 
     def shape(self):
         return self.images.shape
+    
+    def getvertex(self, elements):
+        if torch.is_tensor(elements):
+            elements = elements.tolist()
+        
+        base, top = elements
+        return self.vertices[base:top].reshape(-1, 4), self.vertices_l[base>>2:top>>2].reshape(-1, 1)
     
     def set_train_mode(self, is_training):
         self.train = is_training
