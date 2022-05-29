@@ -21,33 +21,31 @@ state_extractor, state_rpn = torch.load("./MineRPN_best_weights.pth", map_locati
 
 # Model initialized with flag so after the last conv layer return the featmap
 extractor = BackboneCNN(is_in_rpn=True).to(("cpu"))
-#extractor.load_state_dict(state_extractor)
+extractor.load_state_dict(state_extractor)
 lossfn = RPNLoss()
 
 extractor.eval()
 
 with torch.no_grad():
-    img, lbl, bounds = ds[1000]
+    img, lbl, bounds = ds[700]
     img = img[None, ...]
     base_feat_map = extractor.forward(img)
 _, inDim, hh, ww, = base_feat_map.size()
 
 rpn = _rpn(inDim).to(("cpu"))
-#rpn.load_state_dict(state_rpn)
+rpn.load_state_dict(state_rpn)
 
-anchors = rpn(base_feat_map, img.shape[-2:])
-print(anchors.shape, bounds.shape)
-labels, values = label_anchors(bounds[None, :, 1:], hh, ww, rpn.anchors, )
+score, reg, rois_index = rpn(base_feat_map, img.shape[-2:])
 
 img = img.permute(0, 2, 3, 1)[0, ...].numpy()
 img = np.ascontiguousarray(img)
 cv.imshow("orig img", img)
 
-for indx, an in enumerate(anchors[0]):
+print(score.shape)
+for indx, an in enumerate(rois_index[0][0]):
     col = (0,255,0)
-    if labels[0][indx]== 1:
+    if score[0][indx] < .5:
         col = (0,0,255)
-    else:
         continue
     x, y, w, h = an
 
