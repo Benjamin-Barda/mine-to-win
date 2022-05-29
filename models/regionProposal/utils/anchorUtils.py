@@ -59,13 +59,15 @@ def corner2center(tensor_batch):
         # Height
         trans[:, :, 3::4] = y1 - y0
 
+        return trans
+
 
 def splashAnchors(feat_height, feat_width, batch_size, base_anchors, feature_stride=cfg.FEATURE_STRIDE, A=cfg.A, device = cfg.DEVICE ):
     with torch.no_grad():
                 
         shift_center_x = torch.arange(0, feat_width  * feature_stride, feature_stride)
         shift_center_y = torch.arange(0, feat_height * feature_stride, feature_stride)
-        shift_center_x, shift_center_y = torch.meshgrid(shift_center_x, shift_center_y)
+        shift_center_x, shift_center_y = torch.meshgrid(shift_center_x, shift_center_y, indexing='ij')
         shift_center_x = shift_center_x.ravel()
         shift_center_y = shift_center_y.ravel()
 
@@ -89,16 +91,10 @@ def IOU(boxes, anchors):
     anchors_mesh = torch.broadcast_to(anchors[:, :, None], (4, anchors.shape[1], boxes.shape[1]))
     boxes_mesh = torch.broadcast_to(boxes[:, None, :], (4, anchors.shape[1], boxes.shape[1]))
     # Calculate intersections and IoU
-    w_sum = anchors_mesh[2] + boxes_mesh[2]
-    w_i = torch.clip(w_sum - torch.max(
-        torch.abs(boxes_mesh[0] - anchors_mesh[0] - w_sum * .5),
-        torch.abs(boxes_mesh[0] - anchors_mesh[0] + w_sum * .5)), min=0)
-    h_sum = anchors_mesh[3] + boxes_mesh[3]
-    h_i = torch.clip(h_sum - torch.max(
-        torch.abs(boxes_mesh[1] - anchors_mesh[1] - h_sum * .5),
-        torch.abs(boxes_mesh[1] - anchors_mesh[1] + h_sum * .5)), min=0)
+    w_i = torch.clip(.5 * (anchors_mesh[2] + boxes_mesh[2]) - torch.abs(boxes_mesh[0] - anchors_mesh[0]), min=torch.zeros_like(anchors_mesh[2]), max=torch.minimum(anchors_mesh[2],boxes_mesh[2]))
+    h_i = torch.clip(.5 * (anchors_mesh[3] + boxes_mesh[3]) - torch.abs(boxes_mesh[1] - anchors_mesh[1]), min=torch.zeros_like(anchors_mesh[3]), max=torch.minimum(anchors_mesh[3],boxes_mesh[3]))
     I = w_i * h_i
-    U = boxes_mesh[2] * boxes_mesh[3] + anchors_mesh[2] * anchors_mesh[3] - I
+    U = (boxes_mesh[2] * boxes_mesh[3]) + (anchors_mesh[2] * anchors_mesh[3]) - I
     IoU = I / U # n_anchors * n_boxes
     return IoU
 
@@ -112,11 +108,10 @@ def label_anchors(image_info, feat_height, feat_width, base_anchors, feature_str
         for indx, boxes in enumerate(image_info):
             if boxes.shape[0] > 0:
                 boxes=boxes.T
-
                 max_iou, max_indices = torch.max(IOU(boxes=boxes, anchors=sp_anch), dim=1) # Why yes, we do really need the indices
 
                 # Classification object or not
-                labels[indx] = torch.where(max_iou <= .3, -1, 0) + torch.where(max_iou >= .7, 1, 0)
+                labels[indx] = torch.where(max_iou <= .05, -1, 0) + torch.where(max_iou >= .2, 1, 0)
                 # -1 is negative, 0 is null and 1 is positive
 
                 # Values for regressor
@@ -143,3 +138,28 @@ def invert_values(values, anchors):
         ret_vals[3] = anchors[3] * torch.exp(values[3])
 
         return ret_vals.permute(2,1,0)
+
+
+# Fine guess I'll do it myself
+def our_nms(anchors, scores, threshold=0.7):
+    # Sort for funky stuff down the line
+    _, sort_indexes = scores.sort(dim=1, descending=True)
+    sort_indexes = sort_indexes.squeeze()
+    anchors = anchors[sort_indexes.squeeze()].T
+
+    # Get IoU, remove 1.0 from selfs and lower triangle
+    IoUs = IOU(anchors, anchors)
+    IoUs = IoUs - torch.eye(IoUs.shape[0], device=cfg.DEVICE)
+    IoUsl = IoUs.tril()
+
+    # Get maximum per row and then threshold (
+    # In this way, since we are sorted by score,
+    # we'll remove lower scoring boxes with index > 0.7,
+    # this can be because of the lower triangle also)
+    maximum, _ = IoUsl.max(dim=1)
+    to_keep = (maximum <= threshold).nonzero()
+
+    # Finally remove the bad stuff and return
+    rows = IoUs.max(dim=1)[0][to_keep]
+    return sort_indexes[to_keep[rows.sort(dim=0, descending=True)[1]].squeeze()]
+    

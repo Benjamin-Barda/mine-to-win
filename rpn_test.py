@@ -27,7 +27,7 @@ lossfn = RPNLoss()
 extractor.eval()
 
 with torch.no_grad():
-    img, lbl, bounds = ds[100]
+    img, lbl, bounds = ds[700]
     img = img[None, ...]
     base_feat_map = extractor.forward(img)
 _, inDim, hh, ww, = base_feat_map.size()
@@ -46,6 +46,7 @@ for indx, an in enumerate(rois_index[0][0]):
     col = (0,255,0)
     if score[0][indx] < .5:
         col = (0,0,255)
+        continue
     x, y, w, h = an
 
     x1,y1,x2,y2 = int(x.item() - w.item()//2), int(y.item() - h.item()//2), int(x.item() + w.item()//2), int(y.item() + h.item()//2)

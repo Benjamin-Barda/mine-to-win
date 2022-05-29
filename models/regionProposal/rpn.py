@@ -28,7 +28,7 @@ class _rpn(nn.Module):
 
         self.A = len(self.anchorScales) * len(self.anchorRatios)
 
-        self.anchors = generate_anchors(16, self.anchorRatios, self.anchorScales)
+        self.anchors = generate_anchors(8, self.anchorRatios, self.anchorScales)
 
         # Base of the convolution
         self.BASE_CONV = nn.Sequential(
@@ -75,6 +75,7 @@ class _rpn(nn.Module):
         # Pass into first conv layer + ReLU
         base = self.BASE_CONV(x)
         anchors = splashAnchors(fH, fW, n, self.anchors, self.feature_stride)
+
         anchors = anchors.to(self.device, non_blocking=True)
 
         # Pass BASE first into the regressor -> BBox offset and scales for anchors
