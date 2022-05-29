@@ -10,7 +10,6 @@ class ClassData(data.Dataset):
 
     def __init__(self, sources = [],  transform = None, transform_target = None, device = "cpu", train = True):
 
-
         self.transform = transform
         self.transform_target = transform_target
         self.train = train
@@ -23,16 +22,40 @@ class ClassData(data.Dataset):
 
         self.images = np.asarray(self.images, dtype = "uint8")
         self.labels = np.asarray( 4 * df["Sheep"].astype(bool).astype(int) + 3 * df["Zombie"].astype(bool).astype(int)
-                                + 2 * df["Pig"].astype(bool).astype(int) + df["Creeper"].astype(bool).astype(int), dtype="int64")
+                                + 2 * df["Pig"].astype(bool).astype(int) + df["Creeper"].astype(bool).astype(int), dtype=np.ubyte)
 
-        self.boundings = list(zip(df["Creeper"], df["Pig"], df["Zombie"], df["Sheep"]))
+        boundings = list(zip(df["Creeper"], df["Pig"], df["Zombie"], df["Sheep"]))
+        
+        vertices = np.empty((0), dtype = np.float32)
+        elements = np.empty((len(boundings), 2), dtype = np.uint32)
+        vertices_l = np.empty(0, dtype = np.ubyte)
 
-        assert(len(self.images) == len(self.labels) == len(self.boundings))
+        previous = 0
+
+        for i, vertex in enumerate(boundings):
+            
+            elements[i][0] = previous
+            
+            for label, mobbox in enumerate(vertex):
+                
+                vertices = np.hstack((vertices, np.asarray(mobbox).flatten()))
+                previous += 4 * len(mobbox)
+                
+                vertices_l = np.hstack((vertices_l, np.asarray([label+1]  * len(mobbox), dtype=np.ubyte)))
+                
+            elements[i][1] = previous
+    
+        self.vertices   = vertices
+        self.elements   = elements
+        self.vertices_l = elements
+        
+        assert(len(self.images) == len(self.labels) == len(boundings))
 
     def __len__(self):
         return len(self.images)
 
     def __getitem__(self, index):
+        
         if torch.is_tensor(index):
             index = index.tolist()
 
@@ -48,22 +71,9 @@ class ClassData(data.Dataset):
         if self.train and self.transform_target:
             label = self.transform_target(label)
         
-        boxes = None
-        if type(index) != int:
-            if index.shape[0] > 1:
-                boxes = torch.zeros(index.shape[0], 1, 5)
-            else:
-                boxes = torch.tensor([(i + 1, box[0], box[1], box[2], box[3]) for i,lst_box in enumerate(self.boundings[index]) if len(lst_box) > 0 for box in lst_box])
+        elements = self.elements[index]
 
-                if len(boxes.shape) < 2:
-                    boxes = torch.zeros(0, 5)
-        else:
-            boxes = torch.tensor([(i + 1, box[0], box[1], box[2], box[3]) for i,lst_box in enumerate(self.boundings[index]) if len(lst_box) > 0 for box in lst_box])
-
-            if len(boxes.shape) < 2:
-                boxes = torch.zeros(0, 5)
-
-        return img, label, boxes # N * b * 5
+        return img, label, elements
 
     def shape(self):
         return self.images.shape
@@ -71,7 +81,7 @@ class ClassData(data.Dataset):
     def set_train_mode(self, is_training):
         self.train = is_training
     
-def create_and_save_dataset(srcs, filename, for_colab = False):
+def create_and_save_dataset(srcs, filename):
     from torchvision import transforms
     
     trans = transforms.Compose((
@@ -85,7 +95,7 @@ def create_and_save_dataset(srcs, filename, for_colab = False):
 
     ds = ClassData(srcs, transform=trans)
     
-    torch.save(ds, filename, _use_new_zipfile_serialization = (not False))
+    torch.save(ds, filename)
 
 if __name__ == "__main__":
     names = [f"jsons\\rePARSEDOUTPUT-creeper{i}.json" for i in range(1, 11)]
@@ -94,7 +104,7 @@ if __name__ == "__main__":
     names += [f"jsons\\rePARSEDOUTPUT-zombie{i}.json" for i in range(1, 10)]
     names += [f"jsons\\rePARSEDOUTPUT-sheep{i}.json" for i in range(1, 10)]
     #names.append("jsons\\rePARSEDOUTPUT-seanull1.json")
-    create_and_save_dataset(names, "data\\datasets\\minedata_nonull_local.dtst")
+    create_and_save_dataset(names, "data\\datasets\\minedata_compressed_local.dtst")
 
     # names = [f"jsons\\PARSEDOUTPUT-creeper{i}.json" for i in range(1, 11)]
     # names += [f"jsons\\PARSEDOUTPUT-pig{i}.json" for i in range(1, 11)]

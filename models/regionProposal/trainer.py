@@ -22,11 +22,12 @@ def main():
     split = int(ds.shape()[0] * 0.8)
     train, val = Subset(ds, list(range(split))), Subset(ds, list(range(split, int(ds.shape()[0]))))
 
-    BATCH_SIZE = 1
+    BATCH_SIZE = 16
     ANCHORS_HALF_BATCH_SIZE = 8
-
-    train_load = DataLoader(train, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True, num_workers=4)
-    val_load =   DataLoader(val, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True, num_workers=4)
+    THREADS = 4
+    
+    train_load = DataLoader(train, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True, num_workers=THREADS)
+    val_load =   DataLoader(val, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True, num_workers=THREADS)
 
     # Model initialized with flag so after the last conv layer return the featmap
     extractor = BackboneCNN(is_in_rpn=True).to(device)
