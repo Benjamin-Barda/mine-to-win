@@ -34,6 +34,7 @@ class _rpn(nn.Module):
         self.BASE_CONV = nn.Sequential(
             nn.Conv2d(self.inDimension, self.baseConvOut, kernel_size=3, stride=1, padding=1, bias=True),
             nn.Mish(inplace=True),
+            nn.Dropout2d(p = 0.2, inplace=True),
             nn.BatchNorm2d(self.baseConvOut)
             )
 
@@ -42,13 +43,13 @@ class _rpn(nn.Module):
         # Classification layer
         self.cls_out_size = 2 * self.A
         self.classificationLayer = nn.Sequential(
-            nn.Conv2d(self.baseConvOut, self.cls_out_size, kernel_size=1, stride=1, padding=0, bias=False),
+            nn.Conv2d(self.baseConvOut, self.cls_out_size, kernel_size=1, stride=1, padding=0, bias=True),
             nn.BatchNorm2d(self.cls_out_size)
         )
         # Regression Layer on the BBOX
         self.regr_out_size = 4 * self.A
         self.regressionLayer = nn.Sequential(
-            nn.Conv2d(self.baseConvOut, self.regr_out_size, kernel_size=1, stride=1, padding=0, bias=False),
+            nn.Conv2d(self.baseConvOut, self.regr_out_size, kernel_size=1, stride=1, padding=0, bias=True),
             nn.BatchNorm2d(self.regr_out_size)
         )
         self.proposalLayer = _proposal(device=self.device)
@@ -71,7 +72,6 @@ class _rpn(nn.Module):
         # fW : Feature map width 
         n, c, fH, fW = x.shape
 
-        
         # Pass into first conv layer + ReLU
         base = self.BASE_CONV(x)
         anchors = splashAnchors(fH, fW, n, self.anchors, self.feature_stride)
