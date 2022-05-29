@@ -85,6 +85,11 @@ class ClassData(data.Dataset):
         base, top = elements
         return self.vertices[base:top].reshape(-1, 4), self.vertices_l[base>>2:top>>2].reshape(-1, 1)
     
+    def tocuda(self):
+        
+        self.vertices_l.cuda(non_blocking=True)
+        self.elements.cuda(non_blocking=True)
+    
     def set_train_mode(self, is_training):
         self.train = is_training
     
