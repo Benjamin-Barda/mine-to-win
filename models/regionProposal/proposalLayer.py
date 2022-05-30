@@ -28,7 +28,7 @@ class _proposal(nn.Module):
 
         self.is_training = training
 
-    def forward(self, fg_scores, reg_scores, anchors, img_size):
+    def forward(self, fg_scores, rois, anchors, img_size):
         """
         args :
             fg_score :
@@ -43,7 +43,7 @@ class _proposal(nn.Module):
             Sort them based on fg_scores
             Apply NMS and take only top K
         """
-        batch_size = reg_scores.shape[0]
+        batch_size = rois.shape[0]
 
         pre_nms = self.pre_nms_train if self.is_training else self.pre_nms_test
         post_nms = self.post_nms_train if self.is_training else self.post_nms_test
@@ -51,7 +51,7 @@ class _proposal(nn.Module):
         # Apply predicted offset to original anchors thus turning them into proposals
         # print(anchors.shape)
 
-        rois = self.getROI(anchors, reg_scores)
+        # rois = self.getROI(anchors, reg_scores)
         # Let's clip them to the image
         to_clip = center2corner(rois)
 
@@ -81,21 +81,21 @@ class _proposal(nn.Module):
          fg_scores = fg_scores[:, :pre_nms, :]
         '''
 
-        final_rois = list()
+        # final_rois = list()
 
-        for i in range(batch_size):
-            # to_keep = nms(
-            #     to_clip[i],
-            #     fg_scores[i],
-            #     self.nms_thresh
-            #     )
-            # print(to_keep.shape)
-            # if post_nms > 0:
-            #     to_keep = to_keep[:post_nms]
+        # for i in range(batch_size):
+        #     # to_keep = nms(
+        #     #     to_clip[i],
+        #     #     fg_scores[i],
+        #     #     self.nms_thresh
+        #     #     )
+        #     # print(to_keep.shape)
+        #     # if post_nms > 0:
+        #     #     to_keep = to_keep[:post_nms]
             
-            final_rois.append((to_clip[i], None))
+        #     final_rois.append((to_clip[i], None))
 
-        return final_rois
+        return to_clip
 
 
     def getROI(self, src_box, offset):

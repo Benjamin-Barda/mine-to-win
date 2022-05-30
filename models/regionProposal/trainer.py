@@ -17,16 +17,17 @@ def main():
     ds = torch.load("data\\datasets\minedata_compressed_local.dtst")
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = "cpu"
 
     split = int(ds.shape()[0] * 0.8)
     train, val = Subset(ds, list(range(split))), Subset(ds, list(range(split, int(ds.shape()[0]))))
 
-    BATCH_SIZE = 48
-    ANCHORS_HALF_BATCH_SIZE = 24
-    THREADS = 4
+    BATCH_SIZE = 2
+    ANCHORS_HALF_BATCH_SIZE = 3
+    THREADS = 1
     
-    train_load = DataLoader(train, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True, num_workers=THREADS)
-    val_load =   DataLoader(val, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True, num_workers=THREADS)
+    train_load = DataLoader(train, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True)
+    val_load =   DataLoader(val, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True)
 
     # Model initialized with flag so after the last conv layer return the featmap
     extractor = BackboneCNN(is_in_rpn=True).to(device)
@@ -77,7 +78,8 @@ def main():
             base_feat_map = extractor.forward(img)
             _, inDim, hh, ww, = base_feat_map.size()
 
-            score, reg, rois_index = rpn(base_feat_map, img.shape[-2:])
+            score, ts, rois = rpn(base_feat_map, img.shape[-2:])
+
             
             for elem_indx, elem in enumerate(elements):
                 
@@ -115,7 +117,7 @@ def main():
                         to_use[:positives.shape[0]] = positives
                         to_use[positives.shape[0]:] = negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - positives.shape[0]]
 
-                loss += loss_funct.forward(score[elem_indx, to_use], reg[elem_indx, to_use], labels[to_use], values[to_use])
+                loss += loss_funct.forward(score[elem_indx, to_use], ts[elem_indx, to_use], labels[to_use], values[to_use])
             
             optimizer.zero_grad(set_to_none=True)
             loss.backward()
@@ -141,7 +143,7 @@ def main():
                 base_feat_map = extractor.forward(img)
                 _, inDim, hh, ww, = base_feat_map.size()
 
-                score, reg, rois_index = rpn(base_feat_map, img.shape[-2:])
+                score, ts, rois_index = rpn(base_feat_map, img.shape[-2:])
                 
                 for elem_indx,elem in enumerate(elements):
                     
@@ -181,12 +183,12 @@ def main():
                             to_use[:positives.shape[0]] = positives
                             to_use[positives.shape[0]:] = negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - positives.shape[0]]
 
-                    loss += loss_funct.forward(score[elem_indx, to_use], reg[elem_indx, to_use], labels[to_use], values[to_use])
+                    loss += loss_funct.forward(score[elem_indx, to_use], ts[elem_indx, to_use], labels[to_use], values[to_use])
 
                     total += len(to_use)
                     
                     total_correct += torch.where(score[elem_indx, to_use] < .5, 0, 1).eq(labels[to_use]).sum().item()
-                    total_sqrd_error += (torch.pow(reg[elem_indx, to_use] - values[to_use], 2)).sum().item()
+                    total_sqrd_error += (torch.pow(ts[elem_indx, to_use] - values[to_use], 2)).sum().item()
                     
                 total_loss += loss.item()
 

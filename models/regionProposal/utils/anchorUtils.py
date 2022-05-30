@@ -166,45 +166,6 @@ def label_anchors(boxes, feat_height, feat_width, base_anchors, im_size, feature
         
         return labels, values
 
-def label_anchors_with_crop(boxes, feat_height, feat_width, base_anchors, img_size, bs,  feature_stride=cfg.FEATURE_STRIDE, A=cfg.A):
-    with torch.no_grad():
-        sp_anch = splashAnchors(feat_height, feat_width, 1, base_anchors, feature_stride, A=A).to(cfg.DEVICE)
-        
-        H, W = img_size
-
-        #(hh*ww*A, 4)
-        keep = ((sp_anch[ :, 0] - (sp_anch[ :,2] / 2) >= 0 ) &
-                (sp_anch[ :, 0] + (sp_anch[ :,2] / 2) <= W ) & 
-                (sp_anch[ :, 1] - (sp_anch[ :,3] / 2) >= 0 ) & 
-                (sp_anch[ :, 1] + (sp_anch[ :,3] / 2) <= H ))
-        
-        keep = torch.nonzero(keep).view(-1)
-        sp_anch = sp_anch[keep, :]
-
-        print(sp_anch.shape)
-        
-        
-        labels = torch.zeros(sp_anch.shape[1], dtype=torch.float32, device=cfg.DEVICE)
-        values = torch.zeros(4, sp_anch.shape[1], device=cfg.DEVICE)
-        # 4 * n_anchors
-        if boxes.shape[0] > 0:
-            boxes=boxes.T
-            max_iou, max_indices = torch.max(IOU(boxes=boxes, anchors=sp_anch), dim=1) # Why yes, we do really need the indices
-
-            # Classification object or not
-            labels = torch.where(max_iou <= .05, -1.0, 0.0) + torch.where(max_iou >= .2, 1.0, 0.0)
-            # -1 is negative, 0 is null and 1 is positive
-
-            # Values for regressor
-            boxes = boxes[:, max_indices]
-            values[0] = (boxes[0] - sp_anch[0])/sp_anch[2]    # t_x
-            values[1] = (boxes[1] - sp_anch[1])/sp_anch[3]    # t_y
-            values[2] = torch.log(boxes[2]/sp_anch[2])        # t_w
-            values[3] = torch.log(boxes[3]/sp_anch[3])        # t_h
-        else:
-            labels = -torch.ones(sp_anch.shape[1])
-        
-        return labels, values
 
 
 

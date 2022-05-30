@@ -81,6 +81,8 @@ class _rpn(nn.Module):
         # Pass BASE first into the regressor -> BBox offset and scales for anchors
         rpn_reg = self.regressionLayer(base)
 
+      
+
         # (n, W * H * A, 4)
         rpn_reg = rpn_reg.permute(0, 2, 3, 1).contiguous().view(n, -1, 4)
         # Pass BASE into the classificator -> Fg / Bg scores
@@ -99,6 +101,8 @@ class _rpn(nn.Module):
         #   rpn_reg.shape     = (n, W*H*A, 4)
         #   rpn_softmax.shape = (n*H*W*A, 1)
 
+        rpn_reg = rpn_reg + anchors
+
         rois = self.proposalLayer(
             fg_scores,
             rpn_reg,
@@ -106,4 +110,17 @@ class _rpn(nn.Module):
             img_size
         )
 
-        return fg_scores, rpn_reg, rois
+        rois = corner2center(rois)
+
+        print(f"anchor:  {anchors.shape}\nrois : {rois.shape}")
+
+        ts = torch.empty((n, rpn_reg.shape[1], 4), device=cfg.DEVICE, dtype = torch.float)
+
+        print(ts.shape)
+
+        ts[:, :, 0] = (rois[:, :, 0] - anchors[:, :, 0]) / anchors[:, :, 2]
+        ts[:, :, 1] = (rois[:, :, 1] - anchors[:, :, 1]) / anchors[:, :, 3]
+        ts[:, :, 2] = torch.log(rois[:, :, 2]/ anchors[:, :, 2])
+        ts[:, :, 3] = torch.log(rois[:, :, 3]/ anchors[:, :, 3])
+
+        return fg_scores, ts, rois
