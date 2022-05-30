@@ -51,9 +51,9 @@ def corner2center(tensor_batch):
         trans = tensor_batch.clone()
 
         # x_ctr
-        trans[:, :, 0::4] = (x1 - x0) / 2
+        trans[:, :, 0::4] = (x1 + x0) / 2
         # y_ctr
-        trans[:, :, 1::4] = (y1 - y0) / 2
+        trans[:, :, 1::4] = (y1 + y0) / 2
         # Width
         trans[:, :, 2::4] = x1 - x0
         # Height
