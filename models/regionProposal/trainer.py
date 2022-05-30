@@ -84,7 +84,7 @@ def main():
                 bounds, b_label = ds.getvertex(elem)
                 
                 bounds = bounds.to(device, non_blocking=True)
-                labels, values = label_anchors(bounds, hh, ww, rpn.anchors)
+                labels, values = label_anchors(bounds, hh, ww, rpn.anchors, img.shape[-2:], training = True)
                 labels = labels.to(device, non_blocking=True)
                 values = values.to(device, non_blocking=True)
 

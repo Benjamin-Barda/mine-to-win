@@ -62,7 +62,7 @@ def corner2center(tensor_batch):
         return trans
 
 
-def splashAnchors(feat_height, feat_width, batch_size, base_anchors, feature_stride=cfg.FEATURE_STRIDE, A=cfg.A, device = cfg.DEVICE ):
+def splashAnchors(feat_height, feat_width, batch_size, base_anchors, im_size, feature_stride=cfg.FEATURE_STRIDE, A=cfg.A, device = cfg.DEVICE, training = False ):
     with torch.no_grad():
                 
         shift_center_x = torch.arange(0, feat_width  * feature_stride, feature_stride)
@@ -81,10 +81,24 @@ def splashAnchors(feat_height, feat_width, batch_size, base_anchors, feature_str
 
         K = shifts.shape[0]
         anchor = base_anchors.reshape((1, A, 4)) + shifts.reshape((1, K, 4)).permute((1, 0, 2))
-        anchor = anchor.view(K * A, 4).expand(batch_size, K * A, 4)
+        anchor = anchor.view(K * A, 4)
 
-        return anchor
-    
+        if training : 
+            H, W = im_size
+
+            keep = ((anchor[ :, 0] - (anchor[ :,2] / 2) >= 0 ) &
+                (anchor[ :, 0] + (anchor[ :,2] / 2) <= W ) & 
+                (anchor[ :, 1] - (anchor[ :,3] / 2) >= 0 ) & 
+                (anchor[ :, 1] + (anchor[ :,3] / 2) <= H ))
+            
+            inside = torch.nonzero(keep).view(-1)
+            anchor = anchor[inside ,: ]
+
+            K = anchor.shape[0]
+            return anchor.expand(batch_size, K, 4)
+        else: 
+            return anchor.expand(batch_size, K*A, 4)
+            
 @torch.jit.script
 def IOU(boxes, anchors):
     # x, y, h, w
@@ -125,9 +139,11 @@ def IOU(boxes, anchors):
         
 #         return labels, values
 
-def label_anchors(boxes, feat_height, feat_width, base_anchors, feature_stride=cfg.FEATURE_STRIDE, A=cfg.A):
+def label_anchors(boxes, feat_height, feat_width, base_anchors, im_size, feature_stride=cfg.FEATURE_STRIDE, A=cfg.A, training = False):
     with torch.no_grad():
-        sp_anch = splashAnchors(feat_height, feat_width, 1, base_anchors, feature_stride, A=A)[0].T.to(cfg.DEVICE)
+        sp_anch = splashAnchors(feat_height, feat_width, 1, base_anchors, im_size, feature_stride, A=A, training=training)[0].T.to(cfg.DEVICE)
+
+
         labels = torch.zeros(sp_anch.shape[1], dtype=torch.float32, device=cfg.DEVICE)
         values = torch.zeros(4, sp_anch.shape[1], device=cfg.DEVICE)
         # 4 * n_anchors
@@ -149,6 +165,47 @@ def label_anchors(boxes, feat_height, feat_width, base_anchors, feature_stride=c
             labels = -torch.ones(sp_anch.shape[1])
         
         return labels, values
+
+def label_anchors_with_crop(boxes, feat_height, feat_width, base_anchors, img_size, bs,  feature_stride=cfg.FEATURE_STRIDE, A=cfg.A):
+    with torch.no_grad():
+        sp_anch = splashAnchors(feat_height, feat_width, 1, base_anchors, feature_stride, A=A).to(cfg.DEVICE)
+        
+        H, W = img_size
+
+        #(hh*ww*A, 4)
+        keep = ((sp_anch[ :, 0] - (sp_anch[ :,2] / 2) >= 0 ) &
+                (sp_anch[ :, 0] + (sp_anch[ :,2] / 2) <= W ) & 
+                (sp_anch[ :, 1] - (sp_anch[ :,3] / 2) >= 0 ) & 
+                (sp_anch[ :, 1] + (sp_anch[ :,3] / 2) <= H ))
+        
+        keep = torch.nonzero(keep).view(-1)
+        sp_anch = sp_anch[keep, :]
+
+        print(sp_anch.shape)
+        
+        
+        labels = torch.zeros(sp_anch.shape[1], dtype=torch.float32, device=cfg.DEVICE)
+        values = torch.zeros(4, sp_anch.shape[1], device=cfg.DEVICE)
+        # 4 * n_anchors
+        if boxes.shape[0] > 0:
+            boxes=boxes.T
+            max_iou, max_indices = torch.max(IOU(boxes=boxes, anchors=sp_anch), dim=1) # Why yes, we do really need the indices
+
+            # Classification object or not
+            labels = torch.where(max_iou <= .05, -1.0, 0.0) + torch.where(max_iou >= .2, 1.0, 0.0)
+            # -1 is negative, 0 is null and 1 is positive
+
+            # Values for regressor
+            boxes = boxes[:, max_indices]
+            values[0] = (boxes[0] - sp_anch[0])/sp_anch[2]    # t_x
+            values[1] = (boxes[1] - sp_anch[1])/sp_anch[3]    # t_y
+            values[2] = torch.log(boxes[2]/sp_anch[2])        # t_w
+            values[3] = torch.log(boxes[3]/sp_anch[3])        # t_h
+        else:
+            labels = -torch.ones(sp_anch.shape[1])
+        
+        return labels, values
+
 
 
 @torch.jit.script
