@@ -61,5 +61,4 @@ __C.NMS_THRESHOLD = .7
 CUDA Device
 """
 import torch
-# __C.DEVICE =  "cuda" if torch.cuda.is_available() else "cpu"
-__C.DEVICE = "cpu"
+__C.DEVICE =  "cuda" if torch.cuda.is_available() else "cpu"
