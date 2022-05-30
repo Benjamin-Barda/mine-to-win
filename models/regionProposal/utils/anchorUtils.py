@@ -143,7 +143,6 @@ def label_anchors(boxes, feat_height, feat_width, base_anchors, im_size, feature
     with torch.no_grad():
         sp_anch = splashAnchors(feat_height, feat_width, 1, base_anchors, im_size, feature_stride, A=A, training=training)[0].T.to(cfg.DEVICE)
 
-
         labels = torch.zeros(sp_anch.shape[1], dtype=torch.float32, device=cfg.DEVICE)
         values = torch.zeros(4, sp_anch.shape[1], device=cfg.DEVICE)
         # 4 * n_anchors

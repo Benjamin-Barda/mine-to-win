@@ -17,16 +17,15 @@ def main():
     ds = torch.load("data\\datasets\minedata_compressed_local.dtst")
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    device = "cpu"
 
     split = int(ds.shape()[0] * 0.8)
     train, val = Subset(ds, list(range(split))), Subset(ds, list(range(split, int(ds.shape()[0]))))
 
-    BATCH_SIZE = 2
+    BATCH_SIZE = 16
     ANCHORS_HALF_BATCH_SIZE = 3
-    THREADS = 1
+    THREADS = 4
     
-    train_load = DataLoader(train, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True)
+    train_load = DataLoader(train, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True, num_workers = THREADS)
     val_load =   DataLoader(val, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True)
 
     # Model initialized with flag so after the last conv layer return the featmap
@@ -56,7 +55,7 @@ def main():
     max_c = 2
 
     tot_minibatch = np.ceil(split / BATCH_SIZE)
-    tot_minibatch_val = np.ceil((split * 0.2) / BATCH_SIZE)
+    tot_minibatch_val = np.ceil((ds.shape()[0] * 0.2) / BATCH_SIZE)
 
     print(len(val))
     
@@ -79,8 +78,7 @@ def main():
             _, inDim, hh, ww, = base_feat_map.size()
 
             score, ts, rois = rpn(base_feat_map, img.shape[-2:])
-
-            
+                        
             for elem_indx, elem in enumerate(elements):
                 
                 bounds, b_label = ds.getvertex(elem)
@@ -118,7 +116,7 @@ def main():
                         to_use[positives.shape[0]:] = negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - positives.shape[0]]
 
                 loss += loss_funct.forward(score[elem_indx, to_use], ts[elem_indx, to_use], labels[to_use], values[to_use])
-            
+                #print(loss_funct.item())
             optimizer.zero_grad(set_to_none=True)
             loss.backward()
             optimizer.step()
@@ -150,7 +148,7 @@ def main():
                     bounds, b_label = ds.getvertex(elem)
                     
                     bounds = bounds.to(device, non_blocking=True)
-                    labels, values = label_anchors(bounds, hh, ww, rpn.anchors)
+                    labels, values = label_anchors(bounds, hh, ww, rpn.anchors, img.shape[-2:], training = True)
                     labels = labels.to(device, non_blocking=True)
                     values = values.to(device, non_blocking=True)
 
@@ -185,10 +183,12 @@ def main():
 
                     loss += loss_funct.forward(score[elem_indx, to_use], ts[elem_indx, to_use], labels[to_use], values[to_use])
 
-                    total += len(to_use)
+                    total += to_use.shape[0]
                     
                     total_correct += torch.where(score[elem_indx, to_use] < .5, 0, 1).eq(labels[to_use]).sum().item()
                     total_sqrd_error += (torch.pow(ts[elem_indx, to_use] - values[to_use], 2)).sum().item()
+                    
+                    print(f"Epoch {i}, Validation, {(100 * indx / tot_minibatch_val):.3f}%", end="\r")
                     
                 total_loss += loss.item()
 
