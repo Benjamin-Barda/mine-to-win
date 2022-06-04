@@ -28,7 +28,7 @@ class _rpn(nn.Module):
 
         self.A = len(self.anchorScales) * len(self.anchorRatios)
 
-        self.anchors = generate_anchors(8, self.anchorRatios, self.anchorScales)
+        self.anchors = generate_anchors(40, self.anchorRatios, self.anchorScales)
 
         # Base of the convolution
         self.BASE_CONV = nn.Sequential(
@@ -59,7 +59,7 @@ class _rpn(nn.Module):
         nn.init.kaiming_uniform_(self.regressionLayer[0].weight, nonlinearity='relu')
 
 
-    def forward(self, x , img_size):
+    def forward(self, x , img_size, training=True):
         '''
         args : 
             x : tensor : Feature map give
@@ -74,7 +74,7 @@ class _rpn(nn.Module):
 
         # Pass into first conv layer + ReLU
         base = self.BASE_CONV(x)
-        anchors = splashAnchors(fH, fW, n, self.anchors, self.feature_stride)
+        anchors = splashAnchors(fH, fW, n, self.anchors, img_size, self.feature_stride, A=self.A, training=training)
 
         anchors = anchors.to(self.device, non_blocking=True)
 
@@ -114,11 +114,21 @@ class _rpn(nn.Module):
 
         ts = torch.empty((n, rpn_reg.shape[1], 4), device=cfg.DEVICE, dtype = torch.float)
 
-        #print(ts.shape)
+        if torch.where(rois[:, :, 2:] < 0, 1, 0).sum() > 0:
+            print(torch.min(rois[:, :, 2:]))
 
         ts[:, :, 0] = (rois[:, :, 0] - anchors[:, :, 0]) / anchors[:, :, 2]
         ts[:, :, 1] = (rois[:, :, 1] - anchors[:, :, 1]) / anchors[:, :, 3]
-        ts[:, :, 2] = torch.log(1e-7 + rois[:, :, 2]/ anchors[:, :, 2])
-        ts[:, :, 3] = torch.log(1e-7 + rois[:, :, 3]/ anchors[:, :, 3])
+        ts[:, :, 2] = torch.log(torch.clamp(rois[:, :, 2]/ anchors[:, :, 2], min=1e-300))
+        ts[:, :, 3] = torch.log(torch.clamp(rois[:, :, 3]/ anchors[:, :, 3], min=1e-300))
+
+        if torch.isnan(ts[:, :, 0]).sum() > 0:
+            print("tx nan")
+        if torch.isnan(ts[:, :, 1]).sum() > 0:
+            print("ty nan")
+        if torch.isnan(ts[:, :, 2]).sum() > 0:
+            print("tw nan")
+        if torch.isnan(ts[:, :, 3]).sum() > 0:
+            print("th nan")
 
         return fg_scores, ts, rois

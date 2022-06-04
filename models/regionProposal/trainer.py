@@ -82,38 +82,38 @@ def main():
             for elem_indx, elem in enumerate(elements):
                 
                 bounds, b_label = ds.getvertex(elem)
-                
+
                 bounds = bounds.to(device, non_blocking=True)
                 labels, values = label_anchors(bounds, hh, ww, rpn.anchors, img.shape[-2:], training = True)
                 labels = labels.to(device, non_blocking=True)
                 values = values.to(device, non_blocking=True)
+                print(labels.shape, score.shape)
 
                 values = values.permute(1,0)
                     
-                with torch.no_grad():
 
-                    positives = (labels > .999).nonzero().T.squeeze()
-                    negatives = (labels < -.999).nonzero().T.squeeze()
+                positives = (labels > .999).nonzero().T.squeeze()
+                negatives = (labels < -.999).nonzero().T.squeeze()
+                
+                labels = torch.clip(labels, min = 0)
+                
+                if not len(positives.shape):
+                    positives = torch.zeros((0))
                     
-                    labels = torch.clip(labels, min = 0)
+                if not len(negatives.shape):
+                    negatives = torch.zeros((0))
                     
-                    if not len(positives.shape):
-                        positives = torch.zeros((0))
-                        
-                    if not len(negatives.shape):
-                        negatives = torch.zeros((0))
-                        
-                    positives = positives[torch.randperm(positives.shape[0])]
-                    negatives = negatives[torch.randperm(negatives.shape[0])]
-                    
+                positives = positives[torch.randperm(positives.shape[0])]
+                negatives = negatives[torch.randperm(negatives.shape[0])]
+                
 
-                    to_use = torch.empty((ANCHORS_HALF_BATCH_SIZE*2), dtype=torch.int64, device=device)
-                    if positives.shape[0] >= ANCHORS_HALF_BATCH_SIZE:
-                        to_use[:ANCHORS_HALF_BATCH_SIZE] = positives[:ANCHORS_HALF_BATCH_SIZE]
-                        to_use[ANCHORS_HALF_BATCH_SIZE:] = negatives[:ANCHORS_HALF_BATCH_SIZE]
-                    else:
-                        to_use[:positives.shape[0]] = positives
-                        to_use[positives.shape[0]:] = negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - positives.shape[0]]
+                to_use = torch.empty((ANCHORS_HALF_BATCH_SIZE*2), dtype=torch.int64, device=device)
+                if positives.shape[0] >= ANCHORS_HALF_BATCH_SIZE:
+                    to_use[:ANCHORS_HALF_BATCH_SIZE] = positives[:ANCHORS_HALF_BATCH_SIZE]
+                    to_use[ANCHORS_HALF_BATCH_SIZE:] = negatives[:ANCHORS_HALF_BATCH_SIZE]
+                else:
+                    to_use[:positives.shape[0]] = positives
+                    to_use[positives.shape[0]:] = negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - positives.shape[0]]
 
                 loss += loss_funct.forward(score[elem_indx, to_use], ts[elem_indx, to_use], labels[to_use], values[to_use])
                 #print(loss_funct.item())
@@ -186,7 +186,7 @@ def main():
                     total += to_use.shape[0]
                     
                     total_correct += torch.where(score[elem_indx, to_use] < .5, 0, 1).eq(labels[to_use]).sum().item()
-                    total_sqrd_error += (torch.pow(ts[elem_indx, to_use] - values[to_use], 2)).sum().item()
+                    total_sqrd_error += (torch.pow(ts[elem_indx, to_use] * labels[to_use][:, None].expand(-1, 4) - values[to_use], 2)).sum().item()
                     
                     print(f"Epoch {i}, Validation, {(100 * indx / tot_minibatch_val):.3f}%", end="\r")
                     

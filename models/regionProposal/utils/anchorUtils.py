@@ -15,89 +15,85 @@ def generate_anchors(base, ratios, scales):
     return :
         anchors Tensor : (A,4) {x_center, y_center, Width, height}
     """
-    with torch.no_grad():
 
-        return torch.tensor([[0., 0., base * scale * np.sqrt(ratio), base * scale * np.sqrt(1. / ratio)] 
-                            for scale in scales 
-                            for ratio in ratios])
+    return torch.tensor([[0., 0., base * scale * np.sqrt(ratio), base * scale * np.sqrt(1. / ratio)] 
+                        for scale in scales 
+                        for ratio in ratios])
 
 
 @torch.jit.script
 def center2corner(tensor_batch):
-    with torch.no_grad():
-        x = tensor_batch[:, :, 0::4]
-        y = tensor_batch[:, :, 1::4]
-        w = tensor_batch[:, :, 2::4]
-        h = tensor_batch[:, :, 3::4]
+    x = tensor_batch[:, :, 0]
+    y = tensor_batch[:, :, 1]
+    w = .5 * tensor_batch[:, :, 2].abs()
+    h = .5 * tensor_batch[:, :, 3].abs()
 
-        trans = tensor_batch.clone()
+    trans = torch.empty_like(tensor_batch, device=tensor_batch.device)
 
-        trans[:, :, 0::4] = x - (w / 2)
-        trans[:, :, 1::4] = y - (h / 2)
-        trans[:, :, 2::4] = x + (w / 2)
-        trans[:, :, 3::4] = y + (h / 2)
+    trans[:, :, 0] = x - w
+    trans[:, :, 1] = y - h
+    trans[:, :, 2] = x + w
+    trans[:, :, 3] = y + h
 
     return trans
 
 @torch.jit.script
 def corner2center(tensor_batch):
-    with torch.no_grad():
 
-        x0 = tensor_batch[:, :, 0::4]
-        y0 = tensor_batch[:, :, 1::4]
-        x1 = tensor_batch[:, :, 2::4]
-        y1 = tensor_batch[:, :, 3::4]
+    x0 = tensor_batch[:, :, 0]
+    y0 = tensor_batch[:, :, 1]
+    x1 = tensor_batch[:, :, 2]
+    y1 = tensor_batch[:, :, 3]
 
-        trans = tensor_batch.clone()
+    trans = torch.empty_like(tensor_batch, device=tensor_batch.device)
 
-        # x_ctr
-        trans[:, :, 0::4] = (x1 + x0) / 2
-        # y_ctr
-        trans[:, :, 1::4] = (y1 + y0) / 2
-        # Width
-        trans[:, :, 2::4] = x1 - x0
-        # Height
-        trans[:, :, 3::4] = y1 - y0
+    # x_ctr
+    trans[:, :, 0] = (x1 + x0) / 2
+    # y_ctr
+    trans[:, :, 1] = (y1 + y0) / 2
+    # Width
+    trans[:, :, 2] = x1 - x0
+    # Height
+    trans[:, :, 3] = y1 - y0
 
-        return trans
+    return trans
 
 
-def splashAnchors(feat_height, feat_width, batch_size, base_anchors, im_size, feature_stride=cfg.FEATURE_STRIDE, A=cfg.A, device = cfg.DEVICE, training = False ):
-    with torch.no_grad():
+def splashAnchors(feat_height, feat_width, batch_size, base_anchors, im_size, feature_stride=cfg.FEATURE_STRIDE, A=cfg.A, device = cfg.DEVICE, training = False):
                 
-        shift_center_x = torch.arange(0, feat_width  * feature_stride, feature_stride)
-        shift_center_y = torch.arange(0, feat_height * feature_stride, feature_stride)
-        shift_center_x, shift_center_y = torch.meshgrid(shift_center_x, shift_center_y, indexing='ij')
-        shift_center_x = shift_center_x.ravel()
-        shift_center_y = shift_center_y.ravel()
+    shift_center_x = torch.arange(0, feat_width  * feature_stride, feature_stride)
+    shift_center_y = torch.arange(0, feat_height * feature_stride, feature_stride)
+    shift_center_x, shift_center_y = torch.meshgrid(shift_center_x, shift_center_y, indexing='ij')
+    shift_center_x = shift_center_x.ravel()
+    shift_center_y = shift_center_y.ravel()
 
-        # TODO: Height and width of the anchors are not modified ... this is beacuase regression is done in the image
-        #  space - Question is if it is correct ????
-        shifts = torch.stack((
-                shift_center_x,
-                shift_center_y, 
-                torch.zeros(shift_center_x.shape[0]), 
-                torch.zeros(shift_center_y.shape[0])), axis=1)
+    # TODO: Height and width of the anchors are not modified ... this is beacuase regression is done in the image
+    #  space - Question is if it is correct ????
+    shifts = torch.stack((
+            shift_center_x,
+            shift_center_y, 
+            torch.zeros(shift_center_x.shape[0]), 
+            torch.zeros(shift_center_y.shape[0])), axis=1)
 
-        K = shifts.shape[0]
-        anchor = base_anchors.reshape((1, A, 4)) + shifts.reshape((1, K, 4)).permute((1, 0, 2))
-        anchor = anchor.view(K * A, 4)
+    K = shifts.shape[0]
+    anchor = base_anchors.reshape((1, A, 4)) + shifts.reshape((1, K, 4)).permute((1, 0, 2))
+    anchor = anchor.view(K * A, 4)
 
-        if training : 
-            H, W = im_size
+    if training : 
+        H, W = im_size
 
-            keep = ((anchor[ :, 0] - (anchor[ :,2] / 2) >= 0 ) &
-                (anchor[ :, 0] + (anchor[ :,2] / 2) <= W ) & 
-                (anchor[ :, 1] - (anchor[ :,3] / 2) >= 0 ) & 
-                (anchor[ :, 1] + (anchor[ :,3] / 2) <= H ))
-            
-            inside = torch.nonzero(keep).view(-1)
-            anchor = anchor[inside ,: ]
+        keep = ((anchor[ :, 0] - (anchor[ :,2] / 2) >= 0 ) &
+            (anchor[ :, 0] + (anchor[ :,2] / 2) <= W ) & 
+            (anchor[ :, 1] - (anchor[ :,3] / 2) >= 0 ) & 
+            (anchor[ :, 1] + (anchor[ :,3] / 2) <= H ))
+        
+        inside = torch.nonzero(keep).view(-1)
+        anchor = anchor[inside ,: ]
 
-            K = anchor.shape[0]
-            return anchor.expand(batch_size, K, 4)
-        else: 
-            return anchor.expand(batch_size, K*A, 4)
+        K = anchor.shape[0]
+        return anchor.expand(batch_size, K, 4)
+    else: 
+        return anchor.expand(batch_size, K*A, 4)
             
 @torch.jit.script
 def IOU(boxes, anchors):
@@ -140,46 +136,44 @@ def IOU(boxes, anchors):
 #         return labels, values
 
 def label_anchors(boxes, feat_height, feat_width, base_anchors, im_size, feature_stride=cfg.FEATURE_STRIDE, A=cfg.A, training = False):
-    with torch.no_grad():
-        sp_anch = splashAnchors(feat_height, feat_width, 1, base_anchors, im_size, feature_stride, A=A, training=training)[0].T.to(cfg.DEVICE)
+    sp_anch = splashAnchors(feat_height, feat_width, 1, base_anchors, im_size, feature_stride, A=A, training=training)[0].T.to(cfg.DEVICE)
+    labels = torch.zeros(sp_anch.shape[1], dtype=torch.float32, device=cfg.DEVICE)
+    values = torch.zeros(4, sp_anch.shape[1], device=cfg.DEVICE)
+    # 4 * n_anchors
+    if boxes.shape[0] > 0:
+        boxes=boxes.T
+        max_iou, max_indices = torch.max(IOU(boxes=boxes, anchors=sp_anch), dim=1) # Why yes, we do really need the indices
 
-        labels = torch.zeros(sp_anch.shape[1], dtype=torch.float32, device=cfg.DEVICE)
-        values = torch.zeros(4, sp_anch.shape[1], device=cfg.DEVICE)
-        # 4 * n_anchors
-        if boxes.shape[0] > 0:
-            boxes=boxes.T
-            max_iou, max_indices = torch.max(IOU(boxes=boxes, anchors=sp_anch), dim=1) # Why yes, we do really need the indices
+        # Classification object or not
+        labels = torch.where(max_iou <= .2, -1.0, 0.0) + torch.where(max_iou >= .6, 1.0, 0.0)
+        # -1 is negative, 0 is null and 1 is positive
 
-            # Classification object or not
-            labels = torch.where(max_iou <= .05, -1.0, 0.0) + torch.where(max_iou >= .2, 1.0, 0.0)
-            # -1 is negative, 0 is null and 1 is positive
-
-            # Values for regressor
-            boxes = boxes[:, max_indices]
-            values[0] = (boxes[0] - sp_anch[0])/sp_anch[2]    # t_x
-            values[1] = (boxes[1] - sp_anch[1])/sp_anch[3]    # t_y
-            values[2] = torch.log(boxes[2]/sp_anch[2])        # t_w
-            values[3] = torch.log(boxes[3]/sp_anch[3])        # t_h
-        else:
-            labels = -torch.ones(sp_anch.shape[1])
-        
-        return labels, values
+        # Values for regressor
+        boxes = boxes[:, max_indices]
+        values[0] = (boxes[0] - sp_anch[0])/sp_anch[2]    # t_x
+        values[1] = (boxes[1] - sp_anch[1])/sp_anch[3]    # t_y
+        values[2] = torch.log(boxes[2]/sp_anch[2])        # t_w
+        values[3] = torch.log(boxes[3]/sp_anch[3])        # t_h
+    else:
+        labels = -torch.ones(sp_anch.shape[1])
+    
+    return labels, values
 
 
 
 
 @torch.jit.script
 def invert_values(values, anchors):
-    with torch.no_grad():
-        values = values.permute(2,1,0)
-        anchors = anchors.permute(2,1,0) 
-        ret_vals = torch.empty_like(values)
-        ret_vals[0] = anchors[2] * values[0] + anchors[0]
-        ret_vals[1] = anchors[3] * values[1] + anchors[1]
-        ret_vals[2] = anchors[2] * torch.exp(values[2])
-        ret_vals[3] = anchors[3] * torch.exp(values[3])
+    
+    values = values.permute(2,1,0)
+    anchors = anchors.permute(2,1,0) 
+    ret_vals = torch.empty_like(values)
+    ret_vals[0] = anchors[2] * values[0] + anchors[0]
+    ret_vals[1] = anchors[3] * values[1] + anchors[1]
+    ret_vals[2] = anchors[2] * torch.exp(values[2])
+    ret_vals[3] = anchors[3] * torch.exp(values[3])
 
-        return ret_vals.permute(2,1,0)
+    return ret_vals.permute(2,1,0)
 
 
 # Fine guess I'll do it myself

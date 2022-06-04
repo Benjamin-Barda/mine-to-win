@@ -55,11 +55,8 @@ class _proposal(nn.Module):
         # Let's clip them to the image
         to_clip = center2corner(rois)
 
-        to_clip[:, :, 0:4:2] = torch.clip(
-            to_clip[:, :, 0:4:2], min=0, max=img_size[1]-1
-        )
-        to_clip[:, :, 1:4:2] = torch.clip(
-            to_clip[:, :, 1:4:2], min=0, max=img_size[0]-1
+        to_clip = torch.clamp(
+            to_clip, min=torch.zeros(4, device=self.device), max=torch.tensor([img_size[1], img_size[0], img_size[1], img_size[0]], device=self.device) - 1
         )
 
         # TODO : Add threshold for too small of anchors
