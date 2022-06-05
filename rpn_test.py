@@ -17,7 +17,7 @@ bs = 1
 ds = torch.load("data\\datasets\\minedata_compressed_local.dtst")
 dl = DataLoader(ds, batch_size=bs, pin_memory=True, shuffle=True)
 
-state_extractor, state_rpn = torch.load("./MineRPN_best_weights2.pth", map_location=torch.device('cpu'))
+state_extractor, state_rpn = torch.load("./MineRPN_2_state100.pth", map_location=torch.device('cpu'))
 
 # Model initialized with flag so after the last conv layer return the featmap
 extractor = BackboneCNN(is_in_rpn=True).to(("cpu"))
@@ -32,19 +32,21 @@ rpn.load_state_dict(state_rpn)
 extractor.eval()
 rpn.eval()
 
+model_parameters = filter(lambda p: p.requires_grad, rpn.parameters())
+params = sum([np.prod(p.size()) for p in model_parameters])
+
+print(params)
+
 cv.namedWindow("img", cv.WINDOW_NORMAL)
 
 with torch.no_grad():
     
-    for i in range(500, 510):
+    for i in range(800, 815):
 
         img, lbl, elem = ds[i]
         img = img[None, ...]
         base_feat_map = extractor(img)
         bounds, b_label = ds.getvertex(elem)
-
-        labels, values = label_anchors(bounds, hh, ww, rpn.anchors, img.shape[-2:], training = False)
-
         score, ts, rois = rpn(base_feat_map, img.shape[-2:], False)
         
         img = img.permute(0, 2, 3, 1)[0, ...].numpy()
@@ -53,11 +55,11 @@ with torch.no_grad():
         for indx, an in enumerate(rois[0]):
             
             col = (0,255,0)
-            if labels[indx] < .5:
+            if score[0][indx] < .8:
             
                 col = (0,0,255)
                 continue
-            print(an)
+
             x,y,w,h = an.int()
 
             x1,y1,x2,y2 = int(x.item() - w.item()//2), int(y.item() - h.item()//2), int(x.item() + w.item()//2), int(y.item() + h.item()//2)

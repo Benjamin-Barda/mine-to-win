@@ -28,7 +28,7 @@ class _proposal(nn.Module):
 
         self.is_training = training
 
-    def forward(self, fg_scores, rois, anchors, img_size):
+    def forward(self, rois, img_size):
         """
         args :
             fg_score :
@@ -43,10 +43,10 @@ class _proposal(nn.Module):
             Sort them based on fg_scores
             Apply NMS and take only top K
         """
-        batch_size = rois.shape[0]
+        # batch_size = rois.shape[0]
 
-        pre_nms = self.pre_nms_train if self.is_training else self.pre_nms_test
-        post_nms = self.post_nms_train if self.is_training else self.post_nms_test
+        # pre_nms = self.pre_nms_train if self.is_training else self.pre_nms_test
+        # post_nms = self.post_nms_train if self.is_training else self.post_nms_test
 
         # Apply predicted offset to original anchors thus turning them into proposals
         # print(anchors.shape)

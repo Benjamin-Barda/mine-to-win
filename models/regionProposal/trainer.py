@@ -43,7 +43,7 @@ def main():
         rpn.load_state_dict(state_rpn)
 
     params = list(extractor.parameters()) + list(rpn.parameters())
-    optimizer = torch.optim.AdamW(params=params, lr = 0.0001, amsgrad=True)
+    optimizer = torch.optim.SGD(params=params, lr = 1e-4, momentum=.5)
 
     best_risk = torch.inf
     best_state = (extractor.state_dict(), rpn.state_dict())
@@ -75,25 +75,29 @@ def main():
             loss = 0
             
             base_feat_map = extractor.forward(img)
-            _, inDim, hh, ww, = base_feat_map.size()
+            _, _, hh, ww, = base_feat_map.size()
 
-            score, ts, rois = rpn(base_feat_map, img.shape[-2:])
+            score, ts, _ = rpn(base_feat_map, img.shape[-2:])
                         
             for elem_indx, elem in enumerate(elements):
                 
                 bounds, b_label = ds.getvertex(elem)
 
+                bounds.requires_grad = False
+                b_label.requires_grad = False
+
                 bounds = bounds.to(device, non_blocking=True)
-                labels, values = label_anchors(bounds, hh, ww, rpn.anchors, img.shape[-2:], training = True)
+                labels, values = label_anchors(bounds, hh, ww, rpn.anchors, img.shape[-2:])
                 labels = labels.to(device, non_blocking=True)
                 values = values.to(device, non_blocking=True)
-                print(labels.shape, score.shape)
 
                 values = values.permute(1,0)
                     
 
                 positives = (labels > .999).nonzero().T.squeeze()
+                positives.requires_grad = False
                 negatives = (labels < -.999).nonzero().T.squeeze()
+                negatives.requires_grad = False
                 
                 labels = torch.clip(labels, min = 0)
                 
@@ -108,6 +112,7 @@ def main():
                 
 
                 to_use = torch.empty((ANCHORS_HALF_BATCH_SIZE*2), dtype=torch.int64, device=device)
+                to_use.requires_grad = False
                 if positives.shape[0] >= ANCHORS_HALF_BATCH_SIZE:
                     to_use[:ANCHORS_HALF_BATCH_SIZE] = positives[:ANCHORS_HALF_BATCH_SIZE]
                     to_use[ANCHORS_HALF_BATCH_SIZE:] = negatives[:ANCHORS_HALF_BATCH_SIZE]
@@ -115,7 +120,12 @@ def main():
                     to_use[:positives.shape[0]] = positives
                     to_use[positives.shape[0]:] = negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - positives.shape[0]]
 
-                loss += loss_funct.forward(score[elem_indx, to_use], ts[elem_indx, to_use], labels[to_use], values[to_use])
+                pred_score = score[elem_indx, to_use]
+                pred_offset = ts[elem_indx, to_use]
+                used_labels = labels[to_use]
+                used_offset = values[to_use]
+
+                loss += loss_funct.forward(pred_score, pred_offset, used_labels, used_offset)
                 #print(loss_funct.item())
             optimizer.zero_grad(set_to_none=True)
             loss.backward()
@@ -148,7 +158,7 @@ def main():
                     bounds, b_label = ds.getvertex(elem)
                     
                     bounds = bounds.to(device, non_blocking=True)
-                    labels, values = label_anchors(bounds, hh, ww, rpn.anchors, img.shape[-2:], training = True)
+                    labels, values = label_anchors(bounds, hh, ww, rpn.anchors, img.shape[-2:])
                     labels = labels.to(device, non_blocking=True)
                     values = values.to(device, non_blocking=True)
 

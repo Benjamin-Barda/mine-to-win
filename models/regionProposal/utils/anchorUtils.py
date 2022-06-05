@@ -145,7 +145,7 @@ def label_anchors(boxes, feat_height, feat_width, base_anchors, im_size, feature
         max_iou, max_indices = torch.max(IOU(boxes=boxes, anchors=sp_anch), dim=1) # Why yes, we do really need the indices
 
         # Classification object or not
-        labels = torch.where(max_iou <= .2, -1.0, 0.0) + torch.where(max_iou >= .6, 1.0, 0.0)
+        labels = torch.where(max_iou <= .05, -1.0, 0.0) + torch.where(max_iou >= .45, 1.0, 0.0)
         # -1 is negative, 0 is null and 1 is positive
 
         # Values for regressor
