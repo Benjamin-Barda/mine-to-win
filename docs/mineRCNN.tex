@@ -74,7 +74,13 @@
 \IEEEpeerreviewmaketitle
     
     \section{Introduction}
-    We do stuff.
+    Real time object detection has always been a field of intrest for many researchers during the years. The countless possible applications of such technology, and the importance of those, made such a field move faster every year, constantly improving 
+    in both accuracy and performance. The earlier implemtations, such as selective search approaches, were slow, taking up to 2 seconds to process an image using standard CPU hardware. 
+    First improvments were made with R-CNN, a fully convolutional network that worked on RoIs extracted from the input image via a greedy algorithm.  
+    Performance were clearly bootlenecked by the proposal generation process. Nowdays FasterRCNN is an industry standard, as it provides close to real time image processing capabilities as it uses two siblings fully convolutional with shared features, to both 
+    do the region proposal task and the classication.   
+    We decided to try and recreate from the ground up the latest architecture, starting from collecting our own data and manually labeling each image, and finishing with training a fully functioning FasterRCNN.  
+
     \bibliographystyle{IEEEtran}
     \bibliography{ref}
 
