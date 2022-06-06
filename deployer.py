@@ -1,52 +1,54 @@
+from PIL import ImageGrab
+import win32gui
+import cv2
 import sys
 from models.extractor.backCNN import BackboneCNN
 from models.regionProposal.rpn import _rpn
 from models.regionProposal.loss_func import RPNLoss
 from models.regionProposal.utils.anchorUtils import *
-from torch.utils.data import DataLoader, Subset
-import cv2 as cv
 import torch
-import torch_tensorrt
-import timm
-import time
-import numpy as np
-import torch.backends.cudnn as cudnn
-from data.ClassData import ClassData
 
+hwnd = win32gui.FindWindow(None, r'Minecraft 1.18.2 - Singleplayer')
+
+state_extractor, state_rpn = torch.load("weights/MineRPN_best_weights.pth", map_location=torch.device('cpu'))
+extractor = BackboneCNN(is_in_rpn=True).to(("cpu"))
+extractor.load_state_dict(state_extractor)
+lossfn = RPNLoss()
+
+win32gui.SetForegroundWindow(hwnd)
+dimensions = win32gui.GetWindowRect(hwnd)
+print(dimensions)
+
+_, inDim, hh, ww, = extractor( dimensions ).size()
+
+rpn = _rpn(inDim).to(("cpu"))
+rpn.load_state_dict(state_rpn)
+extractor.eval()
+rpn.eval()
+
+while True:
+    
+    win32gui.SetForegroundWindow(hwnd)
+    
+
+    image = ImageGrab.grab(dimensions)
+    image.show()
+    break
+    
 DEBUG = False
 SHOW = True
 
 bs = 1
 
-# Loading only one image
-ds = torch.load("data\\datasets\\minedata_compressed_local.dtst")
-dl = DataLoader(ds, batch_size=bs, pin_memory=True, shuffle=True)
 
-state_extractor, state_rpn = torch.load("./weights_too_heavy/MineRPN_best_weights.pth", map_location=torch.device('cpu'))
 
 # Model initialized with flag so after the last conv layer return the featmap
-extractor = BackboneCNN(is_in_rpn=True).to(("cpu"))
-extractor.load_state_dict(state_extractor)
-lossfn = RPNLoss()
 
-_, inDim, hh, ww, = extractor(ds[0][0][None, ...]).size()
-
-rpn = _rpn(inDim).to(("cpu"))
-rpn.load_state_dict(state_rpn)
-
-extractor.eval()
-rpn.eval()
-
-model_parameters = filter(lambda p: p.requires_grad, rpn.parameters())
-params = sum([np.prod(p.size()) for p in model_parameters])
-
-print(params)
-
-cv.namedWindow("img", cv.WINDOW_NORMAL)
+""" 
 
 with torch.no_grad():
     
-    for i in range(100, 115):
+
 
         img, lbl, elem = ds[i]
         img = img[None, ...]
@@ -74,3 +76,4 @@ with torch.no_grad():
 
         cv.imshow("img", img)
         cv.waitKey(0)
+        """
