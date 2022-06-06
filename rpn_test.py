@@ -17,7 +17,7 @@ bs = 1
 ds = torch.load("data\\datasets\\minedata_compressed_local_test.dtst")
 dl = DataLoader(ds, batch_size=bs, pin_memory=True, shuffle=True)
 
-state_extractor, state_rpn = torch.load("./weights_too_heavy/MineRPN_best_weights.pth", map_location=torch.device('cpu'))
+state_extractor, state_rpn = torch.load("./weights_too_heavy/MineRPN_quantized_weights.pth", map_location=torch.device('cpu'))
 
 # Model initialized with flag so after the last conv layer return the featmap
 extractor = BackboneCNN(is_in_rpn=True).to(("cpu"))
@@ -39,14 +39,11 @@ print(params)
 
 cv.namedWindow("img", cv.WINDOW_NORMAL)
 
-true_pos = 0
-true_neg = 0
-false_pos = 0
-false_neg = 0
+score_label_pairs = list()
 
 with torch.no_grad():
     
-    for i in range(0, 100):
+    for i in range(0, 500):
 
         img, lbl, elem = ds[i]
         img = img[None, ...]
@@ -62,9 +59,10 @@ with torch.no_grad():
         labels, _ = label_anchors(bounds, hh, ww, rpn.anchors, img.shape[-2:])
         labels = labels[nms_indexes]
 
-        # for i in range(score.shape[0]):
-        #     if score[]
+        labels = torch.clamp(labels, min=0)
 
+        # for i in range(labels.shape[0]):
+        #     score_label_pairs.append((score[i],labels[i]))
 
 
         img = img.permute(0, 2, 3, 1)[0, ...].numpy()
@@ -84,3 +82,10 @@ with torch.no_grad():
 
         cv.imshow("img", img)
         cv.waitKey(0)
+
+# print(score_label_pairs)
+
+# import pickle
+
+# with open("score_label_pairs_for_roc.pickle", "wb") as handle:
+#     pickle.store(handle, score_label_pairs)
