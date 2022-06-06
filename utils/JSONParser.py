@@ -19,7 +19,8 @@ jsons = ["OUTPUT-pig1.json","OUTPUT-pig2.json","OUTPUT-pig3.json","OUTPUT-pig4.j
          "OUTPUT-zombie1.json","OUTPUT-zombie2.json","OUTPUT-zombie3.json","OUTPUT-zombie4.json", "OUTPUT-zombie5.json",
          "OUTPUT-zombie6.json","OUTPUT-zombie7.json","OUTPUT-zombie8.json","OUTPUT-zombie9.json",
          "OUTPUT-sheep1.json","OUTPUT-sheep2.json","OUTPUT-sheep3.json","OUTPUT-sheep4.json", "OUTPUT-sheep5.json",
-         "OUTPUT-sheep6.json","OUTPUT-sheep7.json","OUTPUT-sheep8.json","OUTPUT-sheep9.json"
+         "OUTPUT-sheep6.json","OUTPUT-sheep7.json","OUTPUT-sheep8.json","OUTPUT-sheep9.json",
+         "OUTPUT-test1.json","OUTPUT-test2.json",
         ]
 
 

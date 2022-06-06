@@ -1,9 +1,9 @@
 import numpy as np
 import cv2
 
-names = ["seanull"]
+names = ["test"]
 
-for j in range(1, 2):
+for j in range(2, 3):
     print(j)
     for name in names:
         i = 0

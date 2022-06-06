@@ -109,14 +109,33 @@ def create_and_save_dataset(srcs, filename):
     
     torch.save(ds, filename)
 
+def create_and_save_dataset_test(srcs, filename):
+    from torchvision import transforms
+    
+    trans = transforms.Compose((
+    transforms.ToTensor(),
+    #transforms.RandomHorizontalFlip(),
+    # transforms.ColorJitter(brightness=(0.6, 1.4), contrast=(0.95, 1.05), saturation=(0.99, 1.01)),
+    # transforms.RandomAdjustSharpness(1.25, p=0.2),
+    # transforms.RandomAdjustSharpness(0.75, p=0.2),
+    #transforms.RandomRotation((-15, 15)),
+    ))
+
+    ds = ClassData(srcs, transform=trans)
+    
+    torch.save(ds, filename)
+
 if __name__ == "__main__":
-    names = [f"jsons\\rePARSEDOUTPUT-creeper{i}.json" for i in range(1, 11)]
-    names += [f"jsons\\rePARSEDOUTPUT-pig{i}.json" for i in range(1, 11)]
-    #names += [f"jsons\\rePARSEDOUTPUT-null{i}.json" for i in range(1, 20)]
-    names += [f"jsons\\rePARSEDOUTPUT-zombie{i}.json" for i in range(1, 10)]
-    names += [f"jsons\\rePARSEDOUTPUT-sheep{i}.json" for i in range(1, 10)]
-    #names.append("jsons\\rePARSEDOUTPUT-seanull1.json")
-    create_and_save_dataset(names, "data\\datasets\\minedata_compressed_local.dtst")
+    # names = [f"jsons\\rePARSEDOUTPUT-creeper{i}.json" for i in range(1, 11)]
+    # names += [f"jsons\\rePARSEDOUTPUT-pig{i}.json" for i in range(1, 11)]
+    # #names += [f"jsons\\rePARSEDOUTPUT-null{i}.json" for i in range(1, 20)]
+    # names += [f"jsons\\rePARSEDOUTPUT-zombie{i}.json" for i in range(1, 10)]
+    # names += [f"jsons\\rePARSEDOUTPUT-sheep{i}.json" for i in range(1, 10)]
+    # #names.append("jsons\\rePARSEDOUTPUT-seanull1.json")
+    # create_and_save_dataset(names, "data\\datasets\\minedata_compressed_local.dtst")
+
+    names = [f"jsons\\PARSEDOUTPUT-test{i}.json" for i in range(1, 3)]
+    create_and_save_dataset_test(names, "data\\datasets\\minedata_compressed_local_test.dtst")
 
     # names = [f"jsons\\PARSEDOUTPUT-creeper{i}.json" for i in range(1, 11)]
     # names += [f"jsons\\PARSEDOUTPUT-pig{i}.json" for i in range(1, 11)]

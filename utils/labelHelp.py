@@ -5,9 +5,9 @@ import json
 import sys
 import pathlib
 
-videoname = "null19"
+videoname = "test2"
 
-imageFolderPath = "imgs/frames/"
+imageFolderPath = "imgs/frames_new/"
 
 MOB_MAP  =  {
     ord('1') : ('Pig', (205, 170, 230)),

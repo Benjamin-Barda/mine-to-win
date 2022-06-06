@@ -82,7 +82,8 @@
     unfit to be part of the dataset (e.g. frames inside the game menu or outside of the game). After standardizing the coordinates of BBoxes we saved them into JSONs files. Having our JSONS files ready we group them into a single .dtst file for better integration with the PyTorch
     library, which is the one we decided to use for this project. From the sampling of the images we collected 3920 valid frames. 
     
-
+    \section{Results}
+    Given the inexperience, the difficulty of the task and the (inadequate) hardware at hand, we think to have reached positive results, the system shows signs of being able to recognize traits of the mobs we've trained it on, even though sometimes they are just cases of pareidolia: to give some numbers, the final model achieves a staggering $94\%$ accuracy on the validation set when recognizing whether an anchor contains an object or not. Is this a nice result? It depends, the real problem with this value is that, essentially, non-object anchors dominate the dataset (that's normal, unless you happen to be trying to classify every possible thing in an image), this 
     \bibliographystyle{IEEEtran}
     \bibliography{ref}
 

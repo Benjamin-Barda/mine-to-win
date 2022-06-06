@@ -14,7 +14,7 @@ SHOW = True
 bs = 1
 
 # Loading only one image
-ds = torch.load("data\\datasets\\minedata_compressed_local.dtst")
+ds = torch.load("data\\datasets\\minedata_compressed_local_test.dtst")
 dl = DataLoader(ds, batch_size=bs, pin_memory=True, shuffle=True)
 
 state_extractor, state_rpn = torch.load("./weights_too_heavy/MineRPN_best_weights.pth", map_location=torch.device('cpu'))
@@ -39,9 +39,14 @@ print(params)
 
 cv.namedWindow("img", cv.WINDOW_NORMAL)
 
+true_pos = 0
+true_neg = 0
+false_pos = 0
+false_neg = 0
+
 with torch.no_grad():
     
-    for i in range(100, 115):
+    for i in range(0, 100):
 
         img, lbl, elem = ds[i]
         img = img[None, ...]
@@ -52,13 +57,23 @@ with torch.no_grad():
         rois = rois[0][nms_indexes]
         score = score[0][nms_indexes]
 
+        bounds, b_label = ds.getvertex(elem)
+
+        labels, _ = label_anchors(bounds, hh, ww, rpn.anchors, img.shape[-2:])
+        labels = labels[nms_indexes]
+
+        # for i in range(score.shape[0]):
+        #     if score[]
+
+
+
         img = img.permute(0, 2, 3, 1)[0, ...].numpy()
         img = np.ascontiguousarray(img)
         cv.imshow("orig img", img)
         for indx, an in enumerate(rois):
             
             col = (0,255,0)
-            if score[indx] < .8:
+            if score[indx] < .5:
                 col = (0,0,255)
                 continue
 
