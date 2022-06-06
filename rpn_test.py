@@ -47,14 +47,15 @@ rpn.eval()
 
 cv.namedWindow("img", cv.WINDOW_NORMAL)
 
+score_label_pairs = []
 
 with torch.no_grad():
     
-    for i in range(200, 0, -1):
+    j = 0
 
-        print(i)
-
-        img, lbl, elem = ds[i]
+    for img, lbl, elem in ds:
+        j += 1
+        print(j)
         img = img[None, ...]
         base_feat_map = extractor(img)
         bounds, b_label = ds.getvertex(elem)
@@ -63,41 +64,42 @@ with torch.no_grad():
         rois = rois[0][nms_indexes]
         score = score[0][nms_indexes]
 
-        # bounds, b_label = ds.getvertex(elem)
+        bounds, b_label = ds.getvertex(elem)
 
-        # labels, _ = label_anchors(bounds, hh, ww, rpn.anchors, img.shape[-2:])
-        # labels = labels[nms_indexes]
+        labels, _ = label_anchors(bounds, hh, ww, rpn.anchors, img.shape[-2:])
+        labels = labels[nms_indexes]
 
-        # labels = torch.clamp(labels, min=0)
+        score = score.tolist()
+        labels = labels.tolist()
 
-        # score = score.tolist()
-        # labels = labels.tolist()
+        for i, val in enumerate(labels):
+            if score[i] < .81:
+                score_label_pairs.append((0,val))
+            else:
+                score_label_pairs.append((1,val))
 
-        # for i, val in enumerate(labels):
-        #     score_label_pairs.append((score[i],val))
-
-        img = img.permute(0, 2, 3, 1)[0, ...].numpy()
-        img = np.ascontiguousarray(img)
+        # img = img.permute(0, 2, 3, 1)[0, ...].numpy()
+        # img = np.ascontiguousarray(img)
         
-        cv.imshow("orig img", img)
-        for indx, an in enumerate(rois):
+        # cv.imshow("orig img", img)
+        # for indx, an in enumerate(rois):
             
-            col = (0,255,0)
-            if score[indx] < .81:
-                col = (0,0,255)
-                continue
+        #     col = (0,255,0)
+        #     if score[indx] < .81:
+        #         col = (0,0,255)
+        #         continue
 
-            x,y,w,h = an.int()
+        #     x,y,w,h = an.int()
 
-            x1,y1,x2,y2 = int(x.item() - w.item()//2), int(y.item() - h.item()//2), int(x.item() + w.item()//2), int(y.item() + h.item()//2)
-            cv.rectangle(img, (x1,y1),(x2,y2), color=col, thickness=1)
+        #     x1,y1,x2,y2 = int(x.item() - w.item()//2), int(y.item() - h.item()//2), int(x.item() + w.item()//2), int(y.item() + h.item()//2)
+        #     cv.rectangle(img, (x1,y1),(x2,y2), color=col, thickness=1)
 
-        cv.imshow("img", img)
-        cv.waitKey(0)
+        # cv.imshow("img", img)
+        # cv.waitKey(0)
 
-# import pickle
+import pickle
 
 
-# with open("score_label_pairs_for_roc.pickle", "wb") as handle:
-#     handle.write(pickle.dumps(score_label_pairs))
-#     handle.close()
+with open("score_label_pairs_test.pickle", "wb") as handle:
+    handle.write(pickle.dumps(score_label_pairs))
+    handle.close()

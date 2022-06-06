@@ -86,7 +86,39 @@
     library, which is the one we decided to use for this project. From the sampling of the images we collected 3920 valid frames. 
     
     \section{Results}
-    Given the inexperience, the difficulty of the task and the (inadequate) hardware at hand, we think to have reached positive results, the system shows signs of being able to recognize traits of the mobs we've trained it on, even though sometimes they are just cases of pareidolia: to give some numbers, the final model achieves a staggering $94\%$ accuracy on the validation set when recognizing whether an anchor contains an object or not. Is this a nice result? It depends, the real problem with this value is that, essentially, non-object anchors dominate the dataset (that's normal, unless you happen to be trying to classify every possible thing in an image), this 
+    Given the inexperience, the difficulty of the task and the (inadequate) hardware at hand, we think to have reached positive results, the system shows signs of being able to recognize traits of the mobs we've trained it on, even though sometimes they are just cases of pareidolia. Before giving some manner of statistics over its capabilities we would like to point out an important decision: that of the threshold for deciding whether, given a score, the anchor for which it is related to is actually a positive one or not. To decide this fundamental hyperparameter we resolved in sampling five hundred (500) images from our training dataset and, after letting the system apply non-maximum suppression, recovering the scores for all the remaining anchors and pairing them to their true labels. Once this preprocessing was done we plotted the ROC:
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.44\textwidth]{images/ROC.png}
+    \end{figure}
+
+    And a graph, showing the decrease of the \emph{true positive ratio} (TPR) and of the \emph{false positive ratio} (FPR) as the threshold increased, as following:
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.44\textwidth]{images/threshold_decision.png}
+    \end{figure}
+
+    From both these graphs we notice our network is indeed able to separate positive and negative anchors with very clear-cut definition. Furthermore, we decided that a good compromise between (TPR) and (FPR) could be achieved by choosing a threshold between $0.8$ and $0.9$: since we didn't want to remove positive anchors too much we put ours at $0.81$. We posit that, to avoid false positives as much as possible, $0.9$ should work fine too.
+
+    After this, in our opinion, fundamental decision was made: we resolved to open Pandora's box and create a test set of around 250 images with multiple mobs in the same shot. Unfortunately, as said previously, we didn't develop our network up to classification of the boxes, and thus a full confusion matrix of those is out of the question. At any rate we show the misclassification table for the anchors (after non-maximum-suppression) scored by our network over the whole test set:
+
+    \begin{center}
+        \begin{tabular}{r|c c}
+            & Pos. label & Neg. label \\
+            \hline
+            Pos. score & 62 & 3545 \\
+            Neg. score & 17 & 127789
+        \end{tabular}
+    \end{center}
+
+    Telling us that, indeed, our threshold works, since the TPR is $0.78$ and the FPR is $0.03$. We would like to point out that, since the labelling of the anchors is itself hyperparameter driven (given the choice of anchors and that of the IoU thresholds used to label them) and that we think to have chosen a combination of these parameters that biases the labels towards the non-object side and, furthermore, given this label by itself already dominates the distribution: it is only normal for the number of positive labels to be so low in the set. If we look at the actual images with the positive region proposals added, we'll appreciate much more positive-looking (that may not actually be labelled as positive) proposals than the anchor labelling would actually suggest.
+
+    Let's now give a look at some of the proposals created by our network:
+
+    CUE A SLEW OF IMAGES WITH COMMENTS
+
     \bibliographystyle{IEEEtran}
     \bibliography{ref}
 

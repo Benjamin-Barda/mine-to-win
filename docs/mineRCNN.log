@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.3.9)  6 JUN 2022 17:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.3.9)  7 JUN 2022 00:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -555,25 +555,42 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 LaTeX Font Info:    Trying to load font information for U+pzd on input line 74.
  (C:\Users\surre\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\upzd.fd
 File: upzd.fd 2001/06/04 font definitions for U/pzd.
-) (mineRCNN.bbl) [1
+)
+<images/ROC.png, id=9, 551.05875pt x 411.5375pt>
+File: images/ROC.png Graphic file (type png)
+<use images/ROC.png>
+Package pdftex.def Info: images/ROC.png  used on input line 93.
+(pdftex.def)             Requested size: 216.4812pt x 161.67325pt.
+<images/threshold_decision.png, id=11, 1011.78pt x 621.32124pt>
+File: images/threshold_decision.png Graphic file (type png)
+<use images/threshold_decision.png>
+Package pdftex.def Info: images/threshold_decision.png  used on input line 100.
+(pdftex.def)             Requested size: 216.4812pt x 132.93678pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[1
 Non-PDF special ignored!
 <special> papersize=569.12624pt,776.9025pt
 {C:/Users/surre/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}
 
 
-] (mineRCNN.aux) ) 
+ <./images/ROC.png>] (mineRCNN.bbl) [2
+
+ <./images/threshold_decision.png>] (mineRCNN.aux) ) 
 Here is how much of TeX's memory you used:
- 14167 strings out of 478655
- 235940 string characters out of 2846786
- 622941 words of memory out of 3000000
- 32054 multiletter control sequences out of 15000+600000
- 509526 words of font info for 121 fonts, out of 8000000 for 9000
+ 14191 strings out of 478655
+ 236408 string characters out of 2846786
+ 625941 words of memory out of 3000000
+ 32069 multiletter control sequences out of 15000+600000
+ 510182 words of font info for 122 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  68i,7n,77p,1409b,446s stack positions out of 5000i,500n,10000p,200000b,80000s
-{C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on mineRCNN.pdf (1 page, 72932 bytes).
+{C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/zapfding/uzdr.pfb>
+Output written on mineRCNN.pdf (2 pages, 149825 bytes).
 PDF statistics:
- 58 PDF objects out of 1000 (max. 8388607)
- 8 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 75 PDF objects out of 1000 (max. 8388607)
+ 12 named destinations out of 1000 (max. 500000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
