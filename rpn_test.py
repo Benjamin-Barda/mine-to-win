@@ -6,6 +6,11 @@ from models.regionProposal.utils.anchorUtils import *
 from torch.utils.data import DataLoader, Subset
 import cv2 as cv
 import torch
+import torch_tensorrt
+import timm
+import time
+import numpy as np
+import torch.backends.cudnn as cudnn
 from data.ClassData import ClassData
 
 DEBUG = False
