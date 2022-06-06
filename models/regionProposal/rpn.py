@@ -93,7 +93,8 @@ class _rpn(nn.Module):
 
         rpn_reg = rpn_reg + anchors
 
-        rois = self.proposalLayer(
+        rois, nms_indexes = self.proposalLayer(
+            rpn_score,
             rpn_reg,
             img_size
         )
@@ -104,21 +105,10 @@ class _rpn(nn.Module):
 
         ts = torch.empty((n, rpn_reg.shape[1], 4), device=cfg.DEVICE, dtype = torch.float)
 
-        if torch.where(rois[:, :, 2:] < 0, 1, 0).sum() > 0:
-            print(torch.min(rois[:, :, 2:]))
-
         ts[:, :, 0] = (rois[:, :, 0] - anchors[:, :, 0]) / anchors[:, :, 2]
         ts[:, :, 1] = (rois[:, :, 1] - anchors[:, :, 1]) / anchors[:, :, 3]
         ts[:, :, 2] = torch.log(torch.clamp(rois[:, :, 2]/ anchors[:, :, 2], min=1e-300))
         ts[:, :, 3] = torch.log(torch.clamp(rois[:, :, 3]/ anchors[:, :, 3], min=1e-300))
 
-        if torch.isnan(ts[:, :, 0]).sum() > 0:
-            print("tx nan")
-        if torch.isnan(ts[:, :, 1]).sum() > 0:
-            print("ty nan")
-        if torch.isnan(ts[:, :, 2]).sum() > 0:
-            print("tw nan")
-        if torch.isnan(ts[:, :, 3]).sum() > 0:
-            print("th nan")
 
-        return rpn_score, ts, rois
+        return rpn_score, ts, rois, nms_indexes

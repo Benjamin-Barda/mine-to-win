@@ -18,7 +18,7 @@ def generate_anchors(base, ratios, scales):
 
     return torch.tensor([[0., 0., base * scale * np.sqrt(ratio), base * scale * np.sqrt(1. / ratio)] 
                         for scale in scales 
-                        for ratio in ratios])
+                        for ratio in ratios], dtype=torch.float32)
 
 
 @torch.jit.script

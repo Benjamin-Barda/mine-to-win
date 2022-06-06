@@ -11,8 +11,9 @@ import torch
 from torch.backends import cuda
 
 def main():
+
+    torch.set_default_dtype(torch.float32)
     cuda.benchmark = True
-    SHOW = True
 
     ds = torch.load("data\\datasets\minedata_compressed_local.dtst")
 
@@ -21,12 +22,12 @@ def main():
     split = int(ds.shape()[0] * 0.8)
     train, val = Subset(ds, list(range(split))), Subset(ds, list(range(split, int(ds.shape()[0]))))
 
-    BATCH_SIZE = 16
-    ANCHORS_HALF_BATCH_SIZE = 3
+    BATCH_SIZE = 32
+    ANCHORS_HALF_BATCH_SIZE = 1
     THREADS = 4
     
     train_load = DataLoader(train, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True, num_workers = THREADS)
-    val_load =   DataLoader(val, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True)
+    val_load =   DataLoader(val, batch_size = BATCH_SIZE, shuffle=True, pin_memory=True, num_workers = THREADS)
 
     # Model initialized with flag so after the last conv layer return the featmap
     extractor = BackboneCNN(is_in_rpn=True).to(device)
@@ -77,7 +78,7 @@ def main():
             base_feat_map = extractor.forward(img)
             _, _, hh, ww, = base_feat_map.size()
 
-            score, ts, _ = rpn(base_feat_map, img.shape[-2:])
+            score, ts, _, _ = rpn(base_feat_map, img.shape[-2:])
                         
             for elem_indx, elem in enumerate(elements):
                 
@@ -88,9 +89,10 @@ def main():
 
                 bounds = bounds.to(device, non_blocking=True)
                 labels, values = label_anchors(bounds, hh, ww, rpn.anchors, img.shape[-2:])
+                labels.requires_grad = False
+                values.requires_grad = False
                 labels = labels.to(device, non_blocking=True)
                 values = values.to(device, non_blocking=True)
-
                 values = values.permute(1,0)
                     
 
@@ -124,6 +126,8 @@ def main():
                 pred_offset = ts[elem_indx, to_use]
                 used_labels = labels[to_use]
                 used_offset = values[to_use]
+                used_labels.requires_grad = False
+                used_offset.requires_grad = False
 
                 loss += loss_funct.forward(pred_score, pred_offset, used_labels, used_offset)
                 #print(loss_funct.item())
@@ -151,7 +155,7 @@ def main():
                 base_feat_map = extractor.forward(img)
                 _, inDim, hh, ww, = base_feat_map.size()
 
-                score, ts, rois_index = rpn(base_feat_map, img.shape[-2:])
+                score, ts, _, _  = rpn(base_feat_map, img.shape[-2:])
                 
                 for elem_indx,elem in enumerate(elements):
                     
@@ -161,42 +165,45 @@ def main():
                     labels, values = label_anchors(bounds, hh, ww, rpn.anchors, img.shape[-2:])
                     labels = labels.to(device, non_blocking=True)
                     values = values.to(device, non_blocking=True)
-
                     values = values.permute(1,0)
                         
-                    with torch.no_grad():
 
-                        positives = (labels > .999).nonzero().T.squeeze()
-                        negatives = (labels < -.999).nonzero().T.squeeze()
+                    positives = (labels > .999).nonzero().T.squeeze()
+                    negatives = (labels < -.999).nonzero().T.squeeze()
+                    
+                    labels = torch.clip(labels, min = 0)
+                    
+                    if not len(positives.shape):
+                        positives = torch.zeros((0))
                         
-                        labels = torch.clip(labels, min = 0)
+                    if not len(negatives.shape):
+                        negatives = torch.zeros((0))
                         
-                        if not len(positives.shape):
-                            positives = torch.zeros((0))
-                            
-                        if not len(negatives.shape):
-                            negatives = torch.zeros((0))
-                            
-                        positives = positives[torch.randperm(positives.shape[0])]
-                        negatives = negatives[torch.randperm(negatives.shape[0])]
-                        
-                        total_neg += negatives.shape[0]
-                        total_pos += positives.shape[0]
+                    positives = positives[torch.randperm(positives.shape[0])]
+                    negatives = negatives[torch.randperm(negatives.shape[0])]
+                    
+                    total_neg += negatives.shape[0]
+                    total_pos += positives.shape[0]
 
-                        to_use = torch.empty((ANCHORS_HALF_BATCH_SIZE*2), dtype=torch.int64, device=device)
-                        if positives.shape[0] >= ANCHORS_HALF_BATCH_SIZE:
-                            to_use[:ANCHORS_HALF_BATCH_SIZE] = positives[:ANCHORS_HALF_BATCH_SIZE]
-                            to_use[ANCHORS_HALF_BATCH_SIZE:] = negatives[:ANCHORS_HALF_BATCH_SIZE]
-                        else:
-                            to_use[:positives.shape[0]] = positives
-                            to_use[positives.shape[0]:] = negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - positives.shape[0]]
+                    to_use = torch.empty((ANCHORS_HALF_BATCH_SIZE*2), dtype=torch.int64, device=device)
+                    if positives.shape[0] >= ANCHORS_HALF_BATCH_SIZE:
+                        to_use[:ANCHORS_HALF_BATCH_SIZE] = positives[:ANCHORS_HALF_BATCH_SIZE]
+                        to_use[ANCHORS_HALF_BATCH_SIZE:] = negatives[:ANCHORS_HALF_BATCH_SIZE]
+                    else:
+                        to_use[:positives.shape[0]] = positives
+                        to_use[positives.shape[0]:] = negatives[:ANCHORS_HALF_BATCH_SIZE * 2 - positives.shape[0]]
 
-                    loss += loss_funct.forward(score[elem_indx, to_use], ts[elem_indx, to_use], labels[to_use], values[to_use])
+                    pred_score = score[elem_indx, to_use]
+                    pred_offset = ts[elem_indx, to_use]
+                    used_labels = labels[to_use]
+                    used_offset = values[to_use]
+
+                    loss += loss_funct.forward(pred_score, pred_offset, used_labels, used_offset)
 
                     total += to_use.shape[0]
                     
-                    total_correct += torch.where(score[elem_indx, to_use] < .5, 0, 1).eq(labels[to_use]).sum().item()
-                    total_sqrd_error += (torch.pow(ts[elem_indx, to_use] * labels[to_use][:, None].expand(-1, 4) - values[to_use], 2)).sum().item()
+                    total_correct += torch.where(pred_score < .5, 0, 1).eq(used_labels).sum().item()
+                    total_sqrd_error += (torch.pow(pred_offset * used_labels[:, None].expand(-1, 4) - used_offset, 2)).sum().item()
                     
                     print(f"Epoch {i}, Validation, {(100 * indx / tot_minibatch_val):.3f}%", end="\r")
                     

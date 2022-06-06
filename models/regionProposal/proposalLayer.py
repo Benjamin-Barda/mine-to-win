@@ -1,5 +1,6 @@
 # unTODO: Understand if we learn offsets from the feature map or from the original image ???
 
+from operator import index
 import os
 import sys
 import torch
@@ -28,7 +29,7 @@ class _proposal(nn.Module):
 
         self.is_training = training
 
-    def forward(self, rois, img_size):
+    def forward(self, scores, rois, img_size):
         """
         args :
             fg_score :
@@ -43,10 +44,10 @@ class _proposal(nn.Module):
             Sort them based on fg_scores
             Apply NMS and take only top K
         """
-        # batch_size = rois.shape[0]
+        batch_size = rois.shape[0]
 
-        # pre_nms = self.pre_nms_train if self.is_training else self.pre_nms_test
-        # post_nms = self.post_nms_train if self.is_training else self.post_nms_test
+        # # pre_nms = self.pre_nms_train if self.is_training else self.pre_nms_test
+        post_nms = self.post_nms_train if self.is_training else self.post_nms_test
 
         # Apply predicted offset to original anchors thus turning them into proposals
         # print(anchors.shape)
@@ -78,21 +79,22 @@ class _proposal(nn.Module):
          fg_scores = fg_scores[:, :pre_nms, :]
         '''
 
-        # final_rois = list()
+        indexes = list()
 
-        # for i in range(batch_size):
-        #     # to_keep = nms(
-        #     #     to_clip[i],
-        #     #     fg_scores[i],
-        #     #     self.nms_thresh
-        #     #     )
-        #     # print(to_keep.shape)
-        #     # if post_nms > 0:
-        #     #     to_keep = to_keep[:post_nms]
+        for i in range(batch_size):
+
+            to_keep = nms(
+                to_clip[i],
+                scores[i],
+                self.nms_thresh
+                )
+
+            if post_nms > 0:
+                to_keep = to_keep[:post_nms]
             
-        #     final_rois.append((to_clip[i], None))
+            indexes.append(to_keep)
 
-        return to_clip
+        return to_clip, indexes
 
 
     def getROI(self, src_box, offset):

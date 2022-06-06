@@ -55,7 +55,7 @@ __C.PRE_NMS_TEST   = 2000
 # in testing how many ROI to retain after NMS
 __C.POST_NMS_TEST  = 1000
 # Threshhold for nms
-__C.NMS_THRESHOLD = .7
+__C.NMS_THRESHOLD = .1
 
 """
 CUDA Device
