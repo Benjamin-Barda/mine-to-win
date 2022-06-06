@@ -35,11 +35,4 @@ S.~Ren, K.~He, R.~B. Girshick, and J.~Sun, ``Faster {R-CNN:} towards real-time
   \url{http://arxiv.org/abs/1506.01497}
 \BIBentrySTDinterwordspacing
 
-\bibitem{resarchgate:Selective Search}
-\BIBentryALTinterwordspacing
-  J.R.R. Uijlings, K.E.A. van de Sande, T. Gevers, and A.W.M Smeulders, `` Selective search for object recognition ``
-  [Online]. Available: \url{https://www.researchgate.net/publication/262270555_Selective_Search_for_Object_Recognition/link/542017f70cf2218008d43bd7/download}
-\BIBentrySTDinterwordspacing
-
-
 \end{thebibliography}

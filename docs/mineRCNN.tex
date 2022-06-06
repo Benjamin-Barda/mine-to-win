@@ -60,7 +60,7 @@
     Real time object detection has recently been made possible due to steady state-of-the-art advancements in the field \cite{arxiv:FastRCNN,arxiv:FasterRCNN}, these methods propose the use of a Region Proposal Network to 
     identify Regions of Interest (RoIs) in the image and correctly classify them, we aim to reproduce the architecture proposed by \cite{arxiv:FasterRCNN} applied to a novel environment, that of the
     popular sandbox Minecraft, both for the ease-of-collection of the required data and for a number of graphical properties possesed by the game that make such a complex problem more approachable in terms 
-    of computational resources, moreover, due to the novelty of the environment, we also train the entirety of the network from the ground up, having no pre-trained backbone at our disposal. 
+    of computational resources, moreover, due to the novelty of the environment, we also train the entirety of the network from the ground up, having no pre-trained backbone at our disposal.
 \end{abstract}
 
 %State-of-the-art object detection networks depend on region proposal algorithms to hypothesize object locations. Advances like SPPnet and Fast R-CNN have reduced the running time of these detection networks, exposing region proposal computation as a bottleneck. In this work, we introduce a Region Proposal Network (RPN) that shares full-image convolutional features with the detection network, thus enabling nearly cost-free region proposals. An RPN is a fully convolutional network that simultaneously predicts object bounds and objectness scores at each position. The RPN is trained end-to-end to generate high-quality region proposals, which are used by Fast R-CNN for detection. We further merge RPN and Fast R-CNN into a single network by sharing their convolutional features---using the recently popular terminology of neural networks with 'attention' mechanisms, the RPN component tells the unified network where to look. For the very deep VGG-16 model, our detection system has a frame rate of 5fps (including all steps) on a GPU, while achieving state-of-the-art object detection accuracy on PASCAL VOC 2007, 2012, and MS COCO datasets with only 300 proposals per image. In ILSVRC and COCO 2015 competitions, Faster R-CNN and RPN are the foundations of the 1st-place winning entries in several tracks. Code has been made publicly available.
@@ -73,13 +73,15 @@
 \maketitle
 \IEEEpeerreviewmaketitle
     
-    \section{Introduction}
-    Real time object detection has always been a field of intrest for many researchers during the years. The countless possible applications of such technology, and the importance of those, made such a field move faster every year, constantly improving 
-    in both accuracy and performance. The earlier implemtations, such as selective search approaches, were slow, taking up to 2 seconds to process an image using standard CPU hardware. 
-    First improvments were made with R-CNN, a fully convolutional network that worked on RoIs extracted from the input image via a greedy algorithm.  
-    Performance were clearly bootlenecked by the proposal generation process. Nowdays FasterRCNN is an industry standard, as it provides close to real time image processing capabilities as it uses two siblings fully convolutional with shared features, to both 
-    do the region proposal task and the classication.   
-    We decided to try and recreate from the ground up the latest architecture, starting from collecting our own data and manually labeling each image, and finishing with training a fully functioning FasterRCNN.  
+    \section{Method}
+    \subsection{The Dataset}
+    We started first by building the dataset. We recorded one-minutes long videos of minecraft using commercial screen captures softwares. We then loaded those shorts into python, using the OpenCV library, in order to sample one frame per second as we 
+    beleived would have given enough time for the next sampled frame to have significative diffrences with respect to the previous ones. We then downsampled the images in order to compress the size of the dataset in order to be able to share it with ease. To further 
+    reduce the problem we adopted for the final image a one-to-scale ratio, thus making the image squared. At this time we opted to limit ourselves to only five classes we were aiming to classify: Zombies, Creepers, Pigs, Sheeps, Nothing. 
+    The next step was labeling each sampled frames. We developed a simple but effective tool that allowed us to draw boundng boxes(BBox), and assign to each one of them a label corresponding to a class mentioned above. During this process we pruned images that we considered
+    unfit to be part of the dataset (e.g. frames inside the game menu or outside of the game). After standardizing the coordinates of BBoxes we saved them into JSONs files. Having our JSONS files ready we group them into a single .dtst file for better integration with the PyTorch
+    library, which is the one we decided to use for this project. From the sampling of the images we collected 3920 valid frames. 
+    
 
     \bibliographystyle{IEEEtran}
     \bibliography{ref}
