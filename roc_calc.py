@@ -3,7 +3,7 @@ import numpy as np
 
 pairs = None
 
-with open("score_label_pairs_for_roc.pickle", "rb") as handle:
+with open("score_label_pairs_conv.pickle", "rb") as handle:
     pairs = pickle.load(handle)
 
 pairs.sort()

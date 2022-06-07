@@ -170,25 +170,24 @@
     widely accepted as superior in terms of stability and accuracy. We initialized the wieghts using the kaiming method. \cite{arxiv:Kaiming} \\ 
     We pre-trained ZG on a classification task over the 5 labels mentioned above,  using just a portion of our dataset splitted in 60 - 20 - 20 for training validation and testing respectively using frames where only one mob, or less,  of one kind was present.\\ For training we used Cross-Entropy loss function in conjuntion with AdamW optimizer using the AMSGrad variant of the algorithm with a 
     fixed learning rate set to 0.0002.
-        \begin{table*}[htb]
-	\begin{center}
-		\caption{ZG}
-		\label{tab:Table 1}
-		\begin{tabular}{l | c | c | c | c |  l}  
-			\textbf{Layer} & \textbf{Kernel size} & \textbf{IN/OUT channels} & \textbf{padding} & \textbf{stride} & \textbf{Layer Structure}\\
-			\hline 
-			& & & & & \\
-			1 & 7x7 & 3 / 40 & replicate(1) & 2 & BATCHNORM(3) + CONV + MISH + DROPOUT(.2) + BATCHNORM(40) \\
-			2 & 7x7 & 40 / 80 & replicate(1) & 2 & CONV + MISH + DROPOUT(.2) + BATCHNORM(80) \\
-			3 & 3x3 & 80 / 120 & replicate(1) & 2 & CONV + MISH + DROPOUT(.2) + BATCHNORM(80) \\ 
-			4 & 3x3 & 120/120 & None & 1 & CONV + MISH + DROPOUT(.2) + BATCHNORM(120)  \\
-			5 & 3x3 & 120/240 & replicate(1) & 2 & CONV + MISH + DROPOUT(.2) + BATCHNORM(240) \\
-			\hline
-			& & & & & \\
-			6 & 1x1 & 240/5 & None & 1 & CONV + BATCHNORM(5)
-		\end{tabular}
-	\end{center}
-     \end{table*}
+    \begin{table*}[htb]
+        \centering
+        \caption{ZG}
+        \label{tab:Table 1}
+        \begin{tabularx}{.9\paperwidth}{l | c | c | c | c |  l}  
+            \textbf{Layer} & \textbf{Kernel size} & \textbf{IN/OUT channels} & \textbf{padding} & \textbf{stride} & \textbf{Layer Structure}\\
+            \hline 
+            & & & & & \\
+            1 & 7x7 & 3 / 40 & replicate(1) & 2 & BATCHNORM(3) + CONV + MISH + DROPOUT(.2) + BATCHNORM(40) \\
+            2 & 7x7 & 40 / 80 & replicate(1) & 2 & CONV + MISH + DROPOUT(.2) + BATCHNORM(80) \\
+            3 & 3x3 & 80 / 120 & replicate(1) & 2 & CONV + MISH + DROPOUT(.2) + BATCHNORM(80) \\ 
+            4 & 3x3 & 120/120 & None & 1 & CONV + MISH + DROPOUT(.2) + BATCHNORM(120)  \\
+            5 & 3x3 & 120/240 & replicate(1) & 2 & CONV + MISH + DROPOUT(.2) + BATCHNORM(240) \\
+            \hline
+            & & & & & \\
+            6 & 1x1 & 240/5 & None & 1 & CONV + BATCHNORM(5)
+        \end{tabularx}
+    \end{table*}
     
    \paragraph{Anchors}
     Before diving into the region proposal architechture, we need to pay extra attention to the anchors, which are the core of whole process. An anchor is nothing more than a rectangle to which is associated a center, a base size, and tranformation on both scale and ratio between it's sides. We then can define a set of anchors which consists of a base size, a center, and sets of different 
@@ -201,6 +200,7 @@
     \begin{figure}[h]
         \centering
         \includegraphics[width=0.44\textwidth]{images/ROC.png}
+        \caption{Linear RPN's ROC}
     \end{figure}
 
     And a graph, showing the decrease of the \emph{true positive ratio} (TPR) and of the \emph{false positive ratio} (FPR) as the threshold increased, as following:
@@ -208,26 +208,91 @@
     \begin{figure}[h]
         \centering
         \includegraphics[width=0.44\textwidth]{images/threshold_decision.png}
+        \caption{Linear RPN's TPR \& FPR as threshold changes}
     \end{figure}
 
     From both these graphs we notice our network is indeed able to separate positive and negative anchors with very clear-cut definition. Furthermore, we decided that a good compromise between (TPR) and (FPR) could be achieved by choosing a threshold between $0.8$ and $0.9$: since we didn't want to remove positive anchors too much we put ours at $0.81$. We posit that, to avoid false positives as much as possible, $0.9$ should work fine too.
 
     After this, in our opinion, fundamental decision was made: we resolved to open Pandora's box and create a test set of around 250 images with multiple mobs in the same shot. Unfortunately, as said previously, we didn't develop our network up to classification of the boxes, and thus a full confusion matrix of those is out of the question. At any rate we show the misclassification table for the anchors (after non-maximum-suppression) scored by our network over the whole test set:
 
-    \begin{center}
+    \begin{table}
+        \centering
         \begin{tabular}{r|c c}
-            & Pos. label & Neg. label \\
+            & Label pos. & Label neg. \\
             \hline
-            Pos. score & 62 & 3545 \\
-            Neg. score & 17 & 127789
+            Pred. pos. & 62 & 3545 \\
+            Pred. neg. & 17 & 127789
         \end{tabular}
-    \end{center}
+        \caption{Misclassification matrix}
+        \label{tab:miscl}
+    \end{table}
 
     Telling us that, indeed, our threshold works, since the TPR is $0.78$ and the FPR is $0.03$. We would like to point out that, since the labelling of the anchors is itself hyperparameter driven (given the choice of anchors and that of the IoU thresholds used to label them) and that we think to have chosen a combination of these parameters that biases the labels towards the non-object side and, furthermore, given this label by itself already dominates the distribution: it is only normal for the number of positive labels to be so low in the set. If we look at the actual images with the positive region proposals added, we'll appreciate much more positive-looking (that may not actually be labelled as positive) proposals than the anchor labelling would actually suggest.
 
-    Let's now give a look at some of the proposals created by our network:
+    As said above, we also tried fitting a fully convolutional version of the RPN, unfortunately though the results were pretty mediocre, its ROC pretty clearly showing it:
 
-    CUE A SLEW OF IMAGES WITH COMMENTS
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.44\textwidth]{images/ROC_conv.png}
+        \caption{Fully convolutional RPN's ROC}
+    \end{figure}
+
+    Indeed this version is unable to sufficiently separate positive and negative samples, leading to unacceptable predictions\dots a shame, since it would've been several magnitudes lighter (weighing just $3.5$ mbs) and faster (both to execute and to train) than its linear counterpart.
+    \newpage
+    Let's now give a look at some proposals formulated by our network:
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.44\textwidth]{images/sunset.png}
+        \caption{An \emph{interesting} sunset}
+    \end{figure}
+
+    Before looking at the good stuff, we would like to show the bad/interesting stuff.  TODO, Dario.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.44\textwidth]{images/nice_creeper.png}
+        \caption{A creeper in his natural habitat}
+    \end{figure}
+
+    In this case we can see an excellent result. Alas, one may see there's part of a pig in the bottom-left corner; we don't think that to be an error, to recognize a speck so small and without features would be pretty difficult even for state-of-the-art systems.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.44\textwidth]{images/sundered_zombie.png}
+        \caption{A zombie, piece-wise}
+    \end{figure}
+
+    Here's another good, albeit different, result: in our opinion (and as how the problem is currently formulated, mathematically speaking) a box doesn't have to recognize an object in its entirety,  that's why we accept this sundered recognition as correct. As you may have realized, it is because of this type of proposals that \ref{tab:miscl} holds so many false positives, during the automatic labeling of anchors it is more than possible that the inner anchors of this zombie are classified as negative.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.44\textwidth]{images/zombie_and_pig.png}
+        \caption{Zombie and pig}
+    \end{figure}
+
+    In this case we see another sufficiently nice result\dots let's end with two other interesting proposals.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.44\textwidth]{images/pine.png}
+        \caption{Pareidolia in the background}
+    \end{figure}
+
+    Leaving the interesting proposals for the pig, the creeper and the sheep in the image, we can see a pine in the upper left corner which has been spot-on proposed by our network: we can't say for certain, but we assume this to be a case of misclassification given by pareidolia, after all to a fast glance that may \emph{seem} like a zombie.
+
+    \newpage
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.44\textwidth]{images/spot_sheep.png}
+        \caption{Spot the sheep}
+    \end{figure}
+
+    The network gave no proposals for this image, but unfortunately there \emph{is} a sheep in there; but it is probably too green and not in the foreground to be detected.
+
+    In light of these agreeable and interesting results, we think to have reached our goals, not without hiccups nor errors that is. But the network seems to be, generally, well behaved and relatively correct.
+
+
 
     \bibliographystyle{IEEEtran}
     \bibliography{ref}

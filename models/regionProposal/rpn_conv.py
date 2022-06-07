@@ -31,26 +31,34 @@ class _rpn(nn.Module):
         self.anchors = generate_anchors(40, self.anchorRatios, self.anchorScales)
         self.anchors.requires_grad = False
 
-        self.BASE_CONV = nn.Sequential(
-            nn.Conv2d(self.inDimension, self.baseConvOut, kernel_size=3, padding='same'),
-            nn.Mish(inplace=True),
-            nn.Dropout2d(p = 0.2, inplace=True),
-            nn.BatchNorm2d(self.baseConvOut),
-        )
+        # self.BASE_CONV = nn.Sequential(
+        #     nn.Conv2d(self.inDimension, self.baseConvOut, kernel_size=3, padding='same'),
+        #     nn.Mish(inplace=True),
+        #     nn.Dropout2d(p = 0.2, inplace=True),
+        #     nn.BatchNorm2d(self.baseConvOut),
+        # )
 
         # -> Region Proposal Layer here
 
         # Classification layer
         self.classificationLayer = nn.Sequential(
-            nn.Conv2d(self.baseConvOut, self.A, kernel_size=5, padding='same', bias=False),
+            nn.Conv2d(self.inDimension, self.A, kernel_size=5, padding='same'),
+            nn.Mish(True),
+            nn.Dropout2d(p = 0.2, inplace=True),
+            nn.BatchNorm2d(self.A),
+            nn.Conv2d(self.A, self.A, kernel_size=3, padding='same', bias=False),
             nn.BatchNorm2d(self.A),
             nn.Sigmoid()
         )
         # Regression Layer on the BBOX
         self.regr_out_size = 4 * self.A
         self.regressionLayer = nn.Sequential(
-            nn.Conv2d(self.baseConvOut, self.regr_out_size, kernel_size=3, padding='same', bias=False),
-            nn.BatchNorm2d(self.regr_out_size)
+            nn.Conv2d(self.inDimension, self.regr_out_size, kernel_size=3, padding='same'),
+            nn.Mish(True),
+            nn.Dropout2d(p = 0.2, inplace=True),
+            nn.BatchNorm2d(self.regr_out_size),
+            nn.Conv2d(self.regr_out_size, self.regr_out_size, kernel_size=3, padding='same', bias=False),
+            nn.BatchNorm2d(self.regr_out_size),
         )
         self.proposalLayer = _proposal(device=self.device)
 
@@ -73,15 +81,15 @@ class _rpn(nn.Module):
         anchors.requires_grad = False
         anchors = anchors.to(self.device, non_blocking=True)
 
-        base = self.BASE_CONV(x)
+        #base = self.BASE_CONV(x)
 
         # Pass BASE first into the regressor -> BBox offset and scales for anchors
-        rpn_reg = self.regressionLayer(base)
+        rpn_reg = self.regressionLayer(x)
 
         # (n, W * H * A, 4)
         rpn_reg = rpn_reg.view(n, rpn_reg.shape[1] * rpn_reg.shape[2] * rpn_reg.shape[3] // 4, 4)
         # Pass BASE into the classificator -> Fg / Bg scores
-        rpn_score = self.classificationLayer(base)
+        rpn_score = self.classificationLayer(x)
         rpn_score = rpn_score.view(n, rpn_score.shape[1] * rpn_score.shape[2] * rpn_score.shape[3])
 
         # At the end we have 
