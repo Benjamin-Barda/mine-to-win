@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex mineRCNN"] 1653737049 "mineRCNN.aux" "mineRCNN.bbl" "mineRCNN" 1653737058
+["bibtex mineRCNN"] 1654597420 "mineRCNN.aux" "mineRCNN.bbl" "mineRCNN" 1654597423
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/bibtex/bst/ieeetran/IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "mineRCNN.aux" 1653737057 1203 c6a34cb76ab6a0c3430345e2655be546 "pdflatex"
-  "ref.bib" 1653731476 1109 029e79f4eaa07062506d182935d09f63 ""
+  "mineRCNN.aux" 1654597423 4132 5f5258e530a12d9f99ed4e0e01236e0d "pdflatex"
+  "ref.bib" 1654596342 7214 894068754e6bbd983b703cddeee3eae9 ""
   (generated)
   "mineRCNN.bbl"
   "mineRCNN.blg"
-["pdflatex"] 1653737055 "d:/Repos/mine-to-win/docs/mineRCNN.tex" "mineRCNN.pdf" "mineRCNN" 1653737058
+["pdflatex"] 1654597420 "d:/Repos/mine-to-win/docs/mineRCNN.tex" "mineRCNN.pdf" "mineRCNN" 1654597423
   "C:/Users/candi/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1638217565 9769173 8b747b87e99ef39157853c0307c68d10 ""
   "C:/Users/candi/AppData/Local/MiKTeX/pdftex/config/pdftex.map" 1653735719 283253 eae3cb146731df65abf3cbbfa0b26c3e ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458477487 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -40,6 +40,8 @@
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmsy10.tfm" 1136768653 1124 6c73e740cf17375f03eec0ee63599741 ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmsy6.tfm" 1136768653 1116 933a60c408fc0a863a92debe84b2d294 ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/tfm/public/cm/cmsy8.tfm" 1136768653 1120 8b7d695260f3cff42e636090a8002094 ""
+  "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1247596667 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
+  "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1247596667 35752 024fb6c41858982481f6968b5fc26508 ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb" 1136853348 35941 adef23a721dd8354a4a2bf4434f1c484 ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb" 1136853348 44648 23115b2a545ebfe2c526c3ca99db8b95 ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb" 1136853348 52665 661b1e6b26edb5f50dd491f8a701cb57 ""
@@ -86,6 +88,7 @@
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/babel-english/english.ldf" 1623001666 7008 9ff5fdcc865b01beca2b0fe4a46231d4 ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/base/atbegshi-ltx.sty" 1636713532 3034 3bfb87122e6fa8758225c0dd3cbaceba ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/base/atveryend-ltx.sty" 1636713532 2462 754d6b31b2ab5a09bb72c348ace2ec75 ""
+  "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/base/fixltx2e.sty" 1636713532 15509 65400902b2e6707ab32a38c8e9251f39 ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/base/ifthen.sty" 1636713532 5157 f308c7c04889e16c588e78aa42599fae ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/caption/caption.sty" 1646064735 54416 38be1e54d676eea4bd853ec07c656a20 ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/caption/caption3.sty" 1646064735 71256 07c325fe077d3ffe63ecca13ea9cde02 ""
@@ -123,6 +126,7 @@
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/refcount/refcount.sty" 1576437552 9878 9e94e8fa600d95f9c7731bb21dfb67a4 ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1575574882 9715 b051d5b493d9fe5f4bc251462d039e5f ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/sttools/stfloats.sty" 1634199215 24057 ff20efb65b128d27c08eac20ec07f540 ""
+  "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/subfig/subfig.sty" 1121281010 22049 9ef165ca6df8815c92e693146a376c92 ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/tools/array.sty" 1636713860 12694 6c23725d50ab9d1e2d3ce482c58ffcf3 ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/tools/multicol.sty" 1636713860 32262 2bb622a0aa56c4a7a5cbdfe9d122c15a ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/tools/tabularx.sty" 1636713860 7147 5ac8a9ef36411064b1a501137af0fa54 ""
@@ -131,10 +135,15 @@
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1636288472 56029 3f7889dab51d620aa43177c391b7b190 ""
   "IEEEtran.cls" 1260888356 202048 7a5cc2729ebe2b1f0119271c4ce792e3 ""
   "cvpr.sty" 1366324252 1726 5ff707839b9f7ec26e0dadbb1e041e13 ""
-  "d:/Repos/mine-to-win/docs/mineRCNN.tex" 1653737055 4399 27280964c5454d543131d230a6ab0209 ""
-  "mineRCNN.aux" 1653737057 1203 c6a34cb76ab6a0c3430345e2655be546 "pdflatex"
-  "mineRCNN.bbl" 1653737049 1455 56ead6d1a0305723206a80cc0e2359d4 "bibtex mineRCNN"
-  "mineRCNN.tex" 1653737055 4399 27280964c5454d543131d230a6ab0209 ""
+  "d:/Repos/mine-to-win/docs/mineRCNN.tex" 1654597416 14472 75b574a21208e187acf5a7f2e95118ea ""
+  "images/ROC.png" 1654590080 23362 d573001e2f3c7b574d424fc51cfdcbb3 ""
+  "images/backbone.pdf" 1654591868 11495 afa10110ac99cada4850f2c163ca8e68 ""
+  "images/network.pdf" 1654592587 23875 707b9bb097837262438d82c55134c323 ""
+  "images/pig.png" 1652884205 1123810 4c3ca5bf2e2c1a92d516a6d83284c23d ""
+  "images/threshold_decision.png" 1654590080 50140 a3a734300c617130cb58c482f06cd97f ""
+  "mineRCNN.aux" 1654597423 4132 5f5258e530a12d9f99ed4e0e01236e0d "pdflatex"
+  "mineRCNN.bbl" 1654597420 3352 e843f099da7609f17160776c13f8add8 "bibtex mineRCNN"
+  "mineRCNN.tex" 1654597416 14472 75b574a21208e187acf5a7f2e95118ea ""
   (generated)
   "mineRCNN.aux"
   "mineRCNN.log"
