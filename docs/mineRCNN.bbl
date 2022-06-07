@@ -35,49 +35,4 @@ S.~Ren, K.~He, R.~B. Girshick, and J.~Sun, ``Faster {R-CNN:} towards real-time
   \url{http://arxiv.org/abs/1506.01497}
 \BIBentrySTDinterwordspacing
 
-\bibitem{Lowe:SIFT}
-\BIBentryALTinterwordspacing
-D.~G. Lowe, ``Distinctive image features from scale-invariant keypoints,''
-  \emph{Int. J. Comput. Vision}, vol.~60, no.~2, pp. 91--110, Nov. 2004.
-  [Online]. Available:
-  \url{http://dx.doi.org/10.1023/B:VISI.0000029664.99615.94}
-\BIBentrySTDinterwordspacing
-
-\bibitem{Bay:SURF}
-\BIBentryALTinterwordspacing
-H.~Bay, A.~Ess, T.~Tuytelaars, and L.~V. Gool, ``Speeded-up robust features
-  (surf),'' \emph{Computer Vision and Image Understanding}, vol. 110, no.~3,
-  pp. 346 -- 359, 2008, similarity Matching in Computer Vision and Multimedia.
-  [Online]. Available:
-  \url{http://www.sciencedirect.com/science/article/pii/S1077314207001555}
-\BIBentrySTDinterwordspacing
-
-\bibitem{Chen:FCNN}
-Q.~Chen, J.~Xu, and V.~Koltun, ``Fast image processing with fully-convolutional
-  networks,'' in \emph{Proceedings of the IEEE International Conference on
-  Computer Vision (ICCV)}, Oct 2017.
-
-\bibitem{Simonyan:VCC16}
-\BIBentryALTinterwordspacing
-K.~Simonyan and A.~Zisserman, ``Very deep convolutional networks for
-  large-scale image recognition,'' 2014. [Online]. Available:
-  \url{https://arxiv.org/abs/1409.1556}
-\BIBentrySTDinterwordspacing
-
-\bibitem{Neubeck:NMS}
-A.~Neubeck and L.~Van~Gool, ``Efficient non-maximum suppression,'' in
-  \emph{18th International Conference on Pattern Recognition (ICPR'06)},
-  vol.~3.\hskip 1em plus 0.5em minus 0.4em\relax IEEE, 2006, pp. 850--855.
-
-\bibitem{Rezatofighi:IoU}
-\BIBentryALTinterwordspacing
-H.~Rezatofighi, N.~Tsoi, J.~Gwak, A.~Sadeghian, I.~Reid, and S.~Savarese,
-  ``Generalized intersection over union: A metric and a loss for bounding box
-  regression,'' 2019. [Online]. Available:
-  \url{https://arxiv.org/abs/1902.09630}
-\BIBentrySTDinterwordspacing
-
-\bibitem{Mojang-Minecraft}
-{Mojang}, ``Minecraft,'' \url{https://www.minecraft.net/en-us}, Nov. 2011.
-
 \end{thebibliography}
