@@ -20,6 +20,8 @@ class _rpn(nn.Module):
         self.inDimension = inDimension
         self.feature_stride = feature_stride
 
+        self.baseConvOut = cfg.BASE_CONV_OUT_SIZE
+
         # Scales and ratio of the anchors
         self.anchorScales = cfg.ANCHOR_SCALES
         self.anchorRatios = cfg.ANCHOR_RATIOS
@@ -40,14 +42,14 @@ class _rpn(nn.Module):
 
         # Classification layer
         self.classificationLayer = nn.Sequential(
-            nn.Conv2d(self.inDimension, self.A, kernel_size=5, padding='same', bias=False),
+            nn.Conv2d(self.baseConvOut, self.A, kernel_size=5, padding='same', bias=False),
             nn.BatchNorm2d(self.A),
             nn.Sigmoid()
         )
         # Regression Layer on the BBOX
         self.regr_out_size = 4 * self.A
         self.regressionLayer = nn.Sequential(
-            nn.Conv2d(self.inDimension, self.regr_out_size, kernel_size=3, padding='same', bias=False),
+            nn.Conv2d(self.baseConvOut, self.regr_out_size, kernel_size=3, padding='same', bias=False),
             nn.BatchNorm2d(self.regr_out_size)
         )
         self.proposalLayer = _proposal(device=self.device)

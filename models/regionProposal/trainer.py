@@ -44,7 +44,7 @@ def main():
         rpn.load_state_dict(state_rpn)
 
     params = list(extractor.parameters()) + list(rpn.parameters())
-    optimizer = torch.optim.SGD(params=params, lr = 1e-3, momentum=.9)
+    optimizer = torch.optim.SGD(params=params, lr = 1e-5, momentum=.9)
 
     best_risk = torch.inf
     best_state = (extractor.state_dict(), rpn.state_dict())
