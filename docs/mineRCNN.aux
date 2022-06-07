@@ -31,11 +31,13 @@
 \babel@aux{american}{}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2}Method}{1}{section.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Our Backbone's architecture, we use a Fully Convolutional Neural Network in order to extract a number of feature maps from the original images, this is supposed to pre-process our original image and provide local information on its features.\relax }}{2}{figure.caption.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Our FCNN backbone (a) employes a series of convolutions to obtain a feature map to pass to the rest of the network as displayed in (b), the feature maps from our Backbone are first pre-processed by a sliding-window approach that spreads our anchors over the image, this is then passed to a twin neural network, one part of the network performs classification, determining if each bounding box is containing an object or not, the other part performs regression on our bounding box in order to make it better fit an eventual target object.\relax }}{2}{figure.caption.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:backbone}{{1}{2}{Our Backbone's architecture, we use a Fully Convolutional Neural Network in order to extract a number of feature maps from the original images, this is supposed to pre-process our original image and provide local information on its features.\relax }{figure.caption.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Our (simplified) Network in its entirety, the feature maps from our Backbone are first pre-processed by a sliding-window approach that spreads our anchors over the image, this is then passed to a twin neural network, one part of the network performs classification, determining if each bounding box is containing an object or not, the other part performs regression on our bounding box in order to make it better fit an eventual target object.\relax }}{2}{figure.caption.1}\protected@file@percent }
-\newlabel{fig:network}{{2}{2}{Our (simplified) Network in its entirety, the feature maps from our Backbone are first pre-processed by a sliding-window approach that spreads our anchors over the image, this is then passed to a twin neural network, one part of the network performs classification, determining if each bounding box is containing an object or not, the other part performs regression on our bounding box in order to make it better fit an eventual target object.\relax }{figure.caption.1}{}}
+\newlabel{fig:network}{{1}{2}{Our FCNN backbone (a) employes a series of convolutions to obtain a feature map to pass to the rest of the network as displayed in (b), the feature maps from our Backbone are first pre-processed by a sliding-window approach that spreads our anchors over the image, this is then passed to a twin neural network, one part of the network performs classification, determining if each bounding box is containing an object or not, the other part performs regression on our bounding box in order to make it better fit an eventual target object.\relax }{figure.caption.1}{}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Our Backbone}}}{2}{subfigure.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Our Network}}}{2}{subfigure.1.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces A Screenshot of the world of Minecraft, note the simplistic graphics and the absence of Bloom (except the illusion thereof provided by the skybox) even though we are staring directly at the sun, note also the presence of a \emph  {pig}, one of the entities that we are going to detect in our model.\relax }}{2}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:piggy}{{2}{2}{A Screenshot of the world of Minecraft, note the simplistic graphics and the absence of Bloom (except the illusion thereof provided by the skybox) even though we are staring directly at the sun, note also the presence of a \emph {pig}, one of the entities that we are going to detect in our model.\relax }{figure.caption.2}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Results}{2}{section.3}\protected@file@percent }
 \bibstyle{IEEEtran}
 \bibdata{ref}
@@ -48,5 +50,5 @@
 \bibcite{Neubeck:NMS}{7}
 \bibcite{Rezatofighi:IoU}{8}
 \bibcite{Mojang-Minecraft}{9}
-\@writefile{toc}{\contentsline {section}{References}{3}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{References}{3}{section*.8}\protected@file@percent }
 \gdef \@abspage@last{3}
