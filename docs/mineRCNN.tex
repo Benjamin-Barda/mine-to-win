@@ -73,12 +73,69 @@
 \maketitle
 \IEEEpeerreviewmaketitle
     
-    \section{Introduction}
+\begin{figure*}[h]
     
+    \centering
+    \includegraphics[width=0.44\textwidth]{images/backbone.pdf}
+    \caption{Our Backbone's architecture, we use a Fully Convolutional Neural Network in order 
+    to extract a number of feature maps from the original images, this is supposed to pre-process 
+    our original image and provide local information on its features.}
+    \label{fig:backbone}
+    \includegraphics[width=0.44\textwidth]{images/network.pdf}
+    \caption{Our (simplified) Network in its entirety, the feature maps from our Backbone are first 
+    pre-processed by a sliding-window approach that spreads our anchors over the image, 
+    this is then passed to a twin neural network, one part of the network performs classification,
+    determining if each bounding box is containing an object or not, the other part performs regression on 
+    our bounding box in order to make it better fit an eventual target object.}
+    \label{fig:network}
+\end{figure*}
+
+    \section{Introduction}
+    Traditional visual recognition algorithms employ the use of algorithms such as SIFT 
+    or SURF\cite{Lowe:SIFT,Bay:SURF}, to extract a feature descriptor from key points 
+    in the image, a set of sample images is therefore processed in order to obtain descriptors 
+    for each class, inference is then performed by extracting the descriptor from the input image 
+    and then comparing it with our samples, using a distance criterion to select the closest class.
+
+    While these traditional methods are mostly invariant to scale and translations, issues such as 
+    variability in the brightness or rotation of the target object are problematic, moreover, the 
+    computational cost of extracting features is prohibitively high, effectively preventing the possibility
+    of deploying the model in a real-time context.
+
+    \paragraph*{Our Approach}
+    One way to reduce the cost in performance while gaining a higher expressive capacity for our model is to employ
+    modern Deep Learning techniques to build our detector, our aim is therefore to 
+    design a scaled-back version of \cite{arxiv:FasterRCNN}, stopping ourselves at the classification stage,
+    the reason for this will be further clarified in the rest of the paper, our architecture\footnote{see 
+    Figure \ref{fig:backbone} \& \ref{fig:network} for a diagram
+    of our architecture} is composed of a FCNN\cite{Chen:FCNN,Simonyan:VCC16} Backbone, this is to keep the number 
+    of parameters as low as possible as well as allow the initial layer of our architecture to be applicable to images 
+    of any resolution, our Convolutional Backbone must be trained from the ground up in the task of simply classifying 
+    the classes that we intend to detect, the classifying layer is then removed from the model and we're then
+    left with its feature map output which we then pre-process by \emph{splashing} anchors through a sliding window 
+    approach.
+
+    After this, both feature maps and anchors are then passed to our region proposal layers, which in turn is composed 
+    of a twin ensemble of Neural Networks that perform Regression and Classification on the bounding boxes, the outcome is a set of 
+    \emph{positive} and \emph{negative} bounding boxes, the boxes that are classified as positive 
+    go through NMS\cite{Neubeck:NMS} using Intersection over Union (IoU) \cite{Rezatofighi:IoU} as a metric for suppression
+    in order to reduce the amount of individual boxes that classify the same object.
+
+    \paragraph*{Our Environment}
+    In order to keep our project in the realms of feasibility, especially considering the constraints imposed on our team in the 
+    realms of time and processing capabilities of our hardware, we chose to detect objects in a virtual environment, this is because 
+    the possibility of having complete control over the environment allows us to artificially create scenarios from which we can gather 
+    samples of a large quantity, for this reason, we chose the popular sandbox game Minecraft \cite{Mojang-Minecraft}, other than 
+    the advantage of control over the environment, the game is well known for it's simplistic approach to Voxel Graphics, rendering 
+    the world as a set of blocks of cubic shape, the game also possesses a simplistic lightning model that simply shifts the brightness
+    of blocks' textures when in the vicinity of a light source, thus being void of effects such as bloom, specular components on objects,
+    reflections and other complex techniques that introduce sources of unexpected noise or variability in our samples, this, in turn, 
+    allows our model to work in a context that, while still posing a significant challenge, is of suitable difficulty to the scope of 
+    this project.
 
     \section{Method}
-    \subsection{The Dataset}
-    We started first by building the dataset. We recorded one-minutes long videos of minecraft using commercial screen captures softwares. We then loaded those shorts into python, using the OpenCV library, in order to sample one frame per second as we 
+    \paragraph*{The Dataset}
+    We started first by building the dataset. We recorded one-minutes long videos of Minecraft using commercial screen captures softwares. We then loaded those shorts into python, using the OpenCV library, in order to sample one frame per second as we 
     beleived would have given enough time for the next sampled frame to have significative diffrences with respect to the previous ones. We then downsampled the images in order to compress the size of the dataset in order to be able to share it with ease. To further 
     reduce the problem we adopted for the final image a one-to-scale ratio, thus making the image squared. At this time we opted to limit ourselves to only five classes we were aiming to classify: Zombies, Creepers, Pigs, Sheeps, Nothing. 
     The next step was labeling each sampled frames. We developed a simple but effective tool that allowed us to draw boundng boxes(BBox), and assign to each one of them a label corresponding to a class mentioned above. During this process we pruned images that we considered
