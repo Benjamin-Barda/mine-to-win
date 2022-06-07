@@ -13,7 +13,9 @@ class RPNLoss(torch.nn.Module):
         # Implemented as Faster R-CNN intended
 
         ao = ground_cls[:, None].expand(-1, 4) * self.reg_loss(reg, ground_reg)
-        
-        reg_loss = self.value * ao.sum() / (ao.shape[0] * ao.shape[1])
+
+        reg_loss = self.value * ao.sum() / ao.shape[0]
         class_loss = self.cls_loss(classifier, ground_cls)
+
+
         return reg_loss + class_loss

@@ -18,7 +18,7 @@ bs = 1
 ds = torch.load("data\\datasets\\minedata_compressed_local_test.dtst")
 dl = DataLoader(ds, batch_size=bs, pin_memory=True, shuffle=True)
 
-state_extractor, state_rpn = torch.load("./weights_too_heavy/MineRPN_quantized_weights.pth", map_location=torch.device('cpu'))
+state_extractor, state_rpn = torch.load("./weights_too_heavy/MineRPN_best_weights.pth", map_location=torch.device('cpu'))
 
 # Model initialized with flag so after the last conv layer return the featmap
 extractor = BackboneCNN(is_in_rpn=True).to(("cpu"))
@@ -64,42 +64,42 @@ with torch.no_grad():
         rois = rois[0][nms_indexes]
         score = score[0][nms_indexes]
 
-        bounds, b_label = ds.getvertex(elem)
+        # bounds, b_label = ds.getvertex(elem)
 
-        labels, _ = label_anchors(bounds, hh, ww, rpn.anchors, img.shape[-2:])
-        labels = labels[nms_indexes]
+        # labels, _ = label_anchors(bounds, hh, ww, rpn.anchors, img.shape[-2:])
+        # labels = labels[nms_indexes]
 
-        score = score.tolist()
-        labels = labels.tolist()
+        # score = score.tolist()
+        # labels = labels.tolist()
 
-        for i, val in enumerate(labels):
-            if score[i] < .81:
-                score_label_pairs.append((0,val))
-            else:
-                score_label_pairs.append((1,val))
+        # for i, val in enumerate(labels):
+        #     if score[i] < .81:
+        #         score_label_pairs.append((0,val))
+        #     else:
+        #         score_label_pairs.append((1,val))
 
-        # img = img.permute(0, 2, 3, 1)[0, ...].numpy()
-        # img = np.ascontiguousarray(img)
+        img = img.permute(0, 2, 3, 1)[0, ...].numpy()
+        img = np.ascontiguousarray(img)
         
-        # cv.imshow("orig img", img)
-        # for indx, an in enumerate(rois):
+        cv.imshow("orig img", img)
+        for indx, an in enumerate(rois):
             
-        #     col = (0,255,0)
-        #     if score[indx] < .81:
-        #         col = (0,0,255)
-        #         continue
+            col = (0,255,0)
+            if score[indx] < .81:
+                col = (0,0,255)
+                continue
 
-        #     x,y,w,h = an.int()
+            x,y,w,h = an.int()
 
-        #     x1,y1,x2,y2 = int(x.item() - w.item()//2), int(y.item() - h.item()//2), int(x.item() + w.item()//2), int(y.item() + h.item()//2)
-        #     cv.rectangle(img, (x1,y1),(x2,y2), color=col, thickness=1)
+            x1,y1,x2,y2 = int(x.item() - w.item()//2), int(y.item() - h.item()//2), int(x.item() + w.item()//2), int(y.item() + h.item()//2)
+            cv.rectangle(img, (x1,y1),(x2,y2), color=col, thickness=1)
 
-        # cv.imshow("img", img)
-        # cv.waitKey(0)
+        cv.imshow("img", img)
+        cv.waitKey(0)
 
-import pickle
+# import pickle
 
 
-with open("score_label_pairs_test.pickle", "wb") as handle:
-    handle.write(pickle.dumps(score_label_pairs))
-    handle.close()
+# with open("score_label_pairs_test.pickle", "wb") as handle:
+#     handle.write(pickle.dumps(score_label_pairs))
+#     handle.close()

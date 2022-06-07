@@ -3,7 +3,7 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), "../../"))
 from models.extractor.backCNN import BackboneCNN
 from data.ClassData import ClassData
-from models.regionProposal.rpn import _rpn
+from models.regionProposal.rpn_conv import _rpn
 from models.regionProposal.loss_func import RPNLoss
 from models.regionProposal.utils.anchorUtils import *
 from torch.utils.data import DataLoader, Subset
@@ -44,7 +44,7 @@ def main():
         rpn.load_state_dict(state_rpn)
 
     params = list(extractor.parameters()) + list(rpn.parameters())
-    optimizer = torch.optim.SGD(params=params, lr = 1e-4, momentum=.5)
+    optimizer = torch.optim.SGD(params=params, lr = 1e-3, momentum=.9)
 
     best_risk = torch.inf
     best_state = (extractor.state_dict(), rpn.state_dict())
