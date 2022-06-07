@@ -7,3 +7,5 @@
 *.dtst
 *.pyc
 weights_too_heavy/
+*.pth
+*.7z
