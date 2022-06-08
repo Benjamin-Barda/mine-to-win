@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.3.9)  8 JUN 2022 12:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.3.9)  8 JUN 2022 12:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -646,7 +646,7 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 209--210
 <images/ROC.png, id=113, 551.05875pt x 411.5375pt>
 File: images/ROC.png Graphic file (type png)
 <use images/ROC.png>
-Package pdftex.def Info: images/ROC.png  used on input line 235.
+Package pdftex.def Info: images/ROC.png  used on input line 236.
 (pdftex.def)             Requested size: 216.4812pt x 161.67325pt.
 
 
@@ -655,44 +655,53 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <images/threshold_decision.png, id=114, 1011.78pt x 621.32124pt>
 File: images/threshold_decision.png Graphic file (type png)
 <use images/threshold_decision.png>
-Package pdftex.def Info: images/threshold_decision.png  used on input line 243.
+Package pdftex.def Info: images/threshold_decision.png  used on input line 244.
 (pdftex.def)             Requested size: 216.4812pt x 132.93678pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+
+Underfull \hbox (badness 10000) in alignment at lines 260--260
+[][][] 
+ []
+
 [4 <./images/ROC.png> <./images/threshold_decision.png>]
-<images/ROC_conv.png, id=130, 462.528pt x 346.896pt>
+Underfull \hbox (badness 7047) in paragraph at lines 265--266
+ \OT1/ppl/m/n/10 3.0.0.3 Go-ing fully con-vo-lu-tional: [][] As said
+ []
+
+<images/ROC_conv.png, id=132, 462.528pt x 346.896pt>
 File: images/ROC_conv.png Graphic file (type png)
 <use images/ROC_conv.png>
 Package pdftex.def Info: images/ROC_conv.png  used on input line 269.
 (pdftex.def)             Requested size: 216.4812pt x 162.3636pt.
-<images/sunset.png, id=131, 545.78906pt x 380.92313pt>
+<images/sunset.png, id=133, 545.78906pt x 380.92313pt>
 File: images/sunset.png Graphic file (type png)
 <use images/sunset.png>
 Package pdftex.def Info: images/sunset.png  used on input line 279.
 (pdftex.def)             Requested size: 216.4812pt x 151.08781pt.
-<images/nice_creeper.png, id=132, 545.78906pt x 380.92313pt>
+<images/nice_creeper.png, id=134, 545.78906pt x 380.92313pt>
 File: images/nice_creeper.png Graphic file (type png)
 <use images/nice_creeper.png>
 Package pdftex.def Info: images/nice_creeper.png  used on input line 287.
 (pdftex.def)             Requested size: 216.4812pt x 151.08781pt.
-<images/sundered_zombie.png, id=133, 545.78906pt x 380.92313pt>
+<images/sundered_zombie.png, id=135, 545.78906pt x 380.92313pt>
 File: images/sundered_zombie.png Graphic file (type png)
 <use images/sundered_zombie.png>
 Package pdftex.def Info: images/sundered_zombie.png  used on input line 295.
 (pdftex.def)             Requested size: 216.4812pt x 151.08781pt.
- [5 <./images/ROC_conv.png> <./images/sunset.png> <./images/nice_creeper.png> <./images/sundered_zombie.png>]
-<images/zombie_and_pig.png, id=144, 545.78906pt x 380.92313pt>
+[5 <./images/ROC_conv.png> <./images/sunset.png> <./images/nice_creeper.png> <./images/sundered_zombie.png>]
+<images/zombie_and_pig.png, id=148, 545.78906pt x 380.92313pt>
 File: images/zombie_and_pig.png Graphic file (type png)
 <use images/zombie_and_pig.png>
 Package pdftex.def Info: images/zombie_and_pig.png  used on input line 303.
 (pdftex.def)             Requested size: 216.4812pt x 151.08781pt.
-<images/pine.png, id=145, 545.78906pt x 380.92313pt>
+<images/pine.png, id=149, 545.78906pt x 380.92313pt>
 File: images/pine.png Graphic file (type png)
 <use images/pine.png>
 Package pdftex.def Info: images/pine.png  used on input line 311.
 (pdftex.def)             Requested size: 216.4812pt x 151.08781pt.
-<images/spot_sheep.png, id=146, 545.78906pt x 380.92313pt>
+<images/spot_sheep.png, id=150, 545.78906pt x 380.92313pt>
 File: images/spot_sheep.png Graphic file (type png)
 <use images/spot_sheep.png>
 Package pdftex.def Info: images/spot_sheep.png  used on input line 320.
@@ -703,17 +712,17 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 14505 strings out of 478655
- 242495 string characters out of 2846786
+ 14509 strings out of 478655
+ 242563 string characters out of 2846786
  641030 words of memory out of 3000000
  32329 multiletter control sequences out of 15000+600000
  511400 words of font info for 124 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  68i,10n,77p,1409b,446s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on mineRCNN.pdf (6 pages, 2163824 bytes).
+Output written on mineRCNN.pdf (6 pages, 2164453 bytes).
 PDF statistics:
- 234 PDF objects out of 1000 (max. 8388607)
- 47 named destinations out of 1000 (max. 500000)
+ 239 PDF objects out of 1000 (max. 8388607)
+ 51 named destinations out of 1000 (max. 500000)
  61 words of extra memory for PDF output out of 10000 (max. 10000000)
 
