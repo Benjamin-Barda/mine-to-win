@@ -22,7 +22,9 @@
 
 \usepackage{stfloats}
 \usepackage{fixltx2e}
-\usepackage{subfig}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[export]{adjustbox}
 \usepackage[bookmarks=false,colorlinks=true,linkcolor=black,citecolor=black,filecolor=black,urlcolor=black]{hyperref}
 
 \newcommand{\cb}[1]{\textbf{#1}}
@@ -41,6 +43,12 @@
 %\renewcommand{\textfraction}{0.0}
 \renewcommand{\dbltopfraction}{1.0}
 \renewcommand{\dblfloatpagefraction}{0.0}
+
+\newcommand*{\figuretitle}[1]{%
+    {\centering%   
+    \textbf{#1}%   
+    \par\medskip}% 
+}
 
 \newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
 
@@ -71,8 +79,6 @@
     of computational resources, moreover, due to the novelty of the environment, we also train the entirety of the network from the ground up, having no pre-trained backbone at our disposal.
 \end{abstract}
 
-%State-of-the-art object detection networks depend on region proposal algorithms to hypothesize object locations. Advances like SPPnet and Fast R-CNN have reduced the running time of these detection networks, exposing region proposal computation as a bottleneck. In this work, we introduce a Region Proposal Network (RPN) that shares full-image convolutional features with the detection network, thus enabling nearly cost-free region proposals. An RPN is a fully convolutional network that simultaneously predicts object bounds and objectness scores at each position. The RPN is trained end-to-end to generate high-quality region proposals, which are used by Fast R-CNN for detection. We further merge RPN and Fast R-CNN into a single network by sharing their convolutional features---using the recently popular terminology of neural networks with 'attention' mechanisms, the RPN component tells the unified network where to look. For the very deep VGG-16 model, our detection system has a frame rate of 5fps (including all steps) on a GPU, while achieving state-of-the-art object detection accuracy on PASCAL VOC 2007, 2012, and MS COCO datasets with only 300 proposals per image. In ILSVRC and COCO 2015 competitions, Faster R-CNN and RPN are the foundations of the 1st-place winning entries in several tracks. Code has been made publicly available.
-
 % Note that keywords are not normally used for peer review papers.
 \begin{IEEEkeywords}
  Object Detection, Convolutional Neural Network, Sandbox, Region Proposal, Real Time Detection
@@ -82,10 +88,10 @@
 \IEEEpeerreviewmaketitle
     
 \begin{figure*}[tb]
-    
     \centering
-    \subfloat[Our Backbone]{\includegraphics[width=0.45\textwidth]{images/backbone.pdf}} \hfill
-    \subfloat[Our Network]{\includegraphics[width=0.45\textwidth]{images/network.pdf}}
+    \figuretitle{Our Architectures}
+    \subfloat[Our Backbone]{\includegraphics[width=0.45\textwidth,valign=m]{images/backbone.pdf}} \hfill
+    \subfloat[Our Network]{\includegraphics[width=0.45\textwidth,valign=m]{images/network.pdf}}
     \caption{Our FCNN backbone (a) employs a series of convolutions to obtain a feature map to pass to 
     the rest of the network as displayed in (b), the feature maps from our Backbone are first pre-processed
     by a sliding-window approach that spreads our anchors over the image, this is then passed to a twin neural
@@ -277,20 +283,14 @@ We decided to split the dataset into 80\% training and 20\% validation; We train
     
     \section{Results}
     Given the inexperience, the difficulty of the task and the (inadequate) hardware at hand, we think to have reached positive results, the system shows signs of being able to recognize traits of the mobs we've trained it on, even though sometimes they are just cases of pareidolia.
-    \paragraph*{Decision threshold} Before giving some manner of statistics over its capabilities we would like to point out an important decision: that of the threshold for deciding whether, given a score, the anchor for which it is related to is actually a positive one or not. To decide this fundamental hyperparameter we resolved in sampling five hundred (500) images from our training dataset and, after letting the system apply non-maximum suppression, recovering the scores for all the remaining anchors and pairing them to their true labels. Once this preprocessing was done we plotted the ROC:
+    \paragraph*{Decision threshold} Before giving some manner of statistics over its capabilities we would like to point out an important decision: that of the threshold for deciding whether, given a score, the anchor for which it is related to is actually a positive one or not. To decide this fundamental hyperparameter we resolved in sampling five hundred (500) images from our training dataset and, after letting the system apply non-maximum suppression, recovering the scores for all the remaining anchors and pairing them to their true labels. Once this pre-processing was done we plotted the ROC together with another graph, showing the decrease of the \emph{true positive ratio} (TPR) and of the \emph{false positive ratio} (FPR) as the threshold increased (Figure \ref*{fig:ROCs})
 
-    \begin{figure}[h]
+    \begin{figure}[tb]
         \centering
-        \includegraphics[width=0.44\textwidth]{images/ROC.png}
-        \caption{Linear RPN's ROC}
-    \end{figure}
-
-    And a graph, showing the decrease of the \emph{true positive ratio} (TPR) and of the \emph{false positive ratio} (FPR) as the threshold increased, as following:
-
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.44\textwidth]{images/threshold_decision.png}
-        \caption{Linear RPN's TPR \& FPR as threshold changes}
+        \subfloat[Linear RPN's ROC]{\includegraphics[width=0.44\textwidth]{images/ROC.png}} \hfill
+        \subfloat[Linear RPN's TPR \& FPR as threshold changes]{\includegraphics[width=0.44\textwidth]{images/threshold_decision.png}}
+        \caption{Here we show our RPN's ROC (a) and True Positive/False Positive Ratio (b) as we change the threshold, based on (b) we determined a good threshold value to be set around $0.81$ by elbow method.}
+        \label{fig:ROCs}
     \end{figure}
 
     From both these graphs we notice our network is indeed able to separate positive and negative anchors with very clear-cut definition. Furthermore, we decided that a good compromise between (TPR) and (FPR) could be achieved by choosing a threshold between $0.8$ and $0.9$: since we didn't want to remove positive anchors too much we put ours at $0.81$. We posit that, to avoid false positives as much as possible, $0.9$ should work fine too.
@@ -319,62 +319,57 @@ We decided to split the dataset into 80\% training and 20\% validation; We train
     \end{figure}
 
     Indeed this version is unable to sufficiently separate positive and negative samples, leading to unacceptable predictions\dots a shame, since it would've been several magnitudes lighter (weighing just $3.5$ mbs) and faster (both to execute and to train) than its linear counterpart.
+    \paragraph*{Looking at results} Let's now give a look at some proposals formulated by our network so we can discuss both of its successes and failures as well as 
+    some particular edge cases that exhibit some peculiar behaviour, for purely aesthetical purposes, we will also be examining a number of feature map outputs from our network to show how it extracts information from features at the Backbone stage.
+
+
+    \begin{figure*}[htb]
+        \centering
+        \figuretitle{Some of our Results}
+        \subfloat[A Weird Sunset]{\includegraphics[width=0.25\textwidth,height=0.12\textheight]{images/sunset.png}} \hfill
+        \subfloat[A \emph{Piecewise} Zombie]{\includegraphics[width=0.25\textwidth,height=0.12\textheight]{images/sundered_zombie.png}} \hfill
+        \subfloat[Pareidolia]{\includegraphics[width=0.25\textwidth,height=0.12\textheight]{images/pine.png}} \hfill
+        \subfloat[A Creeper]{\includegraphics[width=0.25\textwidth,height=0.12\textheight]{images/nice_creeper.png}}\\[0pt]
+        \subfloat[Another Weird Sunset]{\includegraphics[width=0.25\textwidth,height=0.12\textheight]{images/sunset2.jpeg}} \hfill
+        \subfloat[Another Sundered Zombie]{\includegraphics[width=0.25\textwidth,height=0.12\textheight]{images/sundered_zombie2.jpeg}} \hfill
+        \subfloat[A Zombie and a Pig]{\includegraphics[width=0.25\textwidth,height=0.12\textheight]{images/zombie_and_pig.png}} \hfill
+        \subfloat[Spot the Sheep!]{\includegraphics[width=0.25\textwidth,height=0.12\textheight]{images/spot_sheep.png}} \hfill
+
+        \caption[Commenting our Results.]{Let us look and comment our results: First of all, we notice a very weird behaviour in output (a), (e), this behaviour is consistent to every image that is taken at that particular time of day, therefore, we speculate that the weird hue of the sky throws our model's predictions completely off, the reason is probably that in our limited dataset we captured an insufficient number of sunsets and therefore this comes of as a completely unexpected input to our network, which responds with this hysterical placing of anchors.
+
+        Going Further, we can see some pretty promising results in images (b), (f), (g), (c) and especially (d), in all of those the objects are almost always recognized by multiple rectangles at once, in our opinion this is due to the fact that, due to how the problem is mathematically formulated, a box does not have to recognize an object in its entirety, this makes the spreading of boxes over a single object a desirable goal for the network since it leads to a higher number of positives and therefore a higher score.
+        
+        At last, we can notice a number of misclassifications in (c), (d) and especially (h), where 
+        the network is unable to spot the sheep, perhaps to the low brightness and the fact that the sheep's green color blends in with the surrounding grass, we can also notice the occurrence of \emph{Pareidolia}, where the network mistakes a pine in the background in image (c) for a target object and incorrectly classifies it.}
+
+        \centering
+        \figuretitle{Some Feature Maps}
+        \subfloat[]{\includegraphics[width=0.1666\textwidth,height=0.10\textheight]{images/convs/conv11.jpeg}} \hfill
+        \subfloat[]{\includegraphics[width=0.1666\textwidth,height=0.10\textheight]{images/convs/conv12.jpeg}} \hfill
+        \subfloat[]{\includegraphics[width=0.1666\textwidth,height=0.10\textheight]{images/convs/conv13.jpeg}} \hfill
+        \subfloat[]{\includegraphics[width=0.1666\textwidth,height=0.10\textheight]{images/convs/conv14.jpeg}} \hfill
+        \subfloat[]{\includegraphics[width=0.1666\textwidth,height=0.10\textheight]{images/convs/conv15.jpeg}} \hfill
+        \subfloat[]{\includegraphics[width=0.1666\textwidth,height=0.10\textheight]{images/convs/conv1res.jpeg}}\\[0pt]
+        \subfloat[]{\includegraphics[width=0.1666\textwidth,height=0.10\textheight]{images/convs/conv21.jpeg}} \hfill
+        \subfloat[]{\includegraphics[width=0.1666\textwidth,height=0.10\textheight]{images/convs/conv22.jpeg}} \hfill
+        \subfloat[]{\includegraphics[width=0.1666\textwidth,height=0.10\textheight]{images/convs/conv23.jpeg}} \hfill
+        \subfloat[]{\includegraphics[width=0.1666\textwidth,height=0.10\textheight]{images/convs/conv24.jpeg}} \hfill
+        \subfloat[]{\includegraphics[width=0.1666\textwidth,height=0.10\textheight]{images/convs/conv25.jpeg}} \hfill
+        \subfloat[]{\includegraphics[width=0.1666\textwidth,height=0.10\textheight]{images/convs/conv2res.jpeg}}\\[0pt]
+
+        \caption[Commenting Our Features]{We now look at five feature maps that we randomly chose from the \emph{Ziggurat}'s last output layer, as we can see, in the first row of filters, we get some clear activations 
+        around the area of the Creeper, especially in (b), (c), and (d), Whereas, if we look at our second row, 
+        we get reasonable activations only in the case of (i) and (k), (h) and (j) seem to have much more timid activations that blend the two animals' contours with the surrounding grass.
+        
+        We do not draw any conclusions from such observations since trying to determine the inner workings of a Deep Neural Network is a fool's errand, nonetheless we thought it would be interesting (and, we won't lie, aesthetically pleasing) to have a look at the inner workings of it's brain.}
+    \end{figure*}
+
+
+    \paragraph*{Final Conclusions}
+    In light of these agreeable and interesting results, we think to have reached our goals, not without hiccups nor errors that is. But the network seems to be, generally, well behaved and relatively correct whenever it is not presented with unexpected data.
+
     \newpage
-    \paragraph*{Looking at results} Let's now give a look at some proposals formulated by our network:
-
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.44\textwidth]{images/sunset.png}
-        \caption{An \emph{interesting} sunset}
-    \end{figure}
-
-    Before looking at the good stuff, we would like to show the bad/interesting stuff.  TODO, Dario.
-
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.44\textwidth]{images/nice_creeper.png}
-        \caption{A creeper in his natural habitat}
-    \end{figure}
-
-    In this case we can see an excellent result. Alas, one may see there's part of a pig in the bottom-left corner; we don't think that to be an error, to recognize a speck so small and without features would be pretty difficult even for state-of-the-art systems.
-
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.44\textwidth]{images/sundered_zombie.png}
-        \caption{A zombie, piece-wise}
-    \end{figure}
-
-    Here's another good, albeit different, result: in our opinion (and as how the problem is currently formulated, mathematically speaking) a box doesn't have to recognize an object in its entirety,  that's why we accept this sundered recognition as correct. As you may have realized, it is because of this type of proposals that \ref{tab:miscl} holds so many false positives, during the automatic labeling of anchors it is more than possible that the inner anchors of this zombie are classified as negative.
-
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.44\textwidth]{images/zombie_and_pig.png}
-        \caption{Zombie and pig}
-    \end{figure}
-
-    In this case we see another sufficiently nice result\dots let's end with two other interesting proposals.
-
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.44\textwidth]{images/pine.png}
-        \caption{Pareidolia in the background}
-    \end{figure}
-
-    Leaving the interesting proposals for the pig, the creeper and the sheep in the image, we can see a pine in the upper left corner which has been spot-on proposed by our network: we can't say for certain, but we assume this to be a case of misclassification given by pareidolia, after all to a fast glance that may \emph{seem} like a zombie.
-
-    \newpage
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.44\textwidth]{images/spot_sheep.png}
-        \caption{Spot the sheep}
-    \end{figure}
-
-    The network gave no proposals for this image, but unfortunately there \emph{is} a sheep in there; but it is probably too green and not in the foreground to be detected.
-
-    In light of these agreeable and interesting results, we think to have reached our goals, not without hiccups nor errors that is. But the network seems to be, generally, well behaved and relatively correct.
-
-
-
+    
     \bibliographystyle{IEEEtran}
     \bibliography{ref}
 
