@@ -931,14 +931,10 @@ INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\helvetic\phvb
 INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\helvetic\phvb8r.tfm
 INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplr7t.vf
 INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplr8r.tfm
-INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplb7t.vf
-INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplb8r.tfm
 INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplri7t.vf
 INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplri8r.tfm
 INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplr7t.vf
 INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplr8r.tfm
-INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplb7t.vf
-INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplb8r.tfm
 INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\helvetic\phvb7t.vf
 INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\helvetic\phvb8r.tfm
 INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\tex\latex\psnfss\ot1pcr.fd
@@ -959,6 +955,8 @@ INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\courier\pcrr7t
 INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\courier\pcrr8r.tfm
 INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplri7t.vf
 INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplri8r.tfm
+INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\palatino\pplb7t.vf
+INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\palatino\pplb8r.tfm
 INPUT .\images\ROC.png
 INPUT .\images\ROC.png
 INPUT images\ROC.png
@@ -1022,6 +1020,10 @@ INPUT .\images\spot_sheep.png
 INPUT .\images\spot_sheep.png
 INPUT .\images\spot_sheep.png
 INPUT .\images\spot_sheep.png
+INPUT .\mineRCNN.bbl
+INPUT mineRCNN.bbl
+INPUT .\mineRCNN.bbl
+INPUT mineRCNN.bbl
 INPUT mineRCNN.aux
 INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\base\8r.enc
 INPUT C:\Users\candi\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmex10.pfb

@@ -86,7 +86,7 @@
     \centering
     \subfloat[Our Backbone]{\includegraphics[width=0.45\textwidth]{images/backbone.pdf}} \hfill
     \subfloat[Our Network]{\includegraphics[width=0.45\textwidth]{images/network.pdf}}
-    \caption{Our FCNN backbone (a) employes a series of convolutions to obtain a feature map to pass to 
+    \caption{Our FCNN backbone (a) employs a series of convolutions to obtain a feature map to pass to 
     the rest of the network as displayed in (b), the feature maps from our Backbone are first pre-processed
     by a sliding-window approach that spreads our anchors over the image, this is then passed to a twin neural
     network, one part of the network performs classification, determining if each bounding box is containing an
@@ -260,7 +260,7 @@ The architecture chosen is reported in \ref*{tab:Table 2}. For the classificatio
 	\begin{equation}\label{eq:loss}
         L(\{p_i\}, \{t_i\}) = \sum_i  L_{cls}(p_i, p_i^*) +\lambda \sum_i p_i^* L_{reg}(t_i, t_i^*)
     \end{equation}
-	where $i$ are the indexes of the anchors in the image, $p_i$ is the predict score for that anchor and $p_i^*$ is a binary label : we assign 1 to those anchors that have an IoU with respect to any GT BBox greater than 0.45, and 0 to those with IoU smaller than 0.05 we ignore the anchors that falls in between. For $L_{cls}$  we use a BCE loss over the two classes of being an object or not. \\On the other hand $t_i$ and $t_i^*$ are parametrized vectors containing the coordinates of the predicted positive anchors, and that of the ground truth associated to that anchor respectively, $\lambda$ is a normalization constant that we set to 10 to prevent that the classification would overwhelm the regression in the objective function. \cite{arxiv:FastRCNN} suggest further normalization but we decided not to implement it as it would not have changed the curvature of the loss function and therefore the position of their local minima\footnote[]{this fact is also noted by \cite{arxiv:FasterRCNN} itself.}. The coordinates are parametrized as described in \cite{arxiv:FasterRCNN} : 
+	where $i$ are the indexes of the anchors in the image, $p_i$ is the predict score for that anchor and $p_i^*$ is a binary label : we assign 1 to those anchors that have an IoU with respect to any GT BBox greater than 0.45, and 0 to those with IoU smaller than 0.05 we ignore the anchors that falls in between. For $L_{cls}$  we use a BCE loss over the two classes of being an object or not. \\On the other hand $t_i$ and $t_i^*$ are parametrized vectors containing the coordinates of the predicted positive anchors, and that of the ground truth associated to that anchor respectively, $\lambda$ is a normalization constant that we set to 10 to prevent that the classification would overwhelm the regression in the objective function. \cite{arxiv:FastRCNN} suggest further normalization but we decided not to implement it as it would not have changed the curvature of the loss function and therefore the position of their local minima. The coordinates are parametrized as described in \cite{arxiv:FasterRCNN} : 
 
 \begin{equation}\label{eq:reg_transf}
 \begin{aligned}
