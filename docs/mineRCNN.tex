@@ -170,21 +170,21 @@
     \subsection{The Dataset}
     We first started by building a dataset. We recorded one-minutes long videos of Minecraft using commercial screen capture software, we then loaded those shorts into python using the OpenCV library, we then arbitrarily sampled frames from the videos at a rate of 1 frame-per-second, as we assume this rate to be sufficient to provide a good number of samples while also ensuring a good variability in-between our frames. 
 
-    We downsampled the images from 1080p to 240p to reduce the size of the dataset in order to both be able to share it with ease and load it in GPU memory even when the hardware at hand is a common, low capacity commercial card. By convention, we decided it would be better for the image to be resized at a 1:1 aspect ratio, in order to try and preserve the same amount of information, we decided to choose a size that would keep the area almost constant:
+    At first we downsampled the images from $1920\times 1080$ to $426 \times 240$ to reduce the memory footprint of the dataset in order to both be able to share it with ease and load it in GPU memory even when the hardware at hand is a common, low capacity commercial card. But then, by convention, we decided it would be better for the image to be at a 1:1 aspect ratio; in order to try and preserve the same amount of information reached beforehand, we decided to choose a size that would keep the area almost constant, $318\times 318$:
 
     \begin{equation}\label{eq:area}
         \begin{aligned}
             A &= w * h \\
-            &= 240 \cdot 426\\ 
+            &= 426 \cdot 240\\ 
             &= 102'240\\
-            l &= \floor*{\sqrt{w * h}} = 319\\
-            l^2 &= 101'761 \approx A\\
+            l &= 318 \approx \sqrt{w * h}\\
+            \leadsto l^2 &= 101'124 \approx A\\
         \end{aligned}
     \end{equation} 
     
     At this time we opted to limit ourselves to only five classes for: Zombies, Creepers, Pigs, Sheep, Nothing.
     The first iteration of the Dataset was comprised of images that contained multiple classes in the same scene, this was because our initial idea was to diverge from the implementation described in \cite{arxiv:FasterRCNN} and implement a particular form of loss called \emph{Triplet Loss}\cite{Chechik:Triplet}, this proved problematic since when training the backbone we were presented with problems of exploding gradients and general failure of the network to converge, this idea was then discarded on the ground of practicality and the focus of the 
-    project shifted back to training a traditional classifier that uses Cross-Entropy as a loss function, for this reason the Dataset was also re-done from the ground up to only have a single object in the frame at a time,
+    project shifted back to training a traditional classifier that uses Cross-Entropy as a loss function, for this reason the Dataset was also re-done from the ground up to only have a single object in the frame at a time.
     The next step consisted in manually labelling each one of the sampled frames. We developed a simple but effective tool that allowed us to draw bounding boxes\footnote{BBoxes for brevity.} and assign to each one of them a label corresponding to one of the classes mentioned above. During this process we pruned the images that we considered
     unfit to be part of the dataset (e.g. frames inside the game menu or outside of the game). After standardizing the coordinates of BBoxes we saved them into JSONs files, after having our JSONS files ready we group them into a single .dtst\footnote{Our own extension, stands for \emph{dataset}.} file for better integration with \code{PyTorch}.
     
@@ -210,7 +210,7 @@
     Our architecture is divided into two main modules: The Backbone, which we decided to call the "Ziggurat" (ZG), and the Region Proposal Network (RPN).
 
     \paragraph*{The Backbone: Ziggurat}
-    The ZG is a Fully convolutional neural network consisting of 6 layers as described in table \ref{tab:Table 1}, the sixth layer of which will be dropped after the pre-training phase. 
+    The ZG is a Fully convolutional neural network consisting of 6 (plus 1, non learnable) layers as described in table \ref{tab:Table 1}, the sixth layer of which will be dropped after the pre-training phase. 
     The purpose of this network is to extract feature maps from the input image for the RPN that follows,
     It is important then to pre-train this network so that it learns the general embedding in order 
     to reduce the complexity of training the RPN. 
@@ -224,22 +224,23 @@
 			\textbf{Layer} & \textbf{Kernel size} & \textbf{IN/OUT channels} & \textbf{padding} & \textbf{stride} & \textbf{Layer Structure}\\
 			\hline 
 			& & & & & \\
-			1 & 7x7 & 3 / 40 & replicate(1) & 2 & BATCHNORM(3) + CONV + MISH + DROPOUT(.2) + BATCHNORM(40) \\
-			2 & 7x7 & 40 / 80 & replicate(1) & 2 & CONV + MISH + DROPOUT(.2) + BATCHNORM(80) \\
-			3 & 3x3 & 80 / 120 & replicate(1) & 2 & CONV + MISH + DROPOUT(.2) + BATCHNORM(80) \\ 
-			4 & 3x3 & 120/120 & None & 1 & CONV + MISH + DROPOUT(.2) + BATCHNORM(120)  \\
-			5 & 3x3 & 120/240 & replicate(1) & 2 & CONV + MISH + DROPOUT(.2) + BATCHNORM(240) \\
+			1 & $7\times 7$ & 3 / 40 & replicate(1) & 2 & BATCHNORM(3) + CONV + MISH + DROPOUT(.2) + BATCHNORM(40) \\
+			2 & $7\times 7$ & 40 / 80 & replicate(1) & 2 & CONV + MISH + DROPOUT(.2) + BATCHNORM(80) \\
+			3 & $3\times 3$ & 80 / 120 & replicate(1) & 2 & CONV + MISH + DROPOUT(.2) + BATCHNORM(80) \\ 
+			4 & $3\times 3$ & 120/120 & None & 1 & CONV + MISH + DROPOUT(.2) + BATCHNORM(120)  \\
+			5 & $3\times 3$ & 120/240 & replicate(1) & 2 & CONV + MISH + DROPOUT(.2) + BATCHNORM(240) \\
 			& & & & & \\
 			\hline
 			& & & & & \\
-			6 & 1x1 & 240/5 & None & 1 & CONV + BATCHNORM(5)
+			6 & $1\times 1$ & 240/ 5 & None & 1 & CONV + BATCHNORM(5)\\
+            7 & $w\times h$ & 5 / 5 & None & 1 & ADAPTIVEMAXPOOL($1 \times 1$)
 		\end{tabularx}
     \end{table*}
     
    \paragraph*{Anchors}
     Before diving into the region proposal architecture, we need to pay extra attention to the anchors, which are the core of whole process. An anchor is nothing more than a rectangle with an associated center, base size, and transformation on both scale and ratio between it's sides. We can then define a set of anchors which consists of a base size, a center, and sets of different 
    aspect ratios and scales. If we then denote with K the cardinality of the set of ration, and with H the cardinality of the set of scales, the total number of anchors in the set of anchors is $A = K * C$. \\
-   For our implementation we used ${0.25, 0.5, 1, 2}$ for the scale transformation and ${0.5, 1, 2}$ for the ratio one using a base size of $40$, thus having $A = 9$.
+   For our implementation we used ${0.25, 0.5, 1, 2}$ for the scale transformation and ${0.5, 1, 2}$ for the ratio one using a base size of $40$, thus having $A = 12$.
 
    After processing the image through the ZG we obtain what is our base feature map (BFM) of size $H, W$ that will be processed further by the RPN, on each feature of the BFM we apply a set of anchors as described above, centered on that feature, this allows us to easily map from the feature map to the original image by computing the total stride of the ZG up to the fifth layer and using that to re-project the anchors from the feature map to the original input.
    At the end of this process, which we like to call the \emph{Splashing the Anchors} or \emph{The Splash} in short, we will have a grand total of $H*W*A$ anchors.
@@ -251,7 +252,7 @@
 
      As for the specific architecture, we first tried to only use convolutional layers for both regression and classification, using 1x1 convolution over the BFM: While getting good results on the classification task, the regression proved to be too complex of a task for the small capacity of our network, so we decided to opt for a linear model instead. 
 
-The architecture chosen is reported in \ref*{tab:Table 2}. For the classification we used a Sigmoid activation function as the scoring is given in the $[0, 1]$ range.  A crucial aspect in this model is how to deal with overlapping anchors: It is easy to see that the amount of anchors for each image would be very large even for a small BFM (e.g. for a 19x19 BFM and A = 9 we would have around 80'000 anchors), moreover most of them would be classified as non object which as we will see do not contribute to the regression task at all. For those reasons we perform non maximum suppression (NMS) over the transformed anchors, allowing us to prune overlapping anchors, keeping only the ones with the highest predicted score, attention went also in dealing with the out of image anchors, since, as described in \cite{arxiv:FasterRCNN} they pose a significant risk of non-convergence when kept in, therefore, during training we decided to remove them, ignoring them completely as they would have introduced way more complexity to an already difficult task, while during testing we just clip them to the image borders.
+The architecture chosen is reported in \ref*{tab:Table 2}. For the classification we used a Sigmoid activation function as the scoring is given in the $[0, 1]$ range.  A crucial aspect in this model is how to deal with overlapping anchors: It is easy to see that the amount of anchors for each image would be very large even for a small BFM (e.g. for a $19\times 19$ BFM and $A = 12$ we would have around $4'000$ anchors), moreover most of them would be classified as non object which as we will see do not contribute to the regression task at all. For those reasons we perform non maximum suppression (NMS) over the transformed anchors, allowing us to prune overlapping anchors, keeping only the ones with the highest predicted score, attention went also in dealing with the out of image anchors, since, as described in \cite{arxiv:FasterRCNN} they pose a significant risk of non-convergence when kept in, therefore, during training we decided to remove them, ignoring them completely as they would have introduced way more complexity to an already difficult task, while during testing we just clip them to the image borders.
 
     \begin{table}[htb]
         \caption{RPN}
@@ -271,9 +272,10 @@ The architecture chosen is reported in \ref*{tab:Table 2}. For the classificatio
 
     For the loss function we implemented the one described in \cite{arxiv:FasterRCNN}:
 	\begin{equation}\label{eq:loss}
-        L(\{p_i\}, \{t_i\}) = \sum_i  L_{cls}(p_i, p_i^*) +\lambda \sum_i p_i^* L_{reg}(t_i, t_i^*)
+        L(\{p_i\}, \{t_i\}) = \frac{1}{N}\sum_i  L_{cls}(p_i, p_i^*) +\frac{\lambda}{N} \sum_i p_i^* L_{reg}(t_i, t_i^*)
     \end{equation}
-	where $i$ are the indexes of the anchors in the image, $p_i$ is the predict score for that anchor and $p_i^*$ is a binary label : we assign 1 to those anchors that have an IoU with respect to any GT BBox greater than 0.45, and 0 to those with IoU smaller than 0.05 we ignore the anchors that falls in between. For $L_{cls}$  we use a BCE loss over the two classes of being an object or not. \\On the other hand $t_i$ and $t_i^*$ are parametrized vectors containing the coordinates of the predicted positive anchors, and that of the ground truth associated to that anchor respectively, $\lambda$ is a normalization constant that we set to 10 to prevent that the classification would overwhelm the regression in the objective function. \cite{arxiv:FastRCNN} suggest further normalization but we decided not to implement it as it would not have changed the curvature of the loss function and therefore the position of their local minima. The coordinates are parametrized as described in \cite{arxiv:FasterRCNN} : 
+	where $i$ are the indexes of the anchors in the image, $p_i$ is the predict score for that anchor and $p_i^*$ is a binary label : we assign 1 to those anchors that have an IoU with respect to any GT BBox greater than 0.45, and 0 to those with IoU smaller than 0.05 we ignore the anchors that falls in between. For $L_{cls}$  we use a BCE loss over the two classes of being an object or not. \\On the other hand $t_i$ and $t_i^*$ are parametrized vectors containing the coordinates of the predicted positive anchors, and that of the ground truth associated to that anchor respectively, $\lambda$ is a normalization constant that we set to 10 to prevent that the classification would overwhelm the regression in the objective function. As \cite{arxiv:FastRCNN} suggest, we do further normalization based on the number of given samples: we remember though that doing otherwise would not have changed the curvature of the loss function and therefore the position of their local minima.
+    The coordinates are parametrized as described in \cite{arxiv:FasterRCNN} : 
 
 \begin{equation}\label{eq:reg_transf}
 \begin{aligned}
@@ -362,7 +364,7 @@ We decided to split the dataset into 80\% training and 20\% validation; We train
         \subfloat[]{\includegraphics[width=0.1666\textwidth,height=0.10\textheight]{images/convs/conv25.jpeg}} \hfill
         \subfloat[]{\includegraphics[width=0.1666\textwidth,height=0.10\textheight]{images/convs/conv2res.jpeg}}\\[0pt]
 
-        \caption[Commenting Our Features]{We now look at five feature maps that we randomly chose from the \emph{Ziggurat}'s last output layer, as we can see, in the first row of filters, we get some clear activations 
+        \caption[Commenting Our Features]{We now look at five feature maps that we randomly chose from the \emph{Ziggurat}'s sixth output layer, as we can see, in the first row of filters, we get some clear activations 
         around the area of the Creeper, especially in (b), (c), and (d), Whereas, if we look at our second row, 
         we get reasonable activations only in the case of (i) and (k), (h) and (j) seem to have much more timid activations that blend the two animals' contours with the surrounding grass.
         
