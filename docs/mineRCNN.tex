@@ -19,11 +19,11 @@
 \usepackage{url}
 \usepackage{cvpr}
 \usepackage{multicol}
-
 \usepackage{stfloats}
 \usepackage{fixltx2e}
 \usepackage{caption}
 \usepackage{subcaption}
+
 \usepackage[export]{adjustbox}
 \usepackage[bookmarks=false,colorlinks=true,linkcolor=black,citecolor=black,filecolor=black,urlcolor=black]{hyperref}
 
@@ -90,8 +90,15 @@
 \begin{figure*}[tb]
     \centering
     \figuretitle{Our Architectures}
-    \subfloat[Our Backbone]{\includegraphics[width=0.45\textwidth,valign=m]{images/backbone.pdf}} \hfill
-    \subfloat[Our Network]{\includegraphics[width=0.45\textwidth,valign=m]{images/network.pdf}}
+    \begin{subfigure}[t]{0.49\linewidth}
+        \centering
+        \includegraphics[width=1\textwidth,valign=c]{images/backbone.pdf}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\linewidth}
+        \centering
+        \includegraphics[width=1\textwidth,valign=c]{images/network.pdf}
+    \end{subfigure}
     \caption{Our FCNN backbone (a) employs a series of convolutions to obtain a feature map to pass to 
     the rest of the network as displayed in (b), the feature maps from our Backbone are first pre-processed
     by a sliding-window approach that spreads our anchors over the image, this is then passed to a twin neural

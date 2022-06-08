@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.10) (preloaded format=pdflatex 2021.11.29)  8 JUN 2022 18:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.10) (preloaded format=pdflatex 2021.11.29)  8 JUN 2022 19:15
 entering extended mode
 **d:/Repos/mine-to-win/docs/mineRCNN.tex
 (d:/Repos/mine-to-win/docs/mineRCNN.tex
@@ -649,20 +649,20 @@ pdfTeX warning: pdflatex (file ./images/backbone.pdf): PDF inclusion: found PDF 
 <images/backbone.pdf, id=9, 420.61137pt x 243.79079pt>
 File: images/backbone.pdf Graphic file (type pdf)
 <use images/backbone.pdf>
-Package pdftex.def Info: images/backbone.pdf  used on input line 93.
-(pdftex.def)             Requested size: 221.3985pt x 128.32315pt.
+Package pdftex.def Info: images/backbone.pdf  used on input line 95.
+(pdftex.def)             Requested size: 241.0827pt x 139.73221pt.
 
 
 pdfTeX warning: pdflatex (file ./images/network.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 <images/network.pdf, id=10, 522.03032pt x 171.76169pt>
 File: images/network.pdf Graphic file (type pdf)
 <use images/network.pdf>
-Package pdftex.def Info: images/network.pdf  used on input line 94.
-(pdftex.def)             Requested size: 221.3985pt x 72.84705pt.
+Package pdftex.def Info: images/network.pdf  used on input line 100.
+(pdftex.def)             Requested size: 241.0827pt x 79.32321pt.
 <images/pig.png, id=11, 1927.2pt x 1020.81375pt>
 File: images/pig.png Graphic file (type png)
 <use images/pig.png>
-Package pdftex.def Info: images/pig.png  used on input line 107.
+Package pdftex.def Info: images/pig.png  used on input line 114.
 (pdftex.def)             Requested size: 216.4812pt x 114.65746pt.
 [1
 Non-PDF special ignored!
@@ -671,153 +671,153 @@ Non-PDF special ignored!
 
 
 ]
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 182.
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 189.
  (C:\Users\candi\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 ) [2 <./images/backbone.pdf> <./images/network.pdf> <./images/pig.png>]
-Underfull \hbox (badness 3525) in paragraph at lines 190--193
+Underfull \hbox (badness 3525) in paragraph at lines 197--200
 \OT1/ppl/m/n/10 sat-u-ra-tion with fac-tors $\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 b; c; s\OT1/cmr/m/n/10 )$ \OT1/ppl/m/n/10 cho-sen uni-
  []
 
 
-Overfull \hbox (19.20294pt too wide) in alignment at lines 229--229
+Overfull \hbox (19.20294pt too wide) in alignment at lines 236--236
 [][][][][][] 
  []
 
 
-Overfull \hbox (20.21013pt too wide) in paragraph at lines 229--230
+Overfull \hbox (20.21013pt too wide) in paragraph at lines 236--237
  [][] 
  []
 
 [3]
-Overfull \hbox (2.96498pt too wide) in alignment at lines 257--257
+Overfull \hbox (2.96498pt too wide) in alignment at lines 264--264
 [][][] 
  []
 
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 257--258
+Overfull \hbox (6.0pt too wide) in paragraph at lines 264--265
 [][] 
  []
 
 <images/ROC.png, id=137, 551.05875pt x 411.5375pt>
 File: images/ROC.png Graphic file (type png)
 <use images/ROC.png>
-Package pdftex.def Info: images/ROC.png  used on input line 288.
+Package pdftex.def Info: images/ROC.png  used on input line 295.
 (pdftex.def)             Requested size: 216.4812pt x 161.67325pt.
 <images/threshold_decision.png, id=138, 1011.78pt x 621.32124pt>
 File: images/threshold_decision.png Graphic file (type png)
 <use images/threshold_decision.png>
-Package pdftex.def Info: images/threshold_decision.png  used on input line 289.
+Package pdftex.def Info: images/threshold_decision.png  used on input line 296.
 (pdftex.def)             Requested size: 216.4812pt x 132.93678pt.
 [4]
-Underfull \hbox (badness 10000) in alignment at lines 306--306
+Underfull \hbox (badness 10000) in alignment at lines 313--313
 [][][] 
  []
 
 <images/ROC_conv.png, id=151, 462.528pt x 346.896pt>
 File: images/ROC_conv.png Graphic file (type png)
 <use images/ROC_conv.png>
-Package pdftex.def Info: images/ROC_conv.png  used on input line 315.
+Package pdftex.def Info: images/ROC_conv.png  used on input line 322.
 (pdftex.def)             Requested size: 216.4812pt x 162.3636pt.
 <images/sunset.png, id=152, 545.78906pt x 380.92313pt>
 File: images/sunset.png Graphic file (type png)
 <use images/sunset.png>
-Package pdftex.def Info: images/sunset.png  used on input line 327.
+Package pdftex.def Info: images/sunset.png  used on input line 334.
 (pdftex.def)             Requested size: 122.9971pt x 83.51271pt.
 <images/sundered_zombie.png, id=153, 545.78906pt x 380.92313pt>
 File: images/sundered_zombie.png Graphic file (type png)
 <use images/sundered_zombie.png>
-Package pdftex.def Info: images/sundered_zombie.png  used on input line 328.
+Package pdftex.def Info: images/sundered_zombie.png  used on input line 335.
 (pdftex.def)             Requested size: 122.9971pt x 83.51271pt.
 <images/pine.png, id=154, 545.78906pt x 380.92313pt>
 File: images/pine.png Graphic file (type png)
 <use images/pine.png>
-Package pdftex.def Info: images/pine.png  used on input line 329.
+Package pdftex.def Info: images/pine.png  used on input line 336.
 (pdftex.def)             Requested size: 122.9971pt x 83.51271pt.
 <images/nice_creeper.png, id=155, 545.78906pt x 380.92313pt>
 File: images/nice_creeper.png Graphic file (type png)
 <use images/nice_creeper.png>
-Package pdftex.def Info: images/nice_creeper.png  used on input line 330.
+Package pdftex.def Info: images/nice_creeper.png  used on input line 337.
 (pdftex.def)             Requested size: 122.9971pt x 83.51271pt.
 <images/sunset2.jpeg, id=156, 727.71875pt x 507.8975pt>
 File: images/sunset2.jpeg Graphic file (type jpg)
 <use images/sunset2.jpeg>
-Package pdftex.def Info: images/sunset2.jpeg  used on input line 331.
+Package pdftex.def Info: images/sunset2.jpeg  used on input line 338.
 (pdftex.def)             Requested size: 122.99988pt x 83.51273pt.
 <images/sundered_zombie2.jpeg, id=157, 727.71875pt x 507.8975pt>
 File: images/sundered_zombie2.jpeg Graphic file (type jpg)
 <use images/sundered_zombie2.jpeg>
-Package pdftex.def Info: images/sundered_zombie2.jpeg  used on input line 332.
+Package pdftex.def Info: images/sundered_zombie2.jpeg  used on input line 339.
 (pdftex.def)             Requested size: 122.99988pt x 83.51273pt.
 <images/zombie_and_pig.png, id=158, 545.78906pt x 380.92313pt>
 File: images/zombie_and_pig.png Graphic file (type png)
 <use images/zombie_and_pig.png>
-Package pdftex.def Info: images/zombie_and_pig.png  used on input line 333.
+Package pdftex.def Info: images/zombie_and_pig.png  used on input line 340.
 (pdftex.def)             Requested size: 122.9971pt x 83.51271pt.
 <images/spot_sheep.png, id=159, 545.78906pt x 380.92313pt>
 File: images/spot_sheep.png Graphic file (type png)
 <use images/spot_sheep.png>
-Package pdftex.def Info: images/spot_sheep.png  used on input line 334.
+Package pdftex.def Info: images/spot_sheep.png  used on input line 341.
 (pdftex.def)             Requested size: 122.9971pt x 83.51271pt.
 <images/convs/conv11.jpeg, id=160, 305.14pt x 282.05376pt>
 File: images/convs/conv11.jpeg Graphic file (type jpg)
 <use images/convs/conv11.jpeg>
-Package pdftex.def Info: images/convs/conv11.jpeg  used on input line 345.
+Package pdftex.def Info: images/convs/conv11.jpeg  used on input line 352.
 (pdftex.def)             Requested size: 81.9652pt x 69.60516pt.
 <images/convs/conv12.jpeg, id=161, 305.14pt x 282.05376pt>
 File: images/convs/conv12.jpeg Graphic file (type jpg)
 <use images/convs/conv12.jpeg>
-Package pdftex.def Info: images/convs/conv12.jpeg  used on input line 346.
+Package pdftex.def Info: images/convs/conv12.jpeg  used on input line 353.
 (pdftex.def)             Requested size: 81.9652pt x 69.60516pt.
 <images/convs/conv13.jpeg, id=162, 305.14pt x 282.05376pt>
 File: images/convs/conv13.jpeg Graphic file (type jpg)
 <use images/convs/conv13.jpeg>
-Package pdftex.def Info: images/convs/conv13.jpeg  used on input line 347.
+Package pdftex.def Info: images/convs/conv13.jpeg  used on input line 354.
 (pdftex.def)             Requested size: 81.9652pt x 69.60516pt.
 <images/convs/conv14.jpeg, id=163, 305.14pt x 282.05376pt>
 File: images/convs/conv14.jpeg Graphic file (type jpg)
 <use images/convs/conv14.jpeg>
-Package pdftex.def Info: images/convs/conv14.jpeg  used on input line 348.
+Package pdftex.def Info: images/convs/conv14.jpeg  used on input line 355.
 (pdftex.def)             Requested size: 81.9652pt x 69.60516pt.
 <images/convs/conv15.jpeg, id=164, 305.14pt x 282.05376pt>
 File: images/convs/conv15.jpeg Graphic file (type jpg)
 <use images/convs/conv15.jpeg>
-Package pdftex.def Info: images/convs/conv15.jpeg  used on input line 349.
+Package pdftex.def Info: images/convs/conv15.jpeg  used on input line 356.
 (pdftex.def)             Requested size: 81.9652pt x 69.60516pt.
 <images/convs/conv1res.jpeg, id=165, 305.14pt x 282.05376pt>
 File: images/convs/conv1res.jpeg Graphic file (type jpg)
 <use images/convs/conv1res.jpeg>
-Package pdftex.def Info: images/convs/conv1res.jpeg  used on input line 350.
+Package pdftex.def Info: images/convs/conv1res.jpeg  used on input line 357.
 (pdftex.def)             Requested size: 81.9652pt x 69.60516pt.
 <images/convs/conv21.jpeg, id=166, 305.14pt x 282.05376pt>
 File: images/convs/conv21.jpeg Graphic file (type jpg)
 <use images/convs/conv21.jpeg>
-Package pdftex.def Info: images/convs/conv21.jpeg  used on input line 351.
+Package pdftex.def Info: images/convs/conv21.jpeg  used on input line 358.
 (pdftex.def)             Requested size: 81.9652pt x 69.60516pt.
 <images/convs/conv22.jpeg, id=167, 305.14pt x 282.05376pt>
 File: images/convs/conv22.jpeg Graphic file (type jpg)
 <use images/convs/conv22.jpeg>
-Package pdftex.def Info: images/convs/conv22.jpeg  used on input line 352.
+Package pdftex.def Info: images/convs/conv22.jpeg  used on input line 359.
 (pdftex.def)             Requested size: 81.9652pt x 69.60516pt.
 <images/convs/conv23.jpeg, id=168, 305.14pt x 282.05376pt>
 File: images/convs/conv23.jpeg Graphic file (type jpg)
 <use images/convs/conv23.jpeg>
-Package pdftex.def Info: images/convs/conv23.jpeg  used on input line 353.
+Package pdftex.def Info: images/convs/conv23.jpeg  used on input line 360.
 (pdftex.def)             Requested size: 81.9652pt x 69.60516pt.
 <images/convs/conv24.jpeg, id=169, 305.14pt x 282.05376pt>
 File: images/convs/conv24.jpeg Graphic file (type jpg)
 <use images/convs/conv24.jpeg>
-Package pdftex.def Info: images/convs/conv24.jpeg  used on input line 354.
+Package pdftex.def Info: images/convs/conv24.jpeg  used on input line 361.
 (pdftex.def)             Requested size: 81.9652pt x 69.60516pt.
 <images/convs/conv25.jpeg, id=170, 305.14pt x 282.05376pt>
 File: images/convs/conv25.jpeg Graphic file (type jpg)
 <use images/convs/conv25.jpeg>
-Package pdftex.def Info: images/convs/conv25.jpeg  used on input line 355.
+Package pdftex.def Info: images/convs/conv25.jpeg  used on input line 362.
 (pdftex.def)             Requested size: 81.9652pt x 69.60516pt.
 <images/convs/conv2res.jpeg, id=171, 305.14pt x 282.05376pt>
 File: images/convs/conv2res.jpeg Graphic file (type jpg)
 <use images/convs/conv2res.jpeg>
-Package pdftex.def Info: images/convs/conv2res.jpeg  used on input line 356.
+Package pdftex.def Info: images/convs/conv2res.jpeg  used on input line 363.
 (pdftex.def)             Requested size: 81.9652pt x 69.60516pt.
 [5 <./images/ROC.png> <./images/threshold_decision.png> <./images/ROC_conv.png>]
 
@@ -843,9 +843,9 @@ Here is how much of TeX's memory you used:
  34138 multiletter control sequences out of 15000+600000
  447417 words of font info for 127 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 68i,9n,77p,1174b,659s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 68i,13n,77p,1174b,659s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on mineRCNN.pdf (7 pages, 2433605 bytes).
+Output written on mineRCNN.pdf (7 pages, 2433555 bytes).
 PDF statistics:
  291 PDF objects out of 1000 (max. 8388607)
  59 named destinations out of 1000 (max. 500000)
