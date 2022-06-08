@@ -8,3 +8,7 @@
 *.pyc
 weights_too_heavy/
 *.7z
+*.synctex.gz
+*.pdf
+*.log
+*.fdb_latexmk
