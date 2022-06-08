@@ -8,7 +8,19 @@
 *.pyc
 weights_too_heavy/
 *.7z
-*.synctex.gz
-*.pdf
-*.log
-*.fdb_latexmk
+
+# Yes, this below is latex's fault
+
+docs/*.synctex.gz
+docs/*.pdf
+docs/*.log
+docs/*.fdb_latexmk
+docs/*.aux
+docs/*.out
+docs/*.bbl
+docs/*.blg
+docs/*.vrb
+docs/*.fls
+docs/*.nav
+docs/*.snm
+docs/*.toc

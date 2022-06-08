@@ -1,0 +1,7 @@
+\beamer@sectionintoc {1}{The theme}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{General infos}{4}{0}{1}
+\beamer@sectionintoc {2}{Installation}{6}{0}{2}
+\beamer@sectionintoc {3}{Customization}{8}{0}{3}
+\beamer@subsectionintoc {3}{1}{Basic config}{9}{0}{3}
+\beamer@subsectionintoc {3}{2}{Watermark}{11}{0}{3}
+\beamer@subsectionintoc {3}{3}{Others}{13}{0}{3}
