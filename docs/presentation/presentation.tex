@@ -1,9 +1,8 @@
-\documentclass[italian]{beamer}
-\usepackage[italian]{babel}
+\documentclass[english]{beamer}
+\usepackage[english]{babel}
 \usepackage[utf8]{inputenx}
 \usepackage[T1]{fontenc}      % Font encoding
 \usepackage{lmodern}          % lmodern font, correctly copyable characters in pdf
-
 
 \usetheme[
   bullet=circle,                  % Use circles instead of squares for bullets
@@ -15,7 +14,7 @@
   watermarkheightmult=6,          % Watermark image is actually x times bigger
   displayauthoronfooter=true,     % Display author name in the footer
 ]{Roma}
-
+\watermarkoff
 \author{Dario Loi, Davide Marincione, Benjamin Barda}
 \title{Mine-RPN}
 \subtitle{Or how we were able to recognize pigs et. familia in Minecraft}
@@ -26,6 +25,14 @@
 
 \begin{frame}[t,plain]
 \titlepage
+\end{frame}
+
+\begin{frame}{Behold, data!}
+  \begin{figure}[h]
+      \centering
+      \includegraphics[width=0.5\textwidth]{../images/dtset_repr.png}
+      \caption{A representative chunk of our dataset}
+  \end{figure}
 \end{frame}
 
 
