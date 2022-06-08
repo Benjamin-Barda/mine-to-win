@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex mineRCNN"] 1654699157 "mineRCNN.aux" "mineRCNN.bbl" "mineRCNN" 1654699161
+["bibtex mineRCNN"] 1654699294 "mineRCNN.aux" "mineRCNN.bbl" "mineRCNN" 1654699299
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/bibtex/bst/ieeetran/IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "mineRCNN.aux" 1654699160 7389 2e3d07912c4b9f23fae22b96bf09f3db "pdflatex"
+  "mineRCNN.aux" 1654699298 6854 f998c53d81d2e0da2d3e66f5f72bbc97 "pdflatex"
   "ref.bib" 1654697920 10078 4a82d0376776be91c5274cd1076b7f1f ""
   (generated)
   "mineRCNN.bbl"
   "mineRCNN.blg"
-["pdflatex"] 1654699157 "d:/Repos/mine-to-win/docs/mineRCNN.tex" "mineRCNN.pdf" "mineRCNN" 1654699161
+["pdflatex"] 1654699295 "d:/Repos/mine-to-win/docs/mineRCNN.tex" "mineRCNN.pdf" "mineRCNN" 1654699299
   "C:/Users/candi/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1638217565 9769173 8b747b87e99ef39157853c0307c68d10 ""
   "C:/Users/candi/AppData/Local/MiKTeX/pdftex/config/pdftex.map" 1653735719 283253 eae3cb146731df65abf3cbbfa0b26c3e ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458477487 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -154,7 +154,7 @@
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1636288472 56029 3f7889dab51d620aa43177c391b7b190 ""
   "IEEEtran.cls" 1260888356 202048 7a5cc2729ebe2b1f0119271c4ce792e3 ""
   "cvpr.sty" 1366324252 1726 5ff707839b9f7ec26e0dadbb1e041e13 ""
-  "d:/Repos/mine-to-win/docs/mineRCNN.tex" 1654699152 30620 86246051d2b0067851d013671f7d42d3 ""
+  "d:/Repos/mine-to-win/docs/mineRCNN.tex" 1654699289 30624 2369413adc1369426f76560175de4b10 ""
   "images/ROC.png" 1654590080 23362 d573001e2f3c7b574d424fc51cfdcbb3 ""
   "images/ROC_conv.png" 1654686476 27544 7e0f02941ff64e0e64c43afa1f7f4f0c ""
   "images/backbone.pdf" 1654591868 11495 afa10110ac99cada4850f2c163ca8e68 ""
@@ -167,9 +167,9 @@
   "images/sunset.png" 1654686477 152059 2082e098f79689fd96ae901ba87a9808 ""
   "images/threshold_decision.png" 1654590080 50140 a3a734300c617130cb58c482f06cd97f ""
   "images/zombie_and_pig.png" 1654686477 262290 7b0717334218fb0f132dd783d00f51f2 ""
-  "mineRCNN.aux" 1654699160 7389 2e3d07912c4b9f23fae22b96bf09f3db "pdflatex"
-  "mineRCNN.bbl" 1654699157 4117 4552b3ceab943983fa3d0b54422278ff "bibtex mineRCNN"
-  "mineRCNN.tex" 1654699152 30620 86246051d2b0067851d013671f7d42d3 ""
+  "mineRCNN.aux" 1654699298 6854 f998c53d81d2e0da2d3e66f5f72bbc97 "pdflatex"
+  "mineRCNN.bbl" 1654699295 4117 4552b3ceab943983fa3d0b54422278ff "bibtex mineRCNN"
+  "mineRCNN.tex" 1654699289 30624 2369413adc1369426f76560175de4b10 ""
   (generated)
   "mineRCNN.aux"
   "mineRCNN.log"

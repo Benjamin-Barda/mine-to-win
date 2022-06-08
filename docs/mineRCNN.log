@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.10) (preloaded format=pdflatex 2021.11.29)  8 JUN 2022 16:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.10) (preloaded format=pdflatex 2021.11.29)  8 JUN 2022 16:41
 entering extended mode
 **d:/Repos/mine-to-win/docs/mineRCNN.tex
 (d:/Repos/mine-to-win/docs/mineRCNN.tex
@@ -689,11 +689,6 @@ Underfull \hbox (badness 10000) in alignment at lines 306--306
 [][][] 
  []
 
-
-Underfull \hbox (badness 7047) in paragraph at lines 311--312
- \OT1/ppl/m/n/10 3.0.0.3 Go-ing fully con-vo-lu-tional: [][] As said
- []
-
 <images/ROC_conv.png, id=154, 462.528pt x 346.896pt>
 File: images/ROC_conv.png Graphic file (type png)
 <use images/ROC_conv.png>
@@ -736,14 +731,14 @@ Package pdftex.def Info: images/spot_sheep.png  used on input line 366.
  <./images/spot_sheep.png>] (mineRCNN.aux) ) 
 Here is how much of TeX's memory you used:
  15236 strings out of 478681
- 255788 string characters out of 2846534
+ 255764 string characters out of 2846534
  660712 words of memory out of 3000000
  33009 multiletter control sequences out of 15000+600000
  445477 words of font info for 124 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  68i,10n,77p,1393b,457s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on mineRCNN.pdf (7 pages, 2200682 bytes).
+Output written on mineRCNN.pdf (7 pages, 2200613 bytes).
 PDF statistics:
  286 PDF objects out of 1000 (max. 8388607)
  66 named destinations out of 1000 (max. 500000)
