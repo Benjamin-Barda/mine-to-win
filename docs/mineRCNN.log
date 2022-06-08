@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.3.9)  8 JUN 2022 18:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.3.9)  8 JUN 2022 19:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -821,14 +821,14 @@ Package pdftex.def Info: images/convs/conv2res.jpeg  used on input line 358.
 LaTeX Warning: Text page 6 contains only floats.
 
 
-Overfull \vbox (16.9805pt too high) has occurred while \output is active []
+Overfull \vbox (28.9805pt too high) has occurred while \output is active []
 
 
 
 LaTeX Warning: Text page 6 contains only floats.
 
 
-Overfull \vbox (16.9805pt too high) has occurred while \output is active []
+Overfull \vbox (28.9805pt too high) has occurred while \output is active []
 
  [6 <./images/sunset.png> <./images/sundered_zombie.png> <./images/pine.png> <./images/nice_creeper.png> <./images/sunset2.jpeg> <./images/sundered_zombie2.jpeg> <./images/zombie_and_pig.png> <./images/spot_sheep.png> <./images/convs/conv11.jpeg> <./images/convs/conv12.jpeg> <./images/convs/conv13.jpeg> <./images/convs/conv14.jpeg> <./images/convs/conv15.jpeg> <./images/convs/conv1res.jpeg> <./images/convs/conv21.jpeg> <./images/convs/conv22.jpeg> <./images/convs/conv23.jpeg> <./images/convs/conv24.jpeg> <./images/convs/conv25.jpeg> <./images/convs/conv2res.jpeg>] (mineRCNN.bbl) [7
 
@@ -842,7 +842,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  68i,10n,77p,1203b,659s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/palatino/uplri8a.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/urw/zapfding/uzdr.pfb>
-Output written on mineRCNN.pdf (7 pages, 2444235 bytes).
+Output written on mineRCNN.pdf (7 pages, 2444340 bytes).
 PDF statistics:
  296 PDF objects out of 1000 (max. 8388607)
  59 named destinations out of 1000 (max. 500000)
