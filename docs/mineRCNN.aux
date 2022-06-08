@@ -28,6 +28,7 @@
 \citation{Neubeck:NMS}
 \citation{Rezatofighi:IoU}
 \citation{Mojang-Minecraft}
+\providecommand \oddpage@label [2]{}
 \babel@aux{american}{}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2}Method}{1}{section.2}\protected@file@percent }
@@ -37,8 +38,6 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Our FCNN backbone (a) employs a series of convolutions to obtain a feature map to pass to the rest of the network as displayed in (b), the feature maps from our Backbone are first pre-processed by a sliding-window approach that spreads our anchors over the image, this is then passed to a twin neural network, one part of the network performs classification, determining if each bounding box is containing an object or not, the other part performs regression on our bounding box in order to make it better fit an eventual target object.\relax }}{2}{figure.caption.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:network}{{1}{2}{Our FCNN backbone (a) employs a series of convolutions to obtain a feature map to pass to the rest of the network as displayed in (b), the feature maps from our Backbone are first pre-processed by a sliding-window approach that spreads our anchors over the image, this is then passed to a twin neural network, one part of the network performs classification, determining if each bounding box is containing an object or not, the other part performs regression on our bounding box in order to make it better fit an eventual target object.\relax }{figure.caption.1}{}}
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Our Backbone}}}{2}{subfigure.1.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Our Network}}}{2}{subfigure.1.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces A Screenshot of the world of Minecraft, note the simplistic graphics and the absence of Bloom (except the illusion thereof provided by the skybox) even though we are staring directly at the sun, note also the presence of a \emph  {pig}, one of the entities that we are going to detect in our model.\relax }}{2}{figure.caption.2}\protected@file@percent }
 \newlabel{fig:piggy}{{2}{2}{A Screenshot of the world of Minecraft, note the simplistic graphics and the absence of Bloom (except the illusion thereof provided by the skybox) even though we are staring directly at the sun, note also the presence of a \emph {pig}, one of the entities that we are going to detect in our model.\relax }{figure.caption.2}{}}
 \newlabel{eq:area}{{1}{2}{The Dataset}{equation.2.1}{}}
@@ -57,16 +56,13 @@
 \newlabel{eq:loss}{{2}{4}{Training}{equation.2.2}{}}
 \newlabel{eq:reg_transf}{{3}{4}{Training}{equation.2.3}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Results}{4}{section.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Linear RPN's ROC\relax }}{5}{figure.caption.13}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Linear RPN's TPR \& FPR as threshold changes\relax }}{5}{figure.caption.14}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Misclassification matrix\relax }}{5}{table.caption.16}\protected@file@percent }
-\newlabel{tab:miscl}{{3}{5}{Misclassification matrix\relax }{table.caption.16}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Fully convolutional RPN's ROC\relax }}{5}{figure.caption.18}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces An \emph  {interesting} sunset\relax }}{6}{figure.caption.20}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces A creeper in his natural habitat\relax }}{6}{figure.caption.21}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces A zombie, piece-wise\relax }}{6}{figure.caption.22}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Zombie and pig\relax }}{6}{figure.caption.23}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Pareidolia in the background\relax }}{6}{figure.caption.24}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Here we show our RPN's ROC (a) and True Positive/False Positive Ratio (b) as we change the threshold, based on (b) we determined a good threshold value to be set around $0.81$ by elbow method.\relax }}{5}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:ROCs}{{3}{5}{Here we show our RPN's ROC (a) and True Positive/False Positive Ratio (b) as we change the threshold, based on (b) we determined a good threshold value to be set around $0.81$ by elbow method.\relax }{figure.caption.13}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Misclassification matrix\relax }}{5}{table.caption.15}\protected@file@percent }
+\newlabel{tab:miscl}{{3}{5}{Misclassification matrix\relax }{table.caption.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Fully convolutional RPN's ROC\relax }}{5}{figure.caption.17}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Commenting our Results.}}{6}{figure.caption.19}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Commenting Our Features}}{6}{figure.caption.19}\protected@file@percent }
 \bibstyle{IEEEtran}
 \bibdata{ref}
 \bibcite{arxiv:FastRCNN}{1}
@@ -81,6 +77,5 @@
 \bibcite{Chechik:Triplet}{10}
 \bibcite{Srivastava:Dropout}{11}
 \bibcite{arxiv:Kaiming}{12}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Spot the sheep\relax }}{7}{figure.caption.25}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{References}{7}{section*.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{References}{7}{section*.21}\protected@file@percent }
 \gdef \@abspage@last{7}
