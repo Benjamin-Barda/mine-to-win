@@ -31,44 +31,42 @@
 \babel@aux{american}{}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2}Method}{1}{section.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}The dataset}{1}{subsection.2.1}\protected@file@percent }
-\citation{Srivastava:Dropout}
-\citation{arxiv:Kaiming}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Our FCNN backbone (a) employes a series of convolutions to obtain a feature map to pass to the rest of the network as displayed in (b), the feature maps from our Backbone are first pre-processed by a sliding-window approach that spreads our anchors over the image, this is then passed to a twin neural network, one part of the network performs classification, determining if each bounding box is containing an object or not, the other part performs regression on our bounding box in order to make it better fit an eventual target object.\relax }}{2}{figure.caption.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}The Dataset}{1}{subsection.2.1}\protected@file@percent }
+\citation{arxiv:FasterRCNN}
+\citation{Chechik:Triplet}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Our FCNN backbone (a) employs a series of convolutions to obtain a feature map to pass to the rest of the network as displayed in (b), the feature maps from our Backbone are first pre-processed by a sliding-window approach that spreads our anchors over the image, this is then passed to a twin neural network, one part of the network performs classification, determining if each bounding box is containing an object or not, the other part performs regression on our bounding box in order to make it better fit an eventual target object.\relax }}{2}{figure.caption.1}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:network}{{1}{2}{Our FCNN backbone (a) employes a series of convolutions to obtain a feature map to pass to the rest of the network as displayed in (b), the feature maps from our Backbone are first pre-processed by a sliding-window approach that spreads our anchors over the image, this is then passed to a twin neural network, one part of the network performs classification, determining if each bounding box is containing an object or not, the other part performs regression on our bounding box in order to make it better fit an eventual target object.\relax }{figure.caption.1}{}}
+\newlabel{fig:network}{{1}{2}{Our FCNN backbone (a) employs a series of convolutions to obtain a feature map to pass to the rest of the network as displayed in (b), the feature maps from our Backbone are first pre-processed by a sliding-window approach that spreads our anchors over the image, this is then passed to a twin neural network, one part of the network performs classification, determining if each bounding box is containing an object or not, the other part performs regression on our bounding box in order to make it better fit an eventual target object.\relax }{figure.caption.1}{}}
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {Our Backbone}}}{2}{subfigure.1.1}\protected@file@percent }
 \@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {Our Network}}}{2}{subfigure.1.2}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces A Screenshot of the world of Minecraft, note the simplistic graphics and the absence of Bloom (except the illusion thereof provided by the skybox) even though we are staring directly at the sun, note also the presence of a \emph  {pig}, one of the entities that we are going to detect in our model.\relax }}{2}{figure.caption.2}\protected@file@percent }
 \newlabel{fig:piggy}{{2}{2}{A Screenshot of the world of Minecraft, note the simplistic graphics and the absence of Bloom (except the illusion thereof provided by the skybox) even though we are staring directly at the sun, note also the presence of a \emph {pig}, one of the entities that we are going to detect in our model.\relax }{figure.caption.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}The models}{2}{subsection.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {2.2.0.1}The backbone: Ziggurat}{2}{paragraph.2.2.0.1}\protected@file@percent }
+\newlabel{eq:area}{{1}{2}{The Dataset}{equation.2.1}{}}
+\citation{Srivastava:Dropout}
+\citation{arxiv:Kaiming}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces ZG\relax }}{3}{table.caption.7}\protected@file@percent }
+\newlabel{tab:Table 1}{{1}{3}{ZG\relax }{table.caption.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}The Models}{3}{subsection.2.2}\protected@file@percent }
 \citation{arxiv:FasterRCNN}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces ZG\relax }}{3}{table.caption.5}\protected@file@percent }
-\newlabel{tab:Table 1}{{1}{3}{ZG\relax }{table.caption.5}{}}
-\@writefile{toc}{\contentsline {paragraph}{\numberline {2.2.0.2}Anchors}{3}{paragraph.2.2.0.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {2.2.0.3}RPN}{3}{paragraph.2.2.0.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces RPN\relax }}{3}{table.caption.6}\protected@file@percent }
-\newlabel{tab:Table 2}{{2}{3}{RPN\relax }{table.caption.6}{}}
-\@writefile{toc}{\contentsline {paragraph}{\numberline {2.2.0.4}Training}{3}{paragraph.2.2.0.4}\protected@file@percent }
+\citation{arxiv:FasterRCNN}
 \citation{arxiv:FastRCNN}
 \citation{arxiv:FasterRCNN}
 \citation{arxiv:FasterRCNN}
-\newlabel{eq:loss}{{1}{4}{Training}{equation.2.1}{}}
-\newlabel{eq:reg_transf}{{2}{4}{Training}{equation.2.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces RPN\relax }}{4}{table.caption.10}\protected@file@percent }
+\newlabel{tab:Table 2}{{2}{4}{RPN\relax }{table.caption.10}{}}
+\newlabel{eq:loss}{{2}{4}{Training}{equation.2.2}{}}
+\newlabel{eq:reg_transf}{{3}{4}{Training}{equation.2.3}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Results}{4}{section.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {3.0.0.1}Decision threshold}{4}{paragraph.3.0.0.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Linear RPN's ROC\relax }}{4}{figure.caption.7}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Linear RPN's TPR \& FPR as threshold changes\relax }}{4}{figure.caption.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {3.0.0.2}Test dataset and stats}{4}{paragraph.3.0.0.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Misclassification matrix\relax }}{4}{table.caption.9}\protected@file@percent }
-\newlabel{tab:miscl}{{3}{4}{Misclassification matrix\relax }{table.caption.9}{}}
-\@writefile{toc}{\contentsline {paragraph}{\numberline {3.0.0.3}Going fully convolutional}{5}{paragraph.3.0.0.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Fully convolutional RPN's ROC\relax }}{5}{figure.caption.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{\numberline {3.0.0.4}Looking at results}{5}{paragraph.3.0.0.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces An \emph  {interesting} sunset\relax }}{5}{figure.caption.11}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces A creeper in his natural habitat\relax }}{5}{figure.caption.12}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces A zombie, piece-wise\relax }}{5}{figure.caption.13}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Linear RPN's ROC\relax }}{5}{figure.caption.13}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Linear RPN's TPR \& FPR as threshold changes\relax }}{5}{figure.caption.14}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Misclassification matrix\relax }}{5}{table.caption.16}\protected@file@percent }
+\newlabel{tab:miscl}{{3}{5}{Misclassification matrix\relax }{table.caption.16}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Fully convolutional RPN's ROC\relax }}{5}{figure.caption.18}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces An \emph  {interesting} sunset\relax }}{6}{figure.caption.20}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces A creeper in his natural habitat\relax }}{6}{figure.caption.21}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces A zombie, piece-wise\relax }}{6}{figure.caption.22}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Zombie and pig\relax }}{6}{figure.caption.23}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Pareidolia in the background\relax }}{6}{figure.caption.24}\protected@file@percent }
 \bibstyle{IEEEtran}
 \bibdata{ref}
 \bibcite{arxiv:FastRCNN}{1}
@@ -80,8 +78,9 @@
 \bibcite{Neubeck:NMS}{7}
 \bibcite{Rezatofighi:IoU}{8}
 \bibcite{Mojang-Minecraft}{9}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Zombie and pig\relax }}{6}{figure.caption.14}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Pareidolia in the background\relax }}{6}{figure.caption.15}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Spot the sheep\relax }}{6}{figure.caption.16}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{References}{6}{section*.17}\protected@file@percent }
-\gdef \@abspage@last{6}
+\bibcite{Chechik:Triplet}{10}
+\bibcite{Srivastava:Dropout}{11}
+\bibcite{arxiv:Kaiming}{12}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Spot the sheep\relax }}{7}{figure.caption.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{References}{7}{section*.26}\protected@file@percent }
+\gdef \@abspage@last{7}

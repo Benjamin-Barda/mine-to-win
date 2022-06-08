@@ -10,52 +10,49 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'wiz_functions' (item size: 4) to 6000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Database file #1: ref.bib
-Warning--I didn't find a database entry for "Srivastava:Dropout"
-Warning--I didn't find a database entry for "arxiv:Kaiming"
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 
 Done.
-You've used 9 entries,
+You've used 12 entries,
             4087 wiz_defined-function locations,
-            896 strings with 9096 characters,
-and the built_in function-call counts, 5794 in all, are:
-= -- 469
-> -- 126
-< -- 34
-+ -- 65
-- -- 24
-* -- 295
-:= -- 962
-add.period$ -- 19
-call.type$ -- 9
-change.case$ -- 10
-chr.to.int$ -- 72
-cite$ -- 9
-duplicate$ -- 422
-empty$ -- 471
-format.name$ -- 30
-if$ -- 1303
+            915 strings with 9759 characters,
+and the built_in function-call counts, 8711 in all, are:
+= -- 717
+> -- 201
+< -- 60
++ -- 107
+- -- 37
+* -- 428
+:= -- 1355
+add.period$ -- 25
+call.type$ -- 12
+change.case$ -- 13
+chr.to.int$ -- 132
+cite$ -- 12
+duplicate$ -- 632
+empty$ -- 688
+format.name$ -- 46
+if$ -- 2004
 int.to.chr$ -- 0
-int.to.str$ -- 9
-missing$ -- 82
-newline$ -- 62
-num.names$ -- 9
-pop$ -- 194
+int.to.str$ -- 12
+missing$ -- 115
+newline$ -- 71
+num.names$ -- 12
+pop$ -- 269
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 441
+skip$ -- 679
 stack$ -- 0
-substring$ -- 178
-swap$ -- 321
-text.length$ -- 10
+substring$ -- 343
+swap$ -- 508
+text.length$ -- 16
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 9
+type$ -- 12
 warning$ -- 0
-while$ -- 20
-width$ -- 10
-write$ -- 121
-(There were 2 warnings)
+while$ -- 32
+width$ -- 14
+write$ -- 151
