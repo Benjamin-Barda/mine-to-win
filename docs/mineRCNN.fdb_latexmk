@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex mineRCNN"] 1654709007 "mineRCNN.aux" "mineRCNN.bbl" "mineRCNN" 1654709106
+["bibtex mineRCNN"] 1654788680 "mineRCNN.aux" "mineRCNN.bbl" "mineRCNN" 1654789058
   "C:/Users/surre/AppData/Local/Programs/MiKTeX/bibtex/bst/ieeetran/IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "mineRCNN.aux" 1654709105 6263 23311bb45db341fc77c4266da609f241 "pdflatex"
+  "mineRCNN.aux" 1654789058 6551 33cd99fb263c30d699ded7abcee255fe "pdflatex"
   "ref.bib" 1654699741 10078 4a82d0376776be91c5274cd1076b7f1f ""
   (generated)
   "mineRCNN.bbl"
   "mineRCNN.blg"
-["pdflatex"] 1654709103 "d:/Files/Documents/GitHub/mine-to-win/docs/mineRCNN.tex" "mineRCNN.pdf" "mineRCNN" 1654709106
-  "C:/Users/surre/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1654706895 422062 662d3ab54ec37b6965442f21af421e7c ""
+["pdflatex"] 1654789055 "d:/Files/Documents/GitHub/mine-to-win/docs/mineRCNN.tex" "mineRCNN.pdf" "mineRCNN" 1654789058
+  "C:/Users/surre/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1654711627 422062 662d3ab54ec37b6965442f21af421e7c ""
   "C:/Users/surre/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1646841934 10235919 a61fda8fb6fe650cff9b062ae9247906 ""
   "C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458477487 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
   "C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/tfm/adobe/courier/pcrr7t.tfm" 1136768653 960 379cc0019370a9e0208a0a3f949f847a ""
@@ -164,9 +164,9 @@
   "C:/Users/surre/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1623005690 4902 efb3d66683a2da2a232f71e3a571a899 ""
   "IEEEtran.cls" 1653737645 206769 7a5cc2729ebe2b1f0119271c4ce792e3 ""
   "cvpr.sty" 1653737645 1786 5ff707839b9f7ec26e0dadbb1e041e13 ""
-  "d:/Files/Documents/GitHub/mine-to-win/docs/mineRCNN.tex" 1654709105 32949 b3cab70d00e29ddc19ea1680146227c1 ""
+  "d:/Files/Documents/GitHub/mine-to-win/docs/mineRCNN.tex" 1654789054 32806 e0a66d0f06be5d7b12fc7508d962d0cf ""
   "images/ROC.png" 1654548503 23362 d573001e2f3c7b574d424fc51cfdcbb3 ""
-  "images/ROC_conv.png" 1654612618 27544 7e0f02941ff64e0e64c43afa1f7f4f0c ""
+  "images/ROC_conv.png" 1654784543 24896 0dd05320def9d012106afd28f49e214b ""
   "images/backbone.pdf" 1654604418 11495 afa10110ac99cada4850f2c163ca8e68 ""
   "images/convs/conv11.jpeg" 1654706866 1923 cecd6b77e1b9702a0d9d330d7b2f7be2 ""
   "images/convs/conv12.jpeg" 1654706866 2417 daca4bca64871e55f6f44bdf9b91cda5 ""
@@ -190,10 +190,11 @@
   "images/sunset.png" 1654538394 152059 2082e098f79689fd96ae901ba87a9808 ""
   "images/sunset2.jpeg" 1654706866 93971 218e89bd6b0aa3e526e9d281862a3087 ""
   "images/threshold_decision.png" 1654548191 50140 a3a734300c617130cb58c482f06cd97f ""
+  "images/threshold_decision_conv.png" 1654784713 28568 e3aae25f6920c7b94276f43faa756377 ""
   "images/zombie_and_pig.png" 1654535652 262290 7b0717334218fb0f132dd783d00f51f2 ""
-  "mineRCNN.aux" 1654709105 6263 23311bb45db341fc77c4266da609f241 "pdflatex"
-  "mineRCNN.bbl" 1654709008 4117 4552b3ceab943983fa3d0b54422278ff "bibtex mineRCNN"
-  "mineRCNN.tex" 1654709105 32949 b3cab70d00e29ddc19ea1680146227c1 ""
+  "mineRCNN.aux" 1654789058 6551 33cd99fb263c30d699ded7abcee255fe "pdflatex"
+  "mineRCNN.bbl" 1654788680 4117 4552b3ceab943983fa3d0b54422278ff "bibtex mineRCNN"
+  "mineRCNN.tex" 1654789054 32806 e0a66d0f06be5d7b12fc7508d962d0cf ""
   (generated)
   "mineRCNN.aux"
   "mineRCNN.log"

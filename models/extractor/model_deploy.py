@@ -59,7 +59,7 @@ model.eval()
 print(model)
 
 with torch.no_grad():
-    for img, label in dl:
+    for img, label, _ in dl:
         
         img, label = img.to("cuda"), label.to("cuda")
         preds = model.forward(img)

@@ -136,11 +136,3 @@ if __name__ == "__main__":
 
     names = [f"jsons\\PARSEDOUTPUT-test{i}.json" for i in range(1, 3)]
     create_and_save_dataset_test(names, "data\\datasets\\minedata_compressed_local_test.dtst")
-
-    # names = [f"jsons\\PARSEDOUTPUT-creeper{i}.json" for i in range(1, 11)]
-    # names += [f"jsons\\PARSEDOUTPUT-pig{i}.json" for i in range(1, 11)]
-    # names += [f"jsons\\PARSEDOUTPUT-null{i}.json" for i in range(1, 20)]
-    # names += [f"jsons\\PARSEDOUTPUT-zombie{i}.json" for i in range(1, 10)]
-    # names += [f"jsons\\PARSEDOUTPUT-sheep{i}.json" for i in range(1, 10)]
-    # names.append("jsons\\PARSEDOUTPUT-seanull1.json")
-    # create_and_save_dataset(names, "data\\datasets\\minedata_classifier_colab.dtst")
