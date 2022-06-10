@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.3.9)  10 JUN 2022 16:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.3.9)  10 JUN 2022 16:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1201,7 +1201,7 @@ Dictionary: translator-numbers-dictionary, Language: English
 ) (C:\Users\surre\AppData\Local\Programs\MiKTeX\tex/latex/translator\translator-theorem-dictionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 ) (presentation.nav)
-<logo-sapienza.pdf, id=50, 108.43109pt x 109.2612pt>
+<logo-sapienza.pdf, id=51, 108.43109pt x 109.2612pt>
 File: logo-sapienza.pdf Graphic file (type pdf)
 <use logo-sapienza.pdf>
 Package pdftex.def Info: logo-sapienza.pdf  used on input line 28.
@@ -1251,7 +1251,7 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
 ] [4
 
 ]
-<../images/dtset_repr.png, id=134, 722.7pt x 722.7pt>
+<../images/dtset_repr.png, id=139, 722.7pt x 722.7pt>
 File: ../images/dtset_repr.png Graphic file (type png)
 <use ../images/dtset_repr.png>
 Package pdftex.def Info: ../images/dtset_repr.png  used on input line 51.
@@ -1263,23 +1263,20 @@ Overfull \vbox (0.10579pt too high) detected at line 51
 [5
 
  <../images/dtset_repr.png (PNG copy)>]
+<../images/dataset_tool_show.png, id=159, 1159.33125pt x 1487.5575pt>
+File: ../images/dataset_tool_show.png Graphic file (type png)
+<use ../images/dataset_tool_show.png>
+Package pdftex.def Info: ../images/dataset_tool_show.png  used on input line 73.
+(pdftex.def)             Requested size: 144.22118pt x 185.0363pt.
+ [6
+
+ <../images/dataset_tool_show.png>]
 File: ../images/dtset_repr.png Graphic file (type png)
 <use ../images/dtset_repr.png>
-Package pdftex.def Info: ../images/dtset_repr.png  used on input line 60.
+Package pdftex.def Info: ../images/dtset_repr.png  used on input line 82.
 (pdftex.def)             Requested size: 160.24684pt x 160.24059pt.
 
-Overfull \vbox (0.10579pt too high) detected at line 60
- []
-
-[6
-
-]
-File: ../images/dtset_repr.png Graphic file (type png)
-<use ../images/dtset_repr.png>
-Package pdftex.def Info: ../images/dtset_repr.png  used on input line 69.
-(pdftex.def)             Requested size: 160.24684pt x 160.24059pt.
-
-Overfull \vbox (0.10579pt too high) detected at line 69
+Overfull \vbox (0.10579pt too high) detected at line 82
  []
 
 [7
@@ -1287,13 +1284,24 @@ Overfull \vbox (0.10579pt too high) detected at line 69
 ]
 File: ../images/dtset_repr.png Graphic file (type png)
 <use ../images/dtset_repr.png>
-Package pdftex.def Info: ../images/dtset_repr.png  used on input line 78.
+Package pdftex.def Info: ../images/dtset_repr.png  used on input line 91.
 (pdftex.def)             Requested size: 160.24684pt x 160.24059pt.
 
-Overfull \vbox (0.10579pt too high) detected at line 78
+Overfull \vbox (0.10579pt too high) detected at line 91
  []
 
 [8
+
+]
+File: ../images/dtset_repr.png Graphic file (type png)
+<use ../images/dtset_repr.png>
+Package pdftex.def Info: ../images/dtset_repr.png  used on input line 100.
+(pdftex.def)             Requested size: 160.24684pt x 160.24059pt.
+
+Overfull \vbox (0.10579pt too high) detected at line 100
+ []
+
+[9
 
 ]
 \tf@nav=\write6
@@ -1310,17 +1318,17 @@ Package rerunfilecheck Info: File `presentation.out' has not changed.
 (rerunfilecheck)             Checksum: F1C6AB296403CA5D16CFD5711BED154B;476.
  ) 
 Here is how much of TeX's memory you used:
- 23177 strings out of 478655
- 456745 string characters out of 2846786
- 712322 words of memory out of 3000000
- 40750 multiletter control sequences out of 15000+600000
+ 23212 strings out of 478655
+ 457766 string characters out of 2846786
+ 715322 words of memory out of 3000000
+ 40782 multiletter control sequences out of 15000+600000
  504512 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,21n,122p,499b,769s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}<C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss12.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss8.pfb>
-Output written on presentation.pdf (8 pages, 1039994 bytes).
+Output written on presentation.pdf (9 pages, 1636488 bytes).
 PDF statistics:
- 230 PDF objects out of 1000 (max. 8388607)
- 23 named destinations out of 1000 (max. 500000)
- 101 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 262 PDF objects out of 1000 (max. 8388607)
+ 25 named destinations out of 1000 (max. 500000)
+ 106 words of extra memory for PDF output out of 10000 (max. 10000000)
 
