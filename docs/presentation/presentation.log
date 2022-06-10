@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.3.9)  10 JUN 2022 17:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.3.9)  10 JUN 2022 17:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1201,7 +1201,7 @@ Dictionary: translator-numbers-dictionary, Language: English
 ) (C:\Users\surre\AppData\Local\Programs\MiKTeX\tex/latex/translator\translator-theorem-dictionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 ) (presentation.nav)
-<logo-sapienza.pdf, id=47, 108.43109pt x 109.2612pt>
+<logo-sapienza.pdf, id=49, 108.43109pt x 109.2612pt>
 File: logo-sapienza.pdf Graphic file (type pdf)
 <use logo-sapienza.pdf>
 Package pdftex.def Info: logo-sapienza.pdf  used on input line 28.
@@ -1247,7 +1247,7 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
 {C:/Users/surre/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./logo-sapienza.pdf>] [2
 
 ]
-<../images/rpn_schema.jpeg, id=98, 1284.8pt x 963.6pt>
+<../images/rpn_schema.jpeg, id=104, 1284.8pt x 963.6pt>
 File: ../images/rpn_schema.jpeg Graphic file (type jpg)
 <use ../images/rpn_schema.jpeg>
 Package pdftex.def Info: ../images/rpn_schema.jpeg  used on input line 50.
@@ -1267,7 +1267,7 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 76.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 76.
-<images/minecraft.jpg, id=118, 2007.5pt x 1003.75pt>
+<images/minecraft.jpg, id=126, 2007.5pt x 1003.75pt>
 File: images/minecraft.jpg Graphic file (type jpg)
 <use images/minecraft.jpg>
 Package pdftex.def Info: images/minecraft.jpg  used on input line 76.
@@ -1275,7 +1275,7 @@ Package pdftex.def Info: images/minecraft.jpg  used on input line 76.
  [4
 
  <./images/minecraft.jpg>]
-<../images/dtset_repr.png, id=139, 722.7pt x 722.7pt>
+<../images/dtset_repr.png, id=149, 722.7pt x 722.7pt>
 File: ../images/dtset_repr.png Graphic file (type png)
 <use ../images/dtset_repr.png>
 Package pdftex.def Info: ../images/dtset_repr.png  used on input line 99.
@@ -1283,7 +1283,7 @@ Package pdftex.def Info: ../images/dtset_repr.png  used on input line 99.
  [5
 
  <../images/dtset_repr.png (PNG copy)>]
-<../images/dtset_repr_mod.png, id=159, 722.7pt x 722.7pt>
+<../images/dtset_repr_mod.png, id=171, 722.7pt x 722.7pt>
 File: ../images/dtset_repr_mod.png Graphic file (type png)
 <use ../images/dtset_repr_mod.png>
 Package pdftex.def Info: ../images/dtset_repr_mod.png  used on input line 123.
@@ -1295,7 +1295,7 @@ Overfull \vbox (2.10579pt too high) detected at line 123
 [6
 
  <../images/dtset_repr_mod.png (PNG copy)>]
-<../images/dataset_tool_show.png, id=179, 1159.33125pt x 1487.5575pt>
+<../images/dataset_tool_show.png, id=193, 1159.33125pt x 1487.5575pt>
 File: ../images/dataset_tool_show.png Graphic file (type png)
 <use ../images/dataset_tool_show.png>
 Package pdftex.def Info: ../images/dataset_tool_show.png  used on input line 145.
@@ -1305,7 +1305,7 @@ Package pdftex.def Info: ../images/dataset_tool_show.png  used on input line 145
  <../images/dataset_tool_show.png>]
 
 pdfTeX warning: pdflatex (file ./images/backbone.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/backbone.pdf, id=202, 420.61137pt x 243.79079pt>
+<images/backbone.pdf, id=218, 420.61137pt x 243.79079pt>
 File: images/backbone.pdf Graphic file (type pdf)
 <use images/backbone.pdf>
 Package pdftex.def Info: images/backbone.pdf  used on input line 173.
@@ -1315,7 +1315,7 @@ Package pdftex.def Info: images/backbone.pdf  used on input line 173.
  <./images/backbone.pdf>]
 
 pdfTeX warning: pdflatex (file ./images/network.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<images/network.pdf, id=241, 522.03032pt x 171.76169pt>
+<images/network.pdf, id=259, 522.03032pt x 171.76169pt>
 File: images/network.pdf Graphic file (type pdf)
 <use images/network.pdf>
 Package pdftex.def Info: images/network.pdf  used on input line 201.
@@ -1323,12 +1323,33 @@ Package pdftex.def Info: images/network.pdf  used on input line 201.
 [9
 
  <./images/network.pdf>]
-<images/The_End.jpg, id=278, 1003.75pt x 627.34375pt>
+<../images/sundered_zombie.png, id=298, 545.78906pt x 380.92313pt>
+File: ../images/sundered_zombie.png Graphic file (type png)
+<use ../images/sundered_zombie.png>
+Package pdftex.def Info: ../images/sundered_zombie.png  used on input line 221.
+(pdftex.def)             Requested size: 160.24684pt x 111.8424pt.
+ [10
+
+ <../images/sundered_zombie.png>]
+<../images/sunset2.jpeg, id=320, 727.71875pt x 507.8975pt>
+File: ../images/sunset2.jpeg Graphic file (type jpg)
+<use ../images/sunset2.jpeg>
+Package pdftex.def Info: ../images/sunset2.jpeg  used on input line 242.
+(pdftex.def)             Requested size: 160.24684pt x 111.83855pt.
+<../images/sunset.png, id=321, 545.78906pt x 380.92313pt>
+File: ../images/sunset.png Graphic file (type png)
+<use ../images/sunset.png>
+Package pdftex.def Info: ../images/sunset.png  used on input line 242.
+(pdftex.def)             Requested size: 160.24684pt x 111.8424pt.
+ [11
+
+ <../images/sunset2.jpeg> <../images/sunset.png>]
+<images/The_End.jpg, id=343, 1003.75pt x 627.34375pt>
 File: images/The_End.jpg Graphic file (type jpg)
 <use images/The_End.jpg>
-Package pdftex.def Info: images/The_End.jpg  used on input line 222.
+Package pdftex.def Info: images/The_End.jpg  used on input line 261.
 (pdftex.def)             Requested size: 192.29817pt x 120.18251pt.
- [10
+ [12
 
  <./images/The_End.jpg>]
 \tf@nav=\write6
@@ -1345,17 +1366,17 @@ Package rerunfilecheck Info: File `presentation.out' has not changed.
 (rerunfilecheck)             Checksum: 356CDFB2AC9423076464FC4305C9CF14;443.
  ) 
 Here is how much of TeX's memory you used:
- 23307 strings out of 478655
- 459726 string characters out of 2846786
- 717324 words of memory out of 3000000
- 40861 multiletter control sequences out of 15000+600000
+ 23336 strings out of 478655
+ 460355 string characters out of 2846786
+ 718324 words of memory out of 3000000
+ 40883 multiletter control sequences out of 15000+600000
  529849 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,21n,122p,499b,769s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}<C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss12.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss8.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsso10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb>
-Output written on presentation.pdf (10 pages, 3491478 bytes).
+Output written on presentation.pdf (12 pages, 3885343 bytes).
 PDF statistics:
- 330 PDF objects out of 1000 (max. 8388607)
- 26 named destinations out of 1000 (max. 500000)
- 128 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 397 PDF objects out of 1000 (max. 8388607)
+ 30 named destinations out of 1000 (max. 500000)
+ 143 words of extra memory for PDF output out of 10000 (max. 10000000)
 
