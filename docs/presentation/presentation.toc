@@ -2,6 +2,5 @@
 \beamer@sectionintoc {1}{Who?}{2}{0}{1}
 \beamer@sectionintoc {2}{What, why?}{3}{0}{2}
 \beamer@sectionintoc {3}{Dataset}{5}{0}{3}
-\beamer@sectionintoc {4}{Backbone}{7}{0}{4}
-\beamer@sectionintoc {5}{RPN}{8}{0}{5}
-\beamer@sectionintoc {6}{Conclusions}{9}{0}{6}
+\beamer@sectionintoc {4}{Architectures}{7}{0}{4}
+\beamer@sectionintoc {5}{Conclusions}{9}{0}{5}

@@ -26,3 +26,16 @@ docs/*.nav
 docs/*.snm
 docs/*.toc
 imgs/boardingPass.pdf
+docs/presentation/presentation.aux
+docs/presentation/presentation.aux
+docs/presentation/presentation.fdb_latexmk
+docs/presentation/presentation.fls
+docs/presentation/presentation.log
+*.nav
+*.log
+*.fls
+*.fdb_latexmk
+*.aux
+*.toc
+*.gz
+*.pdf
