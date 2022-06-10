@@ -77,11 +77,25 @@
 
 \section{Dataset}
 \begin{frame}{Behold, data!}
-  \begin{figure}[h]
-      \centering
-      \includegraphics[width=0.5\textwidth]{../images/dtset_repr.png}
-      \caption{A representative chunk of our dataset}
-  \end{figure}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      How did we collect these 40 videos?
+      \begin{itemize}
+        \item 1 minute long (circa).
+        \item As many biomes as possible.
+        \item One mob per video (except test).
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{0.5\textwidth}
+      \begin{figure}[h]
+          \centering
+          \includegraphics[width=0.9\textwidth]{../images/dtset_repr.png}
+          \caption{A representative chunk of our dataset}
+      \end{figure}
+    \end{column}
+
+  \end{columns}
 \end{frame}
 
 \begin{frame}{Augmentation Techniques}
@@ -100,7 +114,7 @@
     \begin{column}{0.5\textwidth}
       \begin{figure}
         \centering
-            \includegraphics[width=1.0\textwidth]{images/minecraft.jpg}
+            \includegraphics[width=1.0\textwidth]{../images/dtset_repr_mod.png}
             \caption{Our Dataset, Augmented.}
         \end{figure}
     \end{column}
