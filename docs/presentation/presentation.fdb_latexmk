@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1654871882 "d:/Repos/mine-to-win/docs/presentation/presentation.tex" "presentation.pdf" "presentation" 1654871886
+["pdflatex"] 1654872525 "d:/Repos/mine-to-win/docs/presentation/presentation.tex" "presentation.pdf" "presentation" 1654872530
   "../images/dtset_repr.png" 1654789612 852958 58088e7192cb24d19d3f3b7b84ba5b0b ""
   "C:/Users/candi/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1638217565 9769173 8b747b87e99ef39157853c0307c68d10 ""
   "C:/Users/candi/AppData/Local/MiKTeX/pdftex/config/pdftex.map" 1654789337 283432 48f03bac2585fa96069d18930ad5c0f3 ""
@@ -35,6 +35,7 @@
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss10.pfb" 1254938640 97408 f595704ec2a07246c2d6f7b602587452 ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss12.pfb" 1254938640 96107 daf52840b555e3b38f9679b629b5e2df ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss8.pfb" 1254938640 94400 e33ecfb646a9f148e2e53da01a9168fe ""
+  "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsso10.pfb" 1254938640 108953 1279d38d2b157d7ed70f81f602fb919c ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb" 1254938640 27863 09ce3735688ffde955e72da27c95b61a ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/context/base/mkii/supp-pdf.mkii" 1580393758 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "C:/Users/candi/AppData/Local/Programs/MiKTeX/tex/generic/atbegshi/atbegshi.sty" 1575574700 24708 5584a51a7101caf7e6bbf1fc27d8f7b1 ""
@@ -219,13 +220,15 @@
   "beamerinnerthemespiffy.sty" 1654706187 5492 c84e29bfc5ab4e8ff7e6fb2a97750092 ""
   "beamerouterthemerunglines.sty" 1654706187 5509 bea565e6ee5fdb90035bf4a589fee5c2 ""
   "beamerthemeRoma.sty" 1654706187 1145 02b1211b7da7404c1624e99041deb945 ""
-  "d:/Repos/mine-to-win/docs/presentation/presentation.tex" 1654871881 2969 c53d5a8f4cae1d75ab0f8fdda8f08c27 ""
+  "d:/Repos/mine-to-win/docs/presentation/presentation.tex" 1654872525 4040 605de59b00ce6fbe00d60e9a31e8efa0 ""
+  "images/backbone.pdf" 1654591868 11495 afa10110ac99cada4850f2c163ca8e68 ""
   "images/minecraft.jpg" 1654871495 702607 5dff30e64ac9dc3d20911e47d5f8fa80 ""
+  "images/network.pdf" 1654592587 23875 707b9bb097837262438d82c55134c323 ""
   "logo-sapienza.pdf" 1654708651 127307 8ac357822ac0e6b431f1bd85d894855c ""
-  "presentation.aux" 1654871886 3636 c4e4a8d2fa1824bcf15fe7de7c87166b "pdflatex"
-  "presentation.nav" 1654871886 1801 a58ca8065bfdde8bc4182467111b61e8 "pdflatex"
-  "presentation.out" 1654871886 476 f1c6ab296403ca5d16cfd5711bed154b "pdflatex"
-  "presentation.tex" 1654871881 2969 c53d5a8f4cae1d75ab0f8fdda8f08c27 ""
+  "presentation.aux" 1654872529 3402 a88af1f5f6a51a94f603c6e5118cb02b "pdflatex"
+  "presentation.nav" 1654872529 1673 df401d4781dbdc4da599b673712eac8f "pdflatex"
+  "presentation.out" 1654872529 443 356cdfb2ac9423076464fc4305c9cf14 "pdflatex"
+  "presentation.tex" 1654872525 4040 605de59b00ce6fbe00d60e9a31e8efa0 ""
   (generated)
   "presentation.aux"
   "presentation.log"

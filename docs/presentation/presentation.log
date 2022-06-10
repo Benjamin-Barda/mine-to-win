@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.10) (preloaded format=pdflatex 2021.11.29)  10 JUN 2022 16:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.10) (preloaded format=pdflatex 2021.11.29)  10 JUN 2022 16:48
 entering extended mode
 **d:/Repos/mine-to-win/docs/presentation/presentation.tex
 (d:/Repos/mine-to-win/docs/presentation/presentation.tex
@@ -1200,7 +1200,7 @@ Dictionary: translator-numbers-dictionary, Language: English
 ) (C:\Users\candi\AppData\Local\Programs\MiKTeX\tex/latex/translator\translator-theorem-dictionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 ) (presentation.nav)
-<logo-sapienza.pdf, id=50, 108.43109pt x 109.2612pt>
+<logo-sapienza.pdf, id=45, 108.43109pt x 109.2612pt>
 File: logo-sapienza.pdf Graphic file (type pdf)
 <use logo-sapienza.pdf>
 Package pdftex.def Info: logo-sapienza.pdf  used on input line 28.
@@ -1249,65 +1249,63 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
 
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 62.
+(Font)              <10> on input line 64.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 62.
+(Font)              <7> on input line 64.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 62.
+(Font)              <5> on input line 64.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 62.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 64.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 62.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 64.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 62.
-<images/minecraft.jpg, id=116, 2007.5pt x 1003.75pt>
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 64.
+<images/minecraft.jpg, id=109, 2007.5pt x 1003.75pt>
 File: images/minecraft.jpg Graphic file (type jpg)
 <use images/minecraft.jpg>
-Package pdftex.def Info: images/minecraft.jpg  used on input line 62.
+Package pdftex.def Info: images/minecraft.jpg  used on input line 64.
 (pdftex.def)             Requested size: 160.24684pt x 80.11784pt.
  [4
 
  <./images/minecraft.jpg>]
-<../images/dtset_repr.png, id=136, 722.7pt x 722.7pt>
+<../images/dtset_repr.png, id=128, 722.7pt x 722.7pt>
 File: ../images/dtset_repr.png Graphic file (type png)
 <use ../images/dtset_repr.png>
-Package pdftex.def Info: ../images/dtset_repr.png  used on input line 71.
+Package pdftex.def Info: ../images/dtset_repr.png  used on input line 73.
 (pdftex.def)             Requested size: 160.24684pt x 160.24059pt.
 
-Overfull \vbox (0.10579pt too high) detected at line 71
+Overfull \vbox (0.10579pt too high) detected at line 73
  []
 
 [5
 
  <../images/dtset_repr.png (PNG copy)>]
-File: ../images/dtset_repr.png Graphic file (type png)
-<use ../images/dtset_repr.png>
-Package pdftex.def Info: ../images/dtset_repr.png  used on input line 80.
-(pdftex.def)             Requested size: 160.24684pt x 160.24059pt.
 
-Overfull \vbox (0.10579pt too high) detected at line 80
- []
-
+pdfTeX warning: pdflatex (file ./images/backbone.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<images/backbone.pdf, id=146, 420.61137pt x 243.79079pt>
+File: images/backbone.pdf Graphic file (type pdf)
+<use images/backbone.pdf>
+Package pdftex.def Info: images/backbone.pdf  used on input line 101.
+(pdftex.def)             Requested size: 160.24684pt x 92.87953pt.
 [6
 
-]
-File: ../images/dtset_repr.png Graphic file (type png)
-<use ../images/dtset_repr.png>
-Package pdftex.def Info: ../images/dtset_repr.png  used on input line 89.
-(pdftex.def)             Requested size: 160.24684pt x 160.24059pt.
+ <./images/backbone.pdf>]
 
-Overfull \vbox (0.10579pt too high) detected at line 89
- []
-
+pdfTeX warning: pdflatex (file ./images/network.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
+<images/network.pdf, id=183, 522.03032pt x 171.76169pt>
+File: images/network.pdf Graphic file (type pdf)
+<use images/network.pdf>
+Package pdftex.def Info: images/network.pdf  used on input line 128.
+(pdftex.def)             Requested size: 160.24684pt x 52.72664pt.
 [7
 
-]
+ <./images/network.pdf>]
 File: ../images/dtset_repr.png Graphic file (type png)
 <use ../images/dtset_repr.png>
-Package pdftex.def Info: ../images/dtset_repr.png  used on input line 98.
+Package pdftex.def Info: ../images/dtset_repr.png  used on input line 137.
 (pdftex.def)             Requested size: 160.24684pt x 160.24059pt.
 
-Overfull \vbox (0.10579pt too high) detected at line 98
+Overfull \vbox (0.10579pt too high) detected at line 137
  []
 
 [8
@@ -1324,20 +1322,20 @@ Overfull \vbox (0.10579pt too high) detected at line 98
 
  (presentation.aux)
 Package rerunfilecheck Info: File `presentation.out' has not changed.
-(rerunfilecheck)             Checksum: F1C6AB296403CA5D16CFD5711BED154B;476.
+(rerunfilecheck)             Checksum: 356CDFB2AC9423076464FC4305C9CF14;443.
  ) 
 Here is how much of TeX's memory you used:
- 23255 strings out of 478681
- 458273 string characters out of 2846534
+ 23283 strings out of 478681
+ 459092 string characters out of 2846534
  723385 words of memory out of 3000000
- 40805 multiletter control sequences out of 15000+600000
+ 40832 multiletter control sequences out of 15000+600000
  464020 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,21n,122p,483b,769s stack positions out of 5000i,500n,10000p,200000b,80000s
-{C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}<C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss10.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss12.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss8.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb>
-Output written on presentation.pdf (8 pages, 1747998 bytes).
+{C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}<C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss10.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss12.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss8.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsso10.pfb><C:/Users/candi/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb>
+Output written on presentation.pdf (8 pages, 1803612 bytes).
 PDF statistics:
- 237 PDF objects out of 1000 (max. 8388607)
- 23 named destinations out of 1000 (max. 500000)
- 106 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 267 PDF objects out of 1000 (max. 8388607)
+ 22 named destinations out of 1000 (max. 500000)
+ 108 words of extra memory for PDF output out of 10000 (max. 10000000)
 
