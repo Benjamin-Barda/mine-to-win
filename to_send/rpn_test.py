@@ -1,4 +1,5 @@
 import cv2 as cv
+from cv2 import threshold
 import torch
 from torch.utils.data import DataLoader
 import numpy as np
@@ -7,11 +8,12 @@ from models.extractor.backCNN import BackboneCNN
 from models.regionProposal.rpn import _rpn
 from models.regionProposal.utils.anchorUtils import *
 
-bs = 1
+threshold = 0.81 # Change this to modify TPR and FPR!
+
 
 # Loading only one image
 ds = torch.load("data/datasets/minedata_compressed_test.dtst")
-dl = DataLoader(ds, batch_size=bs, pin_memory=True, shuffle=True)
+dl = DataLoader(ds, batch_size=1, pin_memory=True, shuffle=True)
 
 state_extractor, state_rpn = torch.load("./models/weights/MineRPN_weights_quantized.pth", map_location=torch.device('cpu'))
 
@@ -77,7 +79,7 @@ with torch.no_grad():
         for indx, an in enumerate(rois):
             
             col = (0,255,0)
-            if score[indx] < .81:
+            if score[indx] < threshold:
                 col = (0,0,255)
                 continue
 
