@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.3.9)  16 JUN 2022 20:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.3.9)  16 JUN 2022 21:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1245,10 +1245,10 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
  [1
 
 {C:/Users/surre/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./logo-sapienza.pdf>]
-<images/the_boyz.jpg, id=79, 4015.0pt x 3011.25pt>
-File: images/the_boyz.jpg Graphic file (type jpg)
-<use images/the_boyz.jpg>
-Package pdftex.def Info: images/the_boyz.jpg  used on input line 37.
+<images/the_boyz2.jpg, id=79, 4015.0pt x 3011.25pt>
+File: images/the_boyz2.jpg Graphic file (type jpg)
+<use images/the_boyz2.jpg>
+Package pdftex.def Info: images/the_boyz2.jpg  used on input line 37.
 (pdftex.def)             Requested size: 224.3446pt x 168.21532pt.
 
 Overfull \vbox (8.08052pt too high) detected at line 37
@@ -1256,7 +1256,7 @@ Overfull \vbox (8.08052pt too high) detected at line 37
 
 [2
 
- <./images/the_boyz.jpg>]
+ <./images/the_boyz2.jpg>]
 <../images/rpn_schema.jpeg, id=117, 1284.8pt x 963.6pt>
 File: ../images/rpn_schema.jpeg Graphic file (type jpg)
 <use ../images/rpn_schema.jpeg>
@@ -1386,14 +1386,14 @@ Package rerunfilecheck Info: File `presentation.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  23392 strings out of 478655
- 461328 string characters out of 2846786
+ 461335 string characters out of 2846786
  719324 words of memory out of 3000000
  40928 multiletter control sequences out of 15000+600000
  539231 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,21n,122p,499b,840s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}<C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss12.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss8.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss9.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsso10.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsso8.pfb><C:/Users/surre/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb>
-Output written on presentation.pdf (14 pages, 11202773 bytes).
+Output written on presentation.pdf (14 pages, 13443788 bytes).
 PDF statistics:
  506 PDF objects out of 1000 (max. 8388607)
  35 named destinations out of 1000 (max. 500000)
